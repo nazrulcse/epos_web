@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pos Customers Invoice Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Department</th>
+      <th>Note</th>
+      <th>Cost price</th>
+      <th>Sale price</th>
+      <th>Whole sale</th>
+      <th>Quantity</th>
+      <th>Amount</th>
+      <th>Discount</th>
+      <th>Vat</th>
+      <th>Total</th>
+      <th>Attchment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pos_customers_invoice_items.each do |pos_customers_invoice_item| %>
+      <tr>
+        <td><%= pos_customers_invoice_item.department %></td>
+        <td><%= pos_customers_invoice_item.note %></td>
+        <td><%= pos_customers_invoice_item.cost_price %></td>
+        <td><%= pos_customers_invoice_item.sale_price %></td>
+        <td><%= pos_customers_invoice_item.whole_sale %></td>
+        <td><%= pos_customers_invoice_item.quantity %></td>
+        <td><%= pos_customers_invoice_item.amount %></td>
+        <td><%= pos_customers_invoice_item.discount %></td>
+        <td><%= pos_customers_invoice_item.vat %></td>
+        <td><%= pos_customers_invoice_item.total %></td>
+        <td><%= pos_customers_invoice_item.attchment %></td>
+        <td><%= link_to 'Show', pos_customers_invoice_item %></td>
+        <td><%= link_to 'Edit', edit_pos_customers_invoice_item_path(pos_customers_invoice_item) %></td>
+        <td><%= link_to 'Destroy', pos_customers_invoice_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Invoice item', new_pos_customers_invoice_item_path %>

@@ -1,0 +1,95 @@
+<div class="mt75">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="col-sm-9">
+        <div class="module-detail">
+          <h2 class="page-header"> Expenses Management </h2>
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/expense/expense_dashboard.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/expense/expense_dashboard.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6", style="text-align: justify">
+              For any business, managing expenses is as important as growing revenue. Fortunately,
+              your company doesn’t need a team of experts to improve its expense management processes –
+              it just needs the right tools. Drawing on its extensive experience, Bequent has
+              developed a range of expense management solutions to streamline purchasing and simplify
+              reporting and reconciliation processes for work related expenses.
+            </div>
+          </div>
+
+          <div class="row mt20 mb80", style="text-align: justify">
+            <div class="col-sm-6">
+              To estimate the type or category of expenses you may incur on
+              your trip, etc., you enter expense items and an
+              estimated monetary amount for each one. For
+              example, if you are taking a business trip, you
+              might select an “airfare” expense item, which can be added from expense category and enter the
+              estimated cost of the tickets, and note the
+              destination in the “Description” field.
+            </div>
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/expense/add_expense.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/expense/add_expense.png', class: 'img-responsive' %>
+              </a>
+            </div>
+          </div>
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/expense/expense.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/expense/expense.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6", style="text-align: justify">
+              If you enable the expense module feature, you can implement an approval process that will allow
+              you to monitor costs before your employees actually incur expenses.<br><br>
+
+              You can see all expenses, approve or reject expenses, you can also create expenses and add a receipt with it.
+            </div>
+          </div>
+          <div class="row mt20 mb80", style="text-align: justify">
+            <div class="col-sm-6">
+              An expense report is commonly used for recording business travel expenses such as transportation,
+              food, lodging, and conference fees. But an expense report can also be used to document any business
+              expense for which an employee needs to be reimbursed. You can see expense reports monthly in this section.
+
+            </div>
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/expense/monthly_expense_report.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/expense/monthly_expense_report.png', class: 'img-responsive' %>
+              </a>
+            </div>
+          </div>
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/expense/yearly_expense_report.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/expense/yearly_expense_report.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6", style="text-align: justify">
+              An expense report provides an accurate record of
+              business costs, which is important for budget planning and tax reporting. Providing receipts for
+              all expenses listed on a report helps prevent mistakes and prepares businesses for filing taxes
+              and completing audits. For this reason yearly expense report is also available in expense module too.
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <%= render 'home/feature_modules', modules:@modules %>
+
+    </div>
+  </div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('.preview-attachment').attachmentPreview();
+    });
+</script>

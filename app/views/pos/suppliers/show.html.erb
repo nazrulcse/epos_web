@@ -1,0 +1,58 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Supplier: <%= @supplier.name %>
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper">
+      <% if @supplier.present? %>
+        <div class="row content-body">
+          <div id="advances">
+            <table class="table table-user-information table-striped">
+              <tbody>
+              <tr>
+                <td><label> Supplier ID </label></td>
+                <td>
+                  # <%= @supplier.id %>
+                </td>
+              </tr>
+              <tr>
+                <td><label> Name </label></td>
+                <td> <%= @supplier.name %> </td>
+              </tr>
+              <tr>
+                <td><label> Email </label></td>
+                <td> <%= @supplier.email %> </td>
+              </tr>
+              <tr>
+                <td><label> Mobile </label></td>
+                <td> <%= @supplier.mobile %> </td>
+              </tr>
+              <tr>
+                <td><label> Comapny Name </label></td>
+                <td> <%= @supplier.company %> </td>
+              </tr>
+              <tr>
+                <td><label> Address </label></td>
+                <td> <%= @supplier.address %> </td>
+              </tr>
+              <tr>
+                <td><label> City </label></td>
+                <td> <%= @supplier.city %> </td>
+              </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Sorry record not found :(
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

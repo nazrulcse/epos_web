@@ -1,0 +1,66 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Invoice List
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper" id="provident-fund-rule-content">
+      <% if @invoices.present? %>
+        <div class="row actions-button">
+          <div class="add-more-rule clearfix">
+            <%= link_to new_pos_customers_invoice_path, class: 'btn btn-default pull-right' do %>
+              <i class="fa fa-plus-circle"></i> Add Invoice
+            <% end %>
+          </div>
+        </div>
+        <div class="row content-body">
+          <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
+            <thead>
+            <tr>
+              <th>Invoice ID</th>
+              <th>Number</th>
+              <th>Global ID</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @invoices.each do |invoice| %>
+              <tr>
+                <td> #<%= invoice.id %> </td>
+                <td><%= invoice.number %> </td>
+                <td><%= invoice.global_id %> </td>
+                <td><%= invoice.customer.name if invoice.customer.present? %> </td>
+                <td><%= invoice.total %> </td>
+                <td class="actions">
+                  <%= link_to pos_customers_invoice_path(invoice), class: 'btn info-color' do %>
+                    <i class="fa fa-eye"></i>
+                  <% end %>
+                  <%= link_to edit_pos_customers_invoice_path(invoice), class: 'btn warning-color' do %>
+                    <i class="fa fa-pencil-square-o"></i>
+                  <% end %>
+                  <%= link_to pos_customers_invoice_path(invoice), class: 'btn danger-color', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                    <i class="fa fa-times"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Current department don't have any Customer Invoice. <%#= link_to 'Learn more', '#', class: 'link' %>
+            <!--<i class="fa fa-info-circle btn btn-info reset-border-radius" data-toggle='popover' data-placement='top' title="Provident Fund Account" data-content="Click on the create new one button to create provident fund account then it will show the account  list  "></i>-->
+          </p>
+          <%= link_to new_pos_customers_invoice_path, class: 'btn btn-default reset-border-radius' do %>
+            <i class="fa fa-plus-circle"></i> Add new one
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

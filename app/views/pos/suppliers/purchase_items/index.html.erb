@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pos Suppliers Purchase Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Old cost price</th>
+      <th>Old sale price</th>
+      <th>Old whole sale</th>
+      <th>Issued quantity</th>
+      <th>Department</th>
+      <th>Note</th>
+      <th>Is received</th>
+      <th>Received quantity</th>
+      <th>Cost price</th>
+      <th>Sale price</th>
+      <th>Whole sale</th>
+      <th>Amount</th>
+      <th>Discount</th>
+      <th>Vat</th>
+      <th>Total</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pos_suppliers_purchase_items.each do |pos_suppliers_purchase_item| %>
+      <tr>
+        <td><%= pos_suppliers_purchase_item.old_cost_price %></td>
+        <td><%= pos_suppliers_purchase_item.old_sale_price %></td>
+        <td><%= pos_suppliers_purchase_item.old_whole_sale %></td>
+        <td><%= pos_suppliers_purchase_item.issued_quantity %></td>
+        <td><%= pos_suppliers_purchase_item.department %></td>
+        <td><%= pos_suppliers_purchase_item.note %></td>
+        <td><%= pos_suppliers_purchase_item.is_received %></td>
+        <td><%= pos_suppliers_purchase_item.received_quantity %></td>
+        <td><%= pos_suppliers_purchase_item.cost_price %></td>
+        <td><%= pos_suppliers_purchase_item.sale_price %></td>
+        <td><%= pos_suppliers_purchase_item.whole_sale %></td>
+        <td><%= pos_suppliers_purchase_item.amount %></td>
+        <td><%= pos_suppliers_purchase_item.discount %></td>
+        <td><%= pos_suppliers_purchase_item.vat %></td>
+        <td><%= pos_suppliers_purchase_item.total %></td>
+        <td><%= link_to 'Show', pos_suppliers_purchase_item %></td>
+        <td><%= link_to 'Edit', edit_pos_suppliers_purchase_item_path(pos_suppliers_purchase_item) %></td>
+        <td><%= link_to 'Destroy', pos_suppliers_purchase_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Purchase item', new_pos_suppliers_purchase_item_path %>

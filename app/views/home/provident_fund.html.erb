@@ -1,0 +1,84 @@
+<div class="mt75">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="col-sm-9">
+        <div class="module-detail">
+          <h2 class="page-header"> Provident Fund Management </h2>
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/provident_fund/pf_dash_board.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/provident_fund/pf_dash_board.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6", style="text-align: justify">
+
+              Provident Fund Management (PFM) is an integrated software to keep track on the Provident Fund Investment/Details etc.
+              It has covered practically all the modules that a company looks for in a Provident Fund Management Software.
+
+              Provident Fund is to support HR & Finance Department. It is designed to process and provide
+              all information starting form recruitment till final settlement at one click. This product
+              has been developed with extensive HR and Finance domain knowledge under consultation of experienced
+              HR and Finance managers.
+
+            </div>
+          </div>
+
+          <div class="row mt20 mb80", style="text-align: justify">
+            <div class="col-sm-6">
+              Provident fund accounts can be created from our provident fund module.
+              To create accounts first what needed is to create a rule of what type of fund it is going to be
+              along with the contribution percentage. Then after selecting an employee and a rule best fitted
+              for that employee a button click will create the account for you.
+            </div>
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/provident_fund/pf_account_create.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/provident_fund/pf_account_create.png', class: 'img-responsive' %>
+              </a>
+            </div>
+          </div>
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/provident_fund/pf_employee_contribution_process.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/provident_fund/pf_employee_contribution_process.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6", style="text-align: justify">
+              While opening an Provident Fund account for your employees is a one-time job, making contributions for them is not.
+              You will need to remit contributions for your employees once every contribution period (generally the
+              wage period). Selcting the month and year will process contribution automatically of all employees of that month and you will
+              be notified after the process is complete.
+            </div>
+          </div>
+          <div class="row mt20 mb80">
+
+            <div class="col-sm-6", style="text-align: justify">
+              Investments can be created with few simple steps. Naturally its much harder to make an investment
+              from an employee can calculate it in other places where it's needed. But our application
+              will do everything for you. Another great feature is creating lons and returning loans. It is
+              now much simpler than you thought.
+              
+            </div>
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/provident_fund/pf_new_investment.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/provident_fund/pf_new_investment.png', class: 'img-responsive' %>
+              </a>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <%= render 'home/feature_modules', modules:@modules %>
+
+    </div>
+  </div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('.preview-attachment').attachmentPreview();
+    });
+</script>

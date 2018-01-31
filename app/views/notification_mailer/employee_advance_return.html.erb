@@ -1,0 +1,8 @@
+<%= content_for :email_subject do %>
+    Advance Return
+<% end %>
+
+<p>
+  <b><%= @advance_return.employee.full_name %></b> you have return advance with amount
+  <b> <%= @advance_return.amount %> </b>
+</p>

@@ -1,0 +1,26 @@
+<div class="provident-fund-rule-form">
+  <%= form_for @sub_category do |f| %>
+    <div class="form-group">
+      <%= f.label :category_id, 'Product Category' %>
+      <%= f.select :category_id, options_for_select(@categories.collect{|cat| [cat.name, cat.id]}, f.object.category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="actions clearfix">
+      <%= f.submit class: 'btn btn-default pull-right reset-border-radius' %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_pos_products_sub_category').syftValidator();
+    });
+</script>
+

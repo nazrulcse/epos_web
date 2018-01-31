@@ -1,0 +1,1 @@
+json.partial! partial: 'supplier', collection: @suppliers, as: :supplier

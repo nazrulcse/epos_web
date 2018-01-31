@@ -1,0 +1,17 @@
+<ul class="pull-right">
+  <li class="top-menu-dropdown">
+    <a href="" class="dropdown-toggle" data-toggle="dropdown" title="Switch Department">
+      <i class="fa fa-arrow-up"></i>
+      <i class="fa fa-arrow-down" style="margin-left: -5px;"></i>
+    </a>
+    <ul class="top-menu-dropdown-content last-dropdown">
+      <% departments.each do |department| %>
+          <li class="<%= current_department == department ? 'current-department' : '' %>">
+            <%= link_to switch_department_path(department) do %>
+                <%= department.name %>
+            <% end %>
+          </li>
+      <% end %>
+    </ul>
+  </li>
+</ul>

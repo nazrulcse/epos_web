@@ -1,0 +1,53 @@
+<div class="provident-fund-rule-form">
+  <%= form_for @customer do |f| %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :mobile %>
+      <%= f.text_field :mobile, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :company, 'Company Name' %>
+      <%= f.text_field :company, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :initial_balance, 'Initial Balance' %>
+      <%= f.text_field :initial_balance, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_area :address, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :city %>
+      <%= f.text_field :city, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :nid %>
+      <%= f.text_field :nid, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :passport_no %>
+      <%= f.text_field :passport_no, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :driving_licence %>
+      <%= f.text_field :driving_licence, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="actions clearfix">
+      <%= f.submit class: 'btn btn-default pull-right reset-border-radius' %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_pos_customer').syftValidator();
+    });
+</script>

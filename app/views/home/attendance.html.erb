@@ -1,0 +1,88 @@
+<div class="mt75">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="col-sm-9">
+        <div class="module-detail">
+          <h2 class="page-header"> Attendance Management </h2>
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/attendance/attendance_dashboard.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/attendance/attendance_dashboard.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6", style="text-align: justify">
+
+              The attendance is an activity module for tracking time spent by Employees (or other users) in a Company
+              or in a related group of Institution. By clicking the in button on the attendance dashboard
+              or the floating button at the right side of the website will start counting time. In time and
+              working hours can be set from the department settings. It also calculates wheather the employee
+              is early or late to work.
+            </div>
+          </div>
+
+          <div class="row mt20 mb80", style="text-align: justify">
+            <div class="col-sm-6">
+              this page is for checking the status of employee attendance of current day. In time , out time,
+              duration all of those can be seen from this page. Clicking the pie chart like button after every
+              employee name will show that employee's attendance statistic of the month.
+            </div>
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/attendance/employee_attendance.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/attendance/employee_attendance.png', class: 'img-responsive' %>
+              </a>
+            </div>
+          </div>
+
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/attendance/attendence_history.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/attendance/attendence_history.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6", style="text-align: justify">
+              HR might want to see attendance history of employees from and to a selected date.
+              This feature does that work easier for the HR to keep track of attendances.
+            </div>
+          </div>
+          <div class="row mt20 mb80", style="text-align: justify">
+            <div class="col-sm-6">
+              This page is for the personal attendance statistic of employees. This report has everything that
+              anyone can wist for when it comes in terms of attendance. Holiday, holiday reson,
+              leaves, in time, out time, worked duration, late and overtime,  it has all of these.
+            </div>
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/attendance/attendance_breakdown.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/attendance/attendance_breakdown.png', class: 'img-responsive' %>
+              </a>
+            </div>
+          </div>
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/attendance/monthly_attendance_report.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/attendance/monthly_attendance_report.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6", style="text-align: justify">
+              It's the monthly attendance report of every employee of the organization.
+              It shows day to day attendace that can save HR's time and pain much much more.
+              This report makes attendance management mush easier.
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <%= render 'home/feature_modules', modules:@modules %>
+
+    </div>
+  </div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('.preview-attachment').attachmentPreview();
+    });
+</script>

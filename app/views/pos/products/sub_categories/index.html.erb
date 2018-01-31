@@ -1,0 +1,63 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Product Sub-Category List
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper" id="provident-fund-rule-content">
+      <% if @sub_categories.present? %>
+        <div class="row actions-button">
+          <div class="add-more-rule clearfix">
+            <%= link_to new_pos_products_sub_category_path, class: 'btn btn-default pull-right' do %>
+              <i class="fa fa-plus-circle"></i> Add Product Sub-Category
+            <% end %>
+          </div>
+        </div>
+        <div class="row content-body">
+          <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
+            <thead>
+            <tr>
+              <th>Sub-Category ID</th>
+              <th>Sub-Category Code</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @sub_categories.each do |sub_category| %>
+              <tr>
+                <td> #<%= sub_category.id %> </td>
+                <td> <%= sub_category.code %> </td>
+                <td><%= sub_category.name %> </td>
+                <td><%= sub_category.description %> </td>
+                <td><%= sub_category.category.name %> </td>
+                <td class="actions">
+                  <%= link_to edit_pos_products_sub_category_path(sub_category), class: 'btn warning-color' do %>
+                    <i class="fa fa-pencil-square-o"></i>
+                  <% end %>
+                  <%= link_to pos_products_sub_category_path(sub_category), class: 'btn danger-color', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                    <i class="fa fa-times"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Current department don't have any Product Sub-Category. <%#= link_to 'Learn more', '#', class: 'link' %>
+            <!--<i class="fa fa-info-circle btn btn-info reset-border-radius" data-toggle='popover' data-placement='top' title="Provident Fund Account" data-content="Click on the create new one button to create provident fund account then it will show the account  list  "></i>-->
+          </p>
+          <%= link_to new_pos_products_sub_category_path, class: 'btn btn-default reset-border-radius' do %>
+            <i class="fa fa-plus-circle"></i> Add new one
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

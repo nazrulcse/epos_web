@@ -1,0 +1,113 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs nav-justified">
+  <li class="nav-item active">
+    <a class="nav-link active" data-toggle="tab" href="#product-info" role="tab">
+      <i class="fa fa-info-circle"></i> Product Information
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#product-details" role="tab">
+      <i class="fa fa-bars"> </i> Product Details
+    </a>
+  </li>
+</ul>
+<!-- Tab panels -->
+<div class="tab-content card">
+  <!--Panel 1-->
+  <div class="tab-pane fade in active clearfix" id="product-info" role="tabpanel">
+    <%= form_for @product do |f| %>
+        <div class="col-lg-12 pt10">
+          <div class='row'>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <%= f.label :name, 'Product Name' %>
+                <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+              </div>
+              <div class="form-group">
+                <%= f.label :description %>
+                <%= f.text_area :description, class: 'form-control reset-border-radius' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :category_id, 'Product Category' %>
+                <%= f.select :category_id, options_for_select(@categories.collect { |cat| [cat.name, cat.id] }, f.object.category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+              </div>
+              <div class="form-group">
+                <%= f.label :sub_category_id, 'Product Sub-Category' %>
+                <%= f.select :sub_category_id, options_for_select(@sub_categories.collect { |sub_cat| [sub_cat.name, sub_cat.id] }, f.object.sub_category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+              </div>
+              <div class="form-group">
+                <%= f.label :code, 'Product Code' %>
+                <%= f.text_field :code, class: 'form-control reset-border-radius', data: {required: true} %>
+              </div>
+              <div class="form-group">
+                <%= f.label :barcode, 'Product Barcode' %>
+                <%= f.text_field :barcode, class: 'form-control reset-border-radius', data: {required: true} %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <%= f.label :supplier_id, 'Supplier Name' %>
+                <%= f.select :supplier_id, options_for_select(@suppliers.collect { |sup| [sup.name, sup.id] }, f.object.supplier_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+              </div>
+              <div class="form-group">
+                <%= f.label :unit %>
+                <%= f.select :unit, options_for_select(['Kg', 'Gram', 'Pcs', 'Lb'], f.object.supplier_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+              </div>
+              <div class="form-group">
+                <%= f.label :cost_price %>
+                <%= f.text_field :cost_price, class: 'form-control reset-border-radius' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :sale_price %>
+                <%= f.text_field :sale_price, class: 'form-control reset-border-radius' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :whole_sale, 'Whole Sale Price' %>
+                <%= f.text_field :whole_sale, class: 'form-control reset-border-radius' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :stock, @product.new_record? ? 'Opening Stock' : 'Stock' %>
+                <%= f.text_field :stock, class: 'form-control reset-border-radius' %>
+              </div>
+              <div class="form-group">
+                <%= f.label :re_order_level, 'Minimum Re-Order Level' %>
+                <%= f.text_field :re_order_level, class: 'form-control reset-border-radius' %>
+              </div>
+              <div class="actions clearfix">
+                <%= f.submit class: 'btn btn-default pull-right reset-border-radius' %>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+  <div class="tab-pane fade" id="product-details" role="tabpanel">
+    <% if @product.new_record? %>
+       <br/>
+        <p>
+          Create product first then this options will be visible.
+        </p>
+    <% else %>
+
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_pos_product').syftValidator();
+
+        $('#pos_product_category_id').change(function () {
+            if ($(this).val().length > 0) {
+                $.ajax({
+                    url: "/pos/products/categories/" + $(this).val() + "/sub_categories",
+                    type: 'get',
+                    dataType: 'script'
+                });
+            }
+            else {
+                $("#pos_product_sub_category_id").find('option:gt(0)').remove();
+            }
+        });
+    });
+</script>

@@ -1,0 +1,74 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Customer: <%= @customer.name %>
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper">
+      <% if @customer.present? %>
+        <div class="row content-body">
+          <div id="advances">
+            <table class="table table-user-information table-striped">
+              <tbody>
+              <tr>
+                <td><label> Customer ID </label></td>
+                <td>
+                  # <%= @customer.id %>
+                </td>
+              </tr>
+              <tr>
+                <td><label> Name </label></td>
+                <td> <%= @customer.name %> </td>
+              </tr>
+              <tr>
+                <td><label> Email </label></td>
+                <td> <%= @customer.email %> </td>
+              </tr>
+              <tr>
+                <td><label> Mobile </label></td>
+                <td> <%= @customer.mobile %> </td>
+              </tr>
+              <tr>
+                <td><label> Comapny Name </label></td>
+                <td> <%= @customer.company %> </td>
+              </tr>
+              <tr>
+                <td><label> Address </label></td>
+                <td> <%= @customer.address %> </td>
+              </tr>
+              <tr>
+                <td><label> City </label></td>
+                <td> <%= @customer.city %> </td>
+              </tr>
+              <tr>
+                <td><label> Initial Balance </label></td>
+                <td> <%= @customer.initial_balance %> </td>
+              </tr>
+              <tr>
+                <td><label> NID </label></td>
+                <td> <%= @customer.nid %> </td>
+              </tr>
+              <tr>
+                <td><label> Passport No </label></td>
+                <td> <%= @customer.passport_no %> </td>
+              </tr>
+              <tr>
+                <td><label> Driving Licence </label></td>
+                <td> <%= @customer.driving_licence %> </td>
+              </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Sorry record not found :(
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

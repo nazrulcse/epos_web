@@ -1,0 +1,42 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Purchase Order: <%= @purchase.code %>
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper">
+      <% if @purchase.present? %>
+        <div class="row content-body">
+          <div id="advances">
+            <table class="table table-user-information table-striped">
+              <tbody>
+              <tr>
+                <td><label> Order ID </label></td>
+                <td>
+                  # <%= @purchase.id %>
+                </td>
+              </tr>
+              <tr>
+                <td><label> Code </label></td>
+                <td> <%= @purchase.code %> </td>
+              </tr>
+              <tr>
+                <td><label> Total </label></td>
+                <td> <%= @purchase.total %> </td>
+              </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Sorry record not found :(
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

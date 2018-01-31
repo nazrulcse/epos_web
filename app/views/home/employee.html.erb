@@ -1,0 +1,96 @@
+<div class="mt75">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="col-sm-9">
+
+        <div class="module-detail">
+          <h2 class="header-page"> Employee Management </h2>
+
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/employee/employee_list.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/employee/employee_list.png', class: 'img-responsive' %>
+              </a>
+            </div>
+
+            <div class="col-sm-6 text-justify">
+              The Employee Module contains necessary forms and reports to keep track all of your
+              Employee Data, including Advances, Advances History, Certificates, Right Access etc.
+              This module also keep track of Active and Deactivated (previous employee not now present) Employees.
+              If your company has a huge number of employees those are to be difficult to include, don't worry Bequent
+              solved this types of problem very easily, click 'Upload Employees' and download template fill up your
+              employees necessary fields then choose that file and click just Import button.
+              <i class="warning-color"> N.B. Please provide your employees required and right information. </i>
+              Search Employee by Name, Employee ID, Email, Phone etc and you can download your Employee List on Export to.
+            </div>
+          </div>
+
+          <div class="row mt20 mb80">
+            <div class="col-sm-6 text-justify">
+              If employee needs to Advance, Company starts calculating how that can be done and it surely is a nightmare
+              for the Company to record all this data manually. In Bequent give you a user friendly solution just create
+              a 'New Advance' fill up your field and you can return Advance by click on 'Advance Return' option that all.
+            </div>
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/employee/employee_advance.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/employee/employee_advance.png', class: 'img-responsive' %>
+              </a>
+            </div>
+          </div>
+
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/employee/advance_history.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/employee/advance_history.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6 text-justify">
+              Advance History provides all of data of Employees Advance such as 'Advance given', 'Advance return',
+              'Balance'and you can export history report with doc and pdf format etc.
+            </div>
+          </div>
+
+          <div class="row mt20 mb80">
+            <div class="col-sm-6 text-justify">
+              Bequent has a best user friendly Employee Profile which are provides a lot of information of employee
+              such as personal info, Attendance, Leave and Settings option for change your password.
+            </div>
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/employee/employee_dashboard.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/employee/employee_dashboard.png', class: 'img-responsive' %>
+              </a>
+            </div>
+          </div>
+
+          <div class="row mt20 mb80">
+            <div class="col-sm-6">
+              <a href="javascript:void(0)" data-content="<%= image_path 'modules/employee/access_right.png' %>" class="preview-attachment">
+                <%= image_tag 'modules/employee/access_right.png', class: 'img-responsive' %>
+              </a>
+            </div>
+            <div class="col-sm-6 text-justify">
+              Everyone has assign different task in Company under various department with many different types of
+              rules and regulations. All are not able to Access in all features so admin can easily modify their
+              'Access Rights' by Employee module Access Rights option.
+              If you need a HR, create employee with required information and give the HR proper Access Rights fields where you want
+              thats all.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <%= render 'home/feature_modules', modules: @modules %>
+
+    </div>
+  </div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.preview-attachment').attachmentPreview();
+    });
+</script>
+

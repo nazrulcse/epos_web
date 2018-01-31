@@ -1,0 +1,62 @@
+<div class="main-menu clearfix ">
+  <% if employee_signed_in? %>
+      <ul class="pull-left">
+        <li>
+          <%= link_to root_path, class: 'pt5 pb5' do %>
+              <%= image_tag('beta-bequent-logo.png', width: 54) %>
+          <% end %>
+        </li>
+      </ul>
+      <% unless current_employee.next_path.present? %>
+          <ul class="pull-left">
+            <%= render "shared/employees/nav_menu" %>
+            <%= render "shared/attendance/nav_menu" %>
+            <%= render "shared/pos/customers/nav_menu" %>
+            <%= render "shared/pos/suppliers/nav_menu" %>
+            <%= render "shared/pos/products/nav_menu" %>
+            <%= render "shared/pos/sales/nav_menu" %>
+            <%#= render "shared/bank/nav_menu" %>
+          </ul>
+      <% end %>
+      <%= render 'shared/employees/nav_menu_account' %>
+      <% if can_settings_access? %>
+          <%= render 'shared/settings/nav_menu_settings' %>
+      <% end %>
+      <% if can_access?('switch', 'departments') %>
+          <%= render 'shared/settings/switch_department' %>
+      <% end %>
+  <% else %>
+      <div class="landing-nav pull-right">
+        <a href="#" class="pull-right toggle-menu-bar"> <i class="fa fa-bars"></i> </a>
+        <ul class="toggle-menu-hide">
+          <li>
+            <%= link_to company_registration_path do %>
+                Registration
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#' do %>
+                About US
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#' do %>
+                Contact
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#' do %>
+                Feature
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_login_path do %>
+                Login
+            <% end %>
+          </li>
+        </ul>
+      </div>
+  <% end %>
+
+</div>
+

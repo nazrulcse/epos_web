@@ -1,0 +1,61 @@
+<%= form_for(@pos_customers_invoice_item) do |f| %>
+  <% if @pos_customers_invoice_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pos_customers_invoice_item.errors.count, "error") %> prohibited this pos_customers_invoice_item from being saved:</h2>
+
+      <ul>
+      <% @pos_customers_invoice_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :department_id %><br>
+    <%= f.text_field :department_id %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br>
+    <%= f.text_area :note %>
+  </div>
+  <div class="field">
+    <%= f.label :cost_price %><br>
+    <%= f.text_field :cost_price %>
+  </div>
+  <div class="field">
+    <%= f.label :sale_price %><br>
+    <%= f.text_field :sale_price %>
+  </div>
+  <div class="field">
+    <%= f.label :whole_sale %><br>
+    <%= f.text_field :whole_sale %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :discount %><br>
+    <%= f.text_field :discount %>
+  </div>
+  <div class="field">
+    <%= f.label :vat %><br>
+    <%= f.text_field :vat %>
+  </div>
+  <div class="field">
+    <%= f.label :total %><br>
+    <%= f.text_field :total %>
+  </div>
+  <div class="field">
+    <%= f.label :attchment %><br>
+    <%= f.text_area :attchment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

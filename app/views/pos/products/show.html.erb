@@ -1,0 +1,70 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Product Detail
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper">
+      <% if @product.present? %>
+        <div class="row content-body">
+          <div id="advances">
+            <table class="table table-user-information table-striped">
+              <tbody>
+              <tr>
+                <td><label> Product ID </label></td>
+                <td>
+                  # <%= @product.id %>
+                </td>
+              </tr>
+              <tr>
+                <td><label> Name </label></td>
+                <td> <%= @product.name %> </td>
+              </tr>
+              <tr>
+                <td><label> Product Code </label></td>
+                <td> <%= @product.code %> </td>
+              </tr>
+              <tr>
+                <td><label> Product Barcode </label></td>
+                <td> <%= @product.barcode %> </td>
+              </tr>
+              <tr>
+                <td><label> About Product </label></td>
+                <td> <%= @product.description %> </td>
+              </tr>
+              <tr>
+                <td><label> Minimum Re-Order Level </label></td>
+                <td> <%= @product.re_order_level %> </td>
+              </tr>
+              <tr>
+                <td><label> Cost Price </label></td>
+                <td> <%= @product.cost_price %> </td>
+              </tr>
+              <tr>
+                <td><label> Sale Price </label></td>
+                <td> <%= @product.sale_price %> </td>
+              </tr>
+              <tr>
+                <td><label> Whole Sale Price </label></td>
+                <td> <%= @product.whole_sale %> </td>
+              </tr>
+              <tr>
+                <td><label> Stock </label></td>
+                <td> <%= @product.stock %> </td>
+              </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Sorry record not found :(
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

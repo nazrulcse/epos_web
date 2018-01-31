@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @pos_customers_invoice_item.department %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @pos_customers_invoice_item.note %>
+</p>
+
+<p>
+  <strong>Cost price:</strong>
+  <%= @pos_customers_invoice_item.cost_price %>
+</p>
+
+<p>
+  <strong>Sale price:</strong>
+  <%= @pos_customers_invoice_item.sale_price %>
+</p>
+
+<p>
+  <strong>Whole sale:</strong>
+  <%= @pos_customers_invoice_item.whole_sale %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @pos_customers_invoice_item.quantity %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @pos_customers_invoice_item.amount %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @pos_customers_invoice_item.discount %>
+</p>
+
+<p>
+  <strong>Vat:</strong>
+  <%= @pos_customers_invoice_item.vat %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @pos_customers_invoice_item.total %>
+</p>
+
+<p>
+  <strong>Attchment:</strong>
+  <%= @pos_customers_invoice_item.attchment %>
+</p>
+
+<%= link_to 'Edit', edit_pos_customers_invoice_item_path(@pos_customers_invoice_item) %> |
+<%= link_to 'Back', pos_customers_invoice_items_path %>

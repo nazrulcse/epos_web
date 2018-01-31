@@ -1,0 +1,46 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Payment: <%= @payment.invoice.number if @payment.invoice.present? %>
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper">
+      <% if @payment.present? %>
+        <div class="row content-body">
+          <div id="advances">
+            <table class="table table-user-information table-striped">
+              <tbody>
+              <tr>
+                <td><label> Payment ID </label></td>
+                <td>
+                  # <%= @payment.id %>
+                </td>
+              </tr>
+              <tr>
+                <td><label> Invoice Number </label></td>
+                <td> <%= @payment.invoice.number if @payment.invoice.present? %> </td>
+              </tr>
+              <tr>
+                <td><label> Global ID </label></td>
+                <td> <%= @payment.global_id %> </td>
+              </tr>
+              <tr>
+                <td><label> Total </label></td>
+                <td> <%= @payment.total %> </td>
+              </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Sorry record not found :(
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

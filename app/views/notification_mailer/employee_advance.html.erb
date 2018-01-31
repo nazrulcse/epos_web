@@ -1,0 +1,12 @@
+<%= content_for :email_subject do %>
+    Advance Received
+<% end %>
+
+<p>
+  <b><%= @advance.employee.full_name %></b> you have received advance with amount
+  <b> <%= @advance.amount %> </b> with
+  return policy <b> <%= @advance.return_policy %> </b> for purpose
+  "<%= @advance.purpose %>"
+</p>
+
+<%= link_to 'Details', employees_advance_url(@advance) %>
