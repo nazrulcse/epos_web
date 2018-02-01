@@ -3,20 +3,15 @@ class Ability
 
   RESTFUL_ACTION = [ 'index', 'show', 'new', 'edit', 'create', 'update', 'destroy' ]
 
-  SETUP_MODULES = ['AccessRight', 'Company', 'Department' , 'Designation', 'Remark', 'Setting', 'Employees', 'Community', 'Home' ]
+  SETUP_MODULES = ['AccessRight', 'Company', 'Department' , 'Designation', 'Setting', 'Employees', 'Home' ]
 
   MODULELESS_NAMESPACE = {
       'Employee' => 'Employees',
       'Attendance' => 'Attendance',
-      'Expense' => 'Expenses',
-      'Leave' => 'Leave',
-      'Payroll' => 'Payroll',
-      'ProvidentFund' => 'ProvidentFund',
       'AccessRight' => 'AccessRight',
       'Company' => 'Company',
       'Department' => 'Department',
       'Designation' => 'Designation',
-      'Remark' => 'Remark',
       'Setting' => 'Setting',
       'Home' => 'Home'
   }
@@ -24,9 +19,6 @@ class Ability
   DEFAULT_ACCESS = {
       'employees' => ['index', 'settings', 'show', 'profile', 'update_password', 'attendances'],
       'attendance/attendances' => ['in', 'out'],
-      'leave/applications' => ['new', 'create', 'leave_status'],
-      'community/posts' => ['index', 'new', 'create', 'show'],
-      'community/comments' => ['create'],
       'home' => ['contact_us']
   }
 
@@ -84,6 +76,7 @@ class Ability
     available_modules_name = user.department.company.features.collect{ |f|  f.app_module }
     total_modules = available_modules_name + SETUP_MODULES
     total_modules.include?(module_name)
+    true
   end
 
 end

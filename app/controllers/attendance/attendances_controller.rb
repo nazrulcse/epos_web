@@ -2,7 +2,7 @@ module Attendance
   class AttendancesController < Attendance::BaseController
     before_filter :current_ability
     before_action :set_attendance, only: [:show, :edit, :update, :destroy, :out]
-    before_action -> { permit_module(controller_name.classify.constantize) }
+    # before_action -> { permit_module(controller_name.classify.constantize) }
 
     def index
       attendance_date = params[:date].present? ? params[:date].to_date : Date.today
@@ -14,8 +14,8 @@ module Attendance
 
       @absent_data = []
       absent_employees.each do |employee|
-        leave = employee.on_leave(attendance_date)
-        @absent_data.push({employee: employee, leave_application: leave.present? ? leave.leave_application : ''})
+        # leave = employee.on_leave(attendance_date)
+        @absent_data.push({employee: employee, leave_application: ''})
       end
       respond_to do |format|
         format.html
@@ -120,8 +120,8 @@ module Attendance
       end
       attendances = @attendance.employee.attendances.where(in_date: attendance_date)
       unless attendances.present?
-        leave = @attendance.employee.on_leave(attendance_date)
-        @absent_data = {employee: @attendance.employee, leave_application: leave.present? ? leave.leave_application : ''}
+        # leave = @attendance.employee.on_leave(attendance_date)
+        @absent_data = {employee: @attendance.employee, leave_application: ''}
       end
       respond_to do |format|
         format.js {}

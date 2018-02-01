@@ -188,7 +188,7 @@ class Employee < ActiveRecord::Base
     start_date = Date.new(year, month, 1)
     end_date = start_date.end_of_month
     dayoffs_report = Attendance::DayOff.day_off_report(current_department, start_date, end_date)
-    leaves_report = Leave::Application.leave_report(current_department, employee, start_date, end_date)
+    leaves_report = # Leave::Application.leave_report(current_department, employee, start_date, end_date)
     should_worked = employee_should_worked(current_department, dayoffs_report, leaves_report, start_date, end_date)
     attendance_report = Attendance::Attendance.attendance_report(current_department, employee, start_date, end_date)
     office_days = employee_office_days(dayoffs_report, start_date, end_date)
@@ -259,7 +259,7 @@ class Employee < ActiveRecord::Base
   end
 
   def on_leave(date)
-    Leave::Day.where(day: date.to_date, is_approved: true).includes(:leave_application).where('leave_applications.employee_id = ? AND leave_applications.is_approved = ?', self.id, true).references(:leave_applications).first
+    ''# Leave::Day.where(day: date.to_date, is_approved: true).includes(:leave_application).where('leave_applications.employee_id = ? AND leave_applications.is_approved = ?', self.id, true).references(:leave_applications).first
   end
 
   def short_name
