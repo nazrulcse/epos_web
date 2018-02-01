@@ -1,14 +1,35 @@
 <div class="row reset-padding">
   <div class="content-wrapper" id="rule-content">
     <div class="header-wrapper">
-      <h4>
-        Product Sub-Category List
-      </h4>
+      <div class="header-container clearfix">
+        <h4 class="title-section">
+          Product Sub Category List
+        </h4>
+
+        <div class="action-section">
+          <%= link_to new_pos_products_sub_category_path, class: 'btn btn-info' do %>
+              New Sub Category
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="content-body-wrapper secondary-color full-content-wrapper" id="provident-fund-rule-content">
       <% if @sub_categories.present? %>
         <div class="row actions-button">
           <div class="add-more-rule clearfix">
+            <div class="pull-left">
+              <%= form_tag('', class: 'search-wrapper') do %>
+                  <div class="input-group">
+                      <span class="input-group-addon reset-border-radius" id="sizing-addon2">
+                        <i class="fa fa-search"></i>
+                      </span>
+                    <input type="text" id="employee-search-box" class="form-control reset-border-radius" name="q" value="<%= params[:q] %>" placeholder="Search name, code..." aria-describedby="sizing-addon2">
+                    <% if params[:q].present? %>
+                        <a class="clear-search color-danger"> <i class="fa fa-times"></i> </a>
+                    <% end %>
+                  </div>
+              <% end %>
+            </div>
             <%= link_to new_pos_products_sub_category_path, class: 'btn btn-default pull-right' do %>
               <i class="fa fa-plus-circle"></i> Add Product Sub-Category
             <% end %>
@@ -18,8 +39,8 @@
           <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
             <thead>
             <tr>
-              <th>Sub-Category ID</th>
-              <th>Sub-Category Code</th>
+              <th>ID</th>
+              <th>Code</th>
               <th>Name</th>
               <th>Description</th>
               <th>Category</th>

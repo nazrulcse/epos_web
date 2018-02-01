@@ -450,12 +450,25 @@ body.settings.billing {
 .header-wrapper {
   background: #fdfdfd;
   height: 60px;
-  padding: 20px 0px 5px 0px;
+  padding: 12px 0 5px 0;
   border-bottom: solid 1px #D1DBE3;
-  h4 {
+  .header-container {
     margin: auto;
     max-width: 1000px;
+    h4 {
+      margin: 0;
+    }
+  }
+  h4 {
+    margin: 10px auto 0 auto;
+    max-width: 1000px;
+  }
+  .title-section {
     font-weight: bold;
+    float: left;
+  }
+  .action-section {
+    float: right;
   }
 }
 
@@ -466,6 +479,10 @@ body.settings.billing {
     width: 100%;
     height: calc(100vh - 165px) // Container height = (screen_height - top_header_height - footer_height)
   }
+}
+
+.search-wrapper {
+  width: 350px;
 }
 
 .content-body {
@@ -679,7 +696,6 @@ $employee-list-img-width-height: 80px;
     background: #0c6a85;
   }
 }
-
 
 #attendance-button-wrapper {
   position: fixed;
