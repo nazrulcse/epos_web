@@ -12,7 +12,7 @@ class AppSettings
   REGISTRATION_PROGRESS = {
       create_account: 'Create Account',
       company_profile: 'Company Profile',
-      select_module: 'Select Module',
+      select_module: 'Finalize',
       # finalize: 'Finalize'
   }
 

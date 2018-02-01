@@ -15,11 +15,11 @@ class SettingsController < ApplicationController
   end
 
   def features
-    @features = Feature.all
-    @features_id = []
-    @selected_features = []
-    @monthly_cost = @features.sum(:cost) + 2.50
-    @remaining_cost = 0.0
+    # @features = Feature.all
+    # @features_id = []
+    # @selected_features = []
+    # @monthly_cost = @features.sum(:cost) + 2.50
+    # @remaining_cost = 0.0
   end
 
   def company_feature
