@@ -12,6 +12,26 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
     @activities.delete_all
   end
 
+  def offline_changes
+    p params[:activities]
+    p eval(params[:activities])
+    # params[:activities].each do |act|
+    #   p act
+    #   p eval(act)
+    # end
+
+    # p JSON.parse params[:activities].first
+    # @applied_ids = []
+    # if params[:activities].present?
+    #   department = Department.find(params[:department_id])
+    #
+    #   params[:activities].each do |activity|
+    #     @activity = activity
+    #   end
+    # end
+
+  end
+
   private
 
   def find_class
@@ -22,5 +42,22 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
       @klass = Department
       @attr = 'department_id'
     end
+  end
+
+  def action_delete
+    object = @activity[:trackable_type].constantize.find_by_global_id(@activity[:trackable_id])
+
+    if object.present?
+      object.delete!
+      @applied_ids << @activity[:id]
+    end
+  end
+
+  def action_update
+
+  end
+
+  def action_create
+
   end
 end
