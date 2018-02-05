@@ -1,0 +1,103 @@
+<tr class="order-item-row">
+  <td>
+    <%= ff.select :product_id, options_for_select(@supplier.products.collect { |product| [product.name, product.id] }, ff.object.product_id), {prompt: "Select Product..."}, {class: 'custom-chosen purchase-product-item'} if @supplier.present? %>
+  </td>
+  <td class="stock-quantity" style="text-align: center;">
+
+  </td>
+  <td>
+    <%= ff.text_field :issued_quantity, class: "quantity" %>
+  </td>
+  <% unless ff.object.new_record? %>
+      <td>
+        <%= ff.text_field :received_quantity, class: "received_quantity" %>
+      </td>
+  <% end %>
+  <td>
+    <%= ff.text_field :amount, class: "unit-price" %>
+  </td>
+  <td>
+    <%= ff.text_field :cost_price, class: "cost-price" %>
+  </td>
+  <td>
+    <%= ff.text_field :sale_price, class: "sales-price" %>
+  </td>
+  <td>
+    <%= ff.text_field :total, class: "total-item-price" %>
+  </td>
+  <td>
+    <% if ff.object.persisted? %>
+        <%= ff.check_box :_destroy %>
+        <%= ff.label :_destroy, "Remove" %>
+    <% else %>
+        <%= link_to '#', class: 'remove-product-form' do %>
+            <i class="fa fa-times danger-color"></i>
+        <% end %>
+    <% end %>
+  </td>
+</tr>
+
+<script type="text/javascript">
+    $(document).off('change', '.purchase-product-item').on('change', '.purchase-product-item', function () {
+        var reff = $(this);
+        $.ajax({
+            url: '/pos/products/' + $(this).val(),
+            type: 'get',
+            dataType: 'json',
+            success: function (product) {
+                element = targetElement(reff);
+                setValue(element, '.quantity', '1');
+                setValue(element, '.unit-price', product.cost_price);
+                setValue(element, '.cost-price', product.cost_price);
+                setValue(element, '.sales-price', product.sale_price);
+                setValue(element, '.total-item-price', product.cost_price);
+                updateTotal();
+            }
+        });
+    });
+
+    $(document).off('keyup', '.unit-price, .quantity').on('keyup', '.unit-price, .quantity', function () {
+        element = targetElement($(this));
+        price = getValue(element, '.unit-price');
+        quantity = getValue(element, '.quantity');
+        setValue(element, '.total-item-price', (price * quantity));
+        updateTotal();
+    });
+
+    $(document).off('click', '.remove-product-form').on('click', '.remove-product-form', function () {
+        $(this).parents('.order-item-row').remove();
+        if ($(".purchase-order-products").find("tbody").find("tr").size() <= 0) {
+            $('.no-data').html("<%= escape_javascript( render 'shared/no_data_found', message: 'No Product To Order').html_safe %>");
+        }
+        updateTotal();
+        return false;
+    });
+
+    function updateTotal() {
+        var total = 0;
+        $('.total-item-price').each(function () {
+            var each_total_price = $(this).val() || 0;
+            total += parseFloat(each_total_price);
+        });
+        $('#pos_suppliers_purchase_amount, #pos_suppliers_purchase_total').val(total);
+    }
+
+    function targetElement(element) {
+        return element.parents('tr');
+    }
+
+    function setValue(element, selector, value) {
+        element.find(selector).val(value);
+    }
+
+    function getValue(element, selector, parse) {
+        var value = element.find(selector).val();
+        if (parse) {
+            if (!value) {
+                value = 0;
+            }
+            value = parseFloat(value);
+        }
+        return value;
+    }
+</script>
