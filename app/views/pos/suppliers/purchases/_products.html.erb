@@ -1,0 +1,45 @@
+<div class="col-md-12 reset-padding">
+  <table class="table action-table table-responsive excel-table table-striped purchase-order-products mb0">
+    <thead>
+    <tr>
+      <th>Product</th>
+      <th>Stock</th>
+      <th>Quantity</th>
+      <% unless f.object.new_record? %>
+          <th>Received Qty</th>
+      <% end %>
+      <th>Price</th>
+      <th>Cost Price</th>
+      <th>Sales Price</th>
+      <th>Total</th>
+      <th>
+        <i class="fa fa-cog"></i>
+      </th>
+    </tr>
+    </thead>
+    <tbody id="puchase-order-product-list" style="border-bottom: 1px solid #BBBBBB">
+    <%= f.fields_for :items do |ff| %>
+        <%= render 'item_fields', ff: ff %>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="no-data">
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.add-product-link').click(function (event) {
+            time = new Date().getTime();
+            regexp = new RegExp($(this).data('id'), 'g');
+            $('#puchase-order-product-list').append($(this).data('fields').replace(regexp, time));
+            $('#inventory_suppliers_order_order_items_attributes_' + time + '_product_id').chosen();
+            $('#no-data-found').remove();
+            event.preventDefault();
+        });
+
+        if ($(".purchase-order-products").find("tbody").find("tr").size() <= 0) {
+            $('.no-data').html("<%= escape_javascript( render 'shared/no_data_found', message: 'No Product To Order').html_safe %>");
+        }
+    });
+</script>

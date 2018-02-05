@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130095705) do
+ActiveRecord::Schema.define(version: 20180205102416) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -459,6 +459,16 @@ ActiveRecord::Schema.define(version: 20180130095705) do
   add_index "pos_products_sub_categories", ["category_id"], name: "index_pos_products_sub_categories_on_category_id", using: :btree
   add_index "pos_products_sub_categories", ["department_id"], name: "index_pos_products_sub_categories_on_department_id", using: :btree
 
+  create_table "pos_stocks", force: :cascade do |t|
+    t.integer  "product_id",     limit: 4
+    t.integer  "quantity",       limit: 4
+    t.string   "stockable_id",   limit: 255
+    t.string   "stockable_type", limit: 255
+    t.string   "location_id",    limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "pos_suppliers", force: :cascade do |t|
     t.string   "name",          limit: 255
     t.string   "company",       limit: 255
@@ -498,9 +508,6 @@ ActiveRecord::Schema.define(version: 20180130095705) do
   create_table "pos_suppliers_purchase_items", force: :cascade do |t|
     t.integer  "purchase_id",       limit: 4
     t.integer  "product_id",        limit: 4
-    t.float    "old_cost_price",    limit: 24
-    t.float    "old_sale_price",    limit: 24
-    t.float    "old_whole_sale",    limit: 24
     t.integer  "issued_quantity",   limit: 4
     t.integer  "department_id",     limit: 4
     t.text     "note",              limit: 65535

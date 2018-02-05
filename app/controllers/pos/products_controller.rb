@@ -6,7 +6,12 @@ class Pos::ProductsController < InheritedResources::Base
   end
 
   def show
-
+    respond_to do |format|
+      format.html {}
+      format.json {
+        render json: @product.to_json
+      }
+    end
   end
 
   def new

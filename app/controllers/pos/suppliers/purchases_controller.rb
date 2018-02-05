@@ -6,11 +6,18 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
   end
 
   def show
-
+    respond_to do |format|
+      format.html {}
+      format.json {
+        render json: @product.to_json
+      }
+    end
   end
 
   def new
     @purchase = Pos::Suppliers::Purchase.new
+    @suppliers = current_department.suppliers
+    @supplier = @suppliers.find_by_id(params[:supplier_id]) if params[:supplier_id]
   end
 
   def create
@@ -26,7 +33,8 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
   end
 
   def edit
-
+    @suppliers = current_department.suppliers
+    @supplier = @purchase.supplier
   end
 
   def update
