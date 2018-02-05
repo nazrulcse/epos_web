@@ -13,23 +13,12 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def offline_changes
-    p params[:activities]
-    p eval(params[:activities])
-    # params[:activities].each do |act|
-    #   p act
-    #   p eval(act)
-    # end
-
-    # p JSON.parse params[:activities].first
-    # @applied_ids = []
-    # if params[:activities].present?
-    #   department = Department.find(params[:department_id])
-    #
-    #   params[:activities].each do |activity|
-    #     @activity = activity
-    #   end
-    # end
-
+    activities = eval(params[:activities])
+    @applied_ids = []
+    activities.each do |activity|
+      break unless send "action_#{activity[:key]}".to_sym, activity
+    end
+    render_json
   end
 
   private
@@ -44,20 +33,35 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
     end
   end
 
-  def action_delete
-    object = @activity[:trackable_type].constantize.find_by_global_id(@activity[:trackable_id])
+  def render_json
+    json_response(applied_activies: @applied_ids.join(','))
+  end
 
-    if object.present?
-      object.delete!
-      @applied_ids << @activity[:id]
-    end
+  def action_delete(activity)
+    object = find_object(activity)
+    return false unless object.present?
+    object.delete!
+    @applied_ids << activity[:id]
+    true
   end
 
   def action_update
 
   end
 
-  def action_create
+  def action_create(activity)
+    klass_name(activity).create(activity[:data])
+    @applied_ids << activity[:id]
+    true
+  rescue
+    false
+  end
 
+  def klass_name(activity)
+    activity[:trackable_type].constantize
+  end
+
+  def find_object(activity)
+    klass_name(activity).find_by_global_id(activity[:trackable_id])
   end
 end
