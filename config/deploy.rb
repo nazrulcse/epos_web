@@ -1,8 +1,8 @@
 # config valid only for current version of Capistrano
-lock "3.10.0"
+lock '3.10.1'
 
-set :application, "beaccount"
-set :repo_url, "git@bitbucket.org:nazrulku07/beaccount.git"
+set :application, 'epos_web'
+set :repo_url, 'git@github.com:nazrulcse/epos_web.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -17,15 +17,15 @@ set :repo_url, "git@bitbucket.org:nazrulku07/beaccount.git"
 # These are the defaults.
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
-set :ssh_options, {
-                    :keys => '/home/nazrul/Desktop/Beaccount/beaccount_production.pem'
-                }
+# set :ssh_options, {
+#                     :keys => '/home/nazrul/Desktop/Beaccount/beaccount_production.pem'
+#                 }
 
 # Default value for :pty is false
 # set :pty, true
-server '13.59.26.94',
-       :user => 'ubuntu',
-       :roles => %w{web app db}
+server '159.89.170.58',
+       :user => 'deployer',
+       :roles => %w{web app}
 
 set :rvm_ruby_version, '2.3.1'
 

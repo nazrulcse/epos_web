@@ -57,7 +57,6 @@
 #     # password: "please use keys"
 #   }
 
-set :deploy_to, "/home/ubuntu/syftet/apps/beaccount"
+set :deploy_to, '/home/deployer/apps/epos'
 set :rails_env, "production"
-# set :branch, 'master'
-set :branch, 'billing'
+set :branch, 'master'
