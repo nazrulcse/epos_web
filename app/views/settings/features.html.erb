@@ -7,17 +7,26 @@
     <div class="reg-wrap-header">
       <%= render 'shared/account_progress_bar', step_value: 2 %>
 
-      <h4>
-        Select our modules which you want to use for your <span class="primary-color"><%= current_department.company.name.upcase %>'s</span> account.
-        You will easily add or remove this anytime from module setting.(<span class="primary-color">Now all the selected modules are free for you</span>)
+      <h4 style="text-align: center; font-size: 24px;">
+        Welcome <span class="primary-color"><%= current_department.company.name.upcase %></span>
       </h4>
 
     </div>
 
     <%#= form_for @company_feature, url: company_feature_settings_path, html: {method: :post}, remote: true do |f| %>
-    <%= render 'settings/feature' %>
+    <%#= render 'settings/feature' %>
     <%# end %>
 
+    <p class="welcome-text mt30">
+      You are just one step behind to get into the <span class="primary-color">EPOS</span>.
+    </p>
+    <p class="welcome-text">
+      Just click on the continue button and take a tour at the <span class="primary-color">EPOS.</span>.
+    </p>
+
+    <%= form_tag company_feature_settings_path, class: 'continue-form', html: {method: :post, } do %>
+      <button class="continue-button submit-btn mb10"> CONTINUE TO EPOS <i class="fa fa-arrow-right"></i></button>
+    <% end %>
 
   </div>
 

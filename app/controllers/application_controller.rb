@@ -119,11 +119,11 @@ class ApplicationController < ActionController::Base
   end
 
   def permit_module(feature_module)
-    company = current_department.company
-    unless company.present? && company.features.find_by_name(feature_module.to_s)
-      flash[:error] = 'This module is not enabled, Please goto settings and enabled this module'
-      redirect_to root_path
-    end
+    # company = current_department.company
+    # unless company.present? && company.features.find_by_name(feature_module.to_s)
+    #   flash[:error] = 'This module is not enabled, Please goto settings and enabled this module'
+    #   redirect_to root_path
+    # end
   end
 
   def flash_types

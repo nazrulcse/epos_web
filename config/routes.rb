@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get '/activities/:type', to: 'activities#changes'
       delete '/activities/remove', to: 'activities#remove'
+      post '/activities/offline_changes', to: 'activities#offline_changes'
       resources :employees, only: [:index, :show]
       resources :departments, only: [:index]
       namespace :pos do
