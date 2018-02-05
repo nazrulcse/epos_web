@@ -51,18 +51,18 @@ class Department < ActiveRecord::Base
   has_many :leave_category_years, :class_name => 'Leave::CategoryYear', dependent: :destroy
   has_many :bank_accounts, :class_name => 'Bank::Account', dependent: :destroy
   has_many :provident_fund_transactions, :class_name => 'ProvidentFund::Transaction'
-  has_many :changed_settings
-  has_many :customers, :class_name => 'Pos::Customer'
-  has_many :suppliers, :class_name => 'Pos::Supplier'
-  has_many :brands, :class_name => 'Pos::Products::Brand'
-  has_many :models, :class_name => 'Pos::Products::Model'
-  has_many :products_categories, :class_name => 'Pos::Products::Category'
-  has_many :products_sub_categories, :class_name => 'Pos::Products::SubCategory'
-  has_many :products, :class_name => 'Pos::Product'
-  has_many :customers_invoices, :class_name => 'Pos::Customers::Invoice'
-  has_many :customers_payments, :class_name => 'Pos::Customers::Payment'
-  has_many :suppliers_purchases, :class_name => 'Pos::Suppliers::Purchase'
-  has_many :suppliers_payments, :class_name => 'Pos::Suppliers::Payment'
+  has_many :changed_settings, dependent: :destroy
+  has_many :customers, :class_name => 'Pos::Customer', dependent: :destroy
+  has_many :suppliers, :class_name => 'Pos::Supplier', dependent: :destroy
+  has_many :brands, :class_name => 'Pos::Products::Brand', dependent: :destroy
+  has_many :models, :class_name => 'Pos::Products::Model', dependent: :destroy
+  has_many :products_categories, :class_name => 'Pos::Products::Category', dependent: :destroy
+  has_many :products_sub_categories, :class_name => 'Pos::Products::SubCategory', dependent: :destroy
+  has_many :products, :class_name => 'Pos::Product', dependent: :destroy
+  has_many :customers_invoices, :class_name => 'Pos::Customers::Invoice', dependent: :destroy
+  has_many :customers_payments, :class_name => 'Pos::Customers::Payment', dependent: :destroy
+  has_many :suppliers_purchases, :class_name => 'Pos::Suppliers::Purchase', dependent: :destroy
+  has_many :suppliers_payments, :class_name => 'Pos::Suppliers::Payment', dependent: :destroy
 
   SWITCH_ACTIONS = {
       show: 'show',

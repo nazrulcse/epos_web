@@ -40,21 +40,29 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   def action_delete(activity)
     object = find_object(activity)
     return false unless object.present?
-    object.delete!
-    @applied_ids << activity[:id]
+    return false unless object.destroy
+    applied(activity)
     true
   end
 
-  def action_update
-
+  def action_update(activity)
+    object = find_object(activity)
+    return false unless object.present?
+    return false unless object.update_attributes(activity[:data])
+    applied(activity)
+    true
   end
 
   def action_create(activity)
     klass_name(activity).create(activity[:data])
-    @applied_ids << activity[:id]
+    applied(activity)
     true
   rescue
     false
+  end
+
+  def applied(activity)
+    @applied_ids << activity[:id]
   end
 
   def klass_name(activity)
