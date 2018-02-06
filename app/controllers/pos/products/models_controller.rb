@@ -16,13 +16,14 @@ class Pos::Products::ModelsController < InheritedResources::Base
   def create
     @model = current_department.models.build(model_params)
 
-    if @model.save
-      flash[:notice] = 'Model saved successfully.'
-    else
-      flash[:error] = 'Model saving failed.'
+    respond_to do |format|
+      if @model.save
+        format.html { redirect_to pos_products_models_path, notice: 'Model saved successfully.' }
+      else
+        format.html { redirect_to pos_products_models_path, error: 'Model saving failed.' }
+      end
+      format.js {}
     end
-
-    redirect_to pos_products_models_path
   end
 
   def edit

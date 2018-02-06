@@ -16,13 +16,14 @@ class Pos::Products::BrandsController < InheritedResources::Base
   def create
     @brand = current_department.brands.build(brand_params)
 
-    if @brand.save
-      flash[:notice] = 'Brand saved successfully.'
-    else
-      flash[:error] = 'Brand saving failed.'
+    respond_to do |format|
+      if @brand.save
+        format.html { redirect_to pos_products_brands_path, notice: 'Brand saved successfully.' }
+      else
+        format.html { redirect_to pos_products_brands_path, error: 'Brand saving failed.' }
+      end
+      format.js {}
     end
-
-    redirect_to pos_products_brands_path
   end
 
   def edit

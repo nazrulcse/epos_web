@@ -16,77 +16,207 @@
   <!--Panel 1-->
   <div class="tab-pane fade in active clearfix" id="product-info" role="tabpanel">
     <%= form_for @product do |f| %>
-        <div class="col-lg-12 pt10">
-          <div class='row'>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <%= f.label :name, 'Product Name' %>
-                <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+      <div class="col-lg-12 pt10">
+        <div class='row'>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <%= f.label :name, 'Product Name' %>
+              <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+            </div>
+            <div class="form-group">
+              <%= f.label :description %>
+              <%= f.text_area :description, class: 'form-control reset-border-radius' %>
+            </div>
+
+            <div class="col-md-12 reset-padding">
+              <div class="col-md-9 reset-padding">
+                <div class="form-group">
+                  <%= f.label :category_id, 'Product Category' %>
+                  <%= f.select :category_id, options_for_select(@categories.collect { |cat| [cat.name, cat.id] }, f.object.category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+                </div>
               </div>
-              <div class="form-group">
-                <%= f.label :description %>
-                <%= f.text_area :description, class: 'form-control reset-border-radius' %>
-              </div>
-              <div class="form-group">
-                <%= f.label :category_id, 'Product Category' %>
-                <%= f.select :category_id, options_for_select(@categories.collect { |cat| [cat.name, cat.id] }, f.object.category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
-              </div>
-              <div class="form-group">
-                <%= f.label :sub_category_id, 'Product Sub-Category' %>
-                <%= f.select :sub_category_id, options_for_select(@sub_categories.collect { |sub_cat| [sub_cat.name, sub_cat.id] }, f.object.sub_category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
-              </div>
-              <div class="form-group">
-                <%= f.label :code, 'Product Code' %>
-                <%= f.text_field :code, class: 'form-control reset-border-radius', data: {required: true} %>
-              </div>
-              <div class="form-group">
-                <%= f.label :barcode, 'Product Barcode' %>
-                <%= f.text_field :barcode, class: 'form-control reset-border-radius', data: {required: true} %>
+              <div class="col-md-3 pr0">
+                <%= link_to new_pos_products_category_path, remote: true, class: 'btn btn-info wp100 mt25' do %>
+                  New
+                <% end %>
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <%= f.label :supplier_id, 'Supplier Name' %>
-                <%= f.select :supplier_id, options_for_select(@suppliers.collect { |sup| [sup.name, sup.id] }, f.object.supplier_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+
+            <div class="col-md-12 reset-padding">
+              <div class="col-md-9 reset-padding">
+                <div class="form-group">
+                  <%= f.label :sub_category_id, 'Product Sub-Category' %>
+                  <%= f.select :sub_category_id, options_for_select(@sub_categories.collect { |sub_cat| [sub_cat.name, sub_cat.id] }, f.object.sub_category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+                </div>
               </div>
-              <div class="form-group">
-                <%= f.label :unit %>
-                <%= f.select :unit, options_for_select(['Kg', 'Gram', 'Pcs', 'Lb'], f.object.supplier_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+              <div class="col-md-3 pr0">
+                <button class="btn btn-info wp100 mt25" id="product-sub-category-new-btn">New</button>
               </div>
-              <div class="form-group">
-                <%= f.label :cost_price %>
-                <%= f.text_field :cost_price, class: 'form-control reset-border-radius' %>
+            </div>
+
+            <div class="col-md-12 reset-padding">
+              <div class="col-md-9 reset-padding">
+                <div class="form-group">
+                  <%= f.label :brand_id, 'Product Brand' %>
+                  <%= f.select :brand_id, options_for_select(@brands.collect { |brand| [brand.name, brand.id] }, f.object.brand_id), {prompt: 'Select Brand'}, class: 'form-control reset-border-radius custom-chosen' %>
+                </div>
               </div>
-              <div class="form-group">
-                <%= f.label :sale_price %>
-                <%= f.text_field :sale_price, class: 'form-control reset-border-radius' %>
+              <div class="col-md-3 pr0">
+                <%= link_to new_pos_products_brand_path, remote: true, class: 'btn btn-info wp100 mt25' do %>
+                  New
+                <% end %>
               </div>
-              <div class="form-group">
-                <%= f.label :whole_sale, 'Whole Sale Price' %>
-                <%= f.text_field :whole_sale, class: 'form-control reset-border-radius' %>
+            </div>
+
+            <div class="col-md-12 reset-padding">
+              <div class="col-md-9 reset-padding">
+                <div class="form-group">
+                  <%= f.label :model_id, 'Product Model' %>
+                  <%= f.select :model_id, options_for_select(@models.collect { |model| [model.name, model.id] }, f.object.model_id), {prompt: 'Select Model'}, class: 'form-control reset-border-radius custom-chosen' %>
+                </div>
               </div>
-              <div class="form-group">
-                <%= f.label :stock, @product.new_record? ? 'Opening Stock' : 'Stock' %>
-                <%= f.text_field :stock, class: 'form-control reset-border-radius' %>
+              <div class="col-md-3 pr0">
+                <%= link_to new_pos_products_model_path, remote: true, class: 'btn btn-info wp100 mt25' do %>
+                  New
+                <% end %>
               </div>
-              <div class="form-group">
-                <%= f.label :re_order_level, 'Minimum Re-Order Level' %>
-                <%= f.text_field :re_order_level, class: 'form-control reset-border-radius' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :code, 'Product Code' %>
+              <%= f.text_field :code, class: 'form-control reset-border-radius', data: {required: true} %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :barcode, 'Product Barcode' %>
+              <%= f.text_field :barcode, class: 'form-control reset-border-radius', data: {required: true} %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :size %>
+              <%= f.text_field :size, class: 'form-control reset-border-radius' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :color %>
+              <%= f.text_field :color, class: 'form-control reset-border-radius' %>
+            </div>
+
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <%= f.label :supplier_id, 'Supplier Name' %>
+              <%= f.select :supplier_id, options_for_select(@suppliers.collect { |sup| [sup.name, sup.id] }, f.object.supplier_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+            </div>
+            <div class="form-group">
+              <%= f.label :unit %>
+              <%= f.select :unit, options_for_select(['Kg', 'Gram', 'Pcs', 'Lb'], f.object.supplier_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+            </div>
+            <div class="form-group">
+              <%= f.label :cost_price %>
+              <%= f.text_field :cost_price, class: 'form-control reset-border-radius' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :sale_price %>
+              <%= f.text_field :sale_price, class: 'form-control reset-border-radius' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :whole_sale, 'Whole Sale Price' %>
+              <%= f.text_field :whole_sale, class: 'form-control reset-border-radius' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :stock, @product.new_record? ? 'Opening Stock' : 'Stock' %>
+              <%= f.text_field :stock, class: 'form-control reset-border-radius' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :re_order_level, 'Minimum Re-Order Level' %>
+              <%= f.text_field :re_order_level, class: 'form-control reset-border-radius' %>
+            </div>
+
+            <div class="checkbox">
+              <%= f.label :discountable do %>
+                <%= f.check_box :discountable, class: 'form-control form-group' %>
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span> Discountable?
+              <% end %>
+            </div>
+
+            <div class="col-md-12 reset-padding">
+              <div class="col-md-4 reset-padding">
+                <div class="checkbox">
+                  <%= f.label :has_vat, id: 'has-vat-label' do %>
+                    <%= f.check_box :has_vat, class: 'form-control form-group' %>
+                    <span class="cr"><i class="cr-icon fa fa-check"></i></span> Has vat?
+                  <% end %>
+                </div>
               </div>
-              <div class="actions clearfix">
-                <%= f.submit class: 'btn btn-default pull-right reset-border-radius' %>
+              <div class="hidden-input-wrapper col-md-8 reset-padding pt5 hidden">
+                <div class="col-md-2 reset-padding pt5">
+                  <%= f.label :vat, 'Vat (%)' %>
+                </div>
+                <div class="col-md-10 reset-padding">
+                  <div class="form-group">
+                    <%= f.text_field :vat, class: 'form-control reset-border-radius hidden-input-field' %>
+                  </div>
+                </div>
               </div>
+            </div>
+
+            <div class="col-md-12 reset-padding">
+              <div class="col-md-3 reset-padding">
+                <div class="checkbox">
+                  <%= f.label :expirable, id: 'expirable-label' do %>
+                    <%= f.check_box :expirable, class: 'form-control form-group' %>
+                    <span class="cr"><i class="cr-icon fa fa-check"></i></span> Expirable?
+                  <% end %>
+                </div>
+              </div>
+              <div class="hidden-input-wrapper col-md-9 reset-padding pt5 hidden">
+                <div class="col-md-3 reset-padding pt5">
+                  <%= f.label :expire_date %>
+                </div>
+                <div class="col-md-9 reset-padding">
+                  <div class="form-group">
+                    <%= f.text_field :expire_date, class: 'form-control reset-border-radius hidden-input-field' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 reset-padding">
+              <div class="col-md-4 reset-padding">
+                <div class="checkbox">
+                  <%= f.label :has_warranty, id: 'has-warranty-label' do %>
+                    <%= f.check_box :has_warranty, class: 'form-control form-group' %>
+                    <span class="cr"><i class="cr-icon fa fa-check"></i></span> Has warranty?
+                  <% end %>
+                </div>
+              </div>
+              <div class="hidden-input-wrapper col-md-8 reset-padding pt5 hidden">
+                <div class="col-md-3 reset-padding pt5">
+                  <%= f.label :warranty %>
+                </div>
+                <div class="col-md-9 reset-padding">
+                  <div class="form-group">
+                    <%= f.text_field :warranty, class: 'form-control reset-border-radius hidden-input-field', placeholder: '1 year' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions clearfix">
+              <%= f.submit class: 'btn btn-default pull-right reset-border-radius' %>
             </div>
           </div>
         </div>
+      </div>
     <% end %>
   </div>
   <div class="tab-pane fade" id="product-details" role="tabpanel">
     <% if @product.new_record? %>
-       <br/>
-        <p>
-          Create product first then this options will be visible.
-        </p>
+      <br/>
+      <p>
+        Create product first then this options will be visible.
+      </p>
     <% else %>
 
     <% end %>
@@ -109,5 +239,47 @@
                 $("#pos_product_sub_category_id").find('option:gt(0)').remove();
             }
         });
+
+        $('#product-sub-category-new-btn').click(function (e) {
+            e.preventDefault();
+            console.log($('#pos_product_category_id').val());
+            $.ajax({
+                url: "/pos/products/sub_categories/new?category_id=" + $('#pos_product_category_id').val(),
+                type: 'get',
+                dataType: 'script'
+            });
+        });
+
+        check_chekbox($('#pos_product_has_vat'), $('#pos_product_vat'));
+        check_chekbox($('#pos_product_expirable'), $('#pos_product_expire_date'));
+        check_chekbox($('#pos_product_has_warranty'), $('#pos_product_warranty'));
+
+        $('#has-vat-label, #expirable-label, #has-warranty-label').click(function () {
+            console.log($(this));
+            var input_wrapper = $(this).parent().parent().parent().find('.hidden-input-wrapper');
+            if ($(this).find('.form-control').is(':checked')) {
+                input_wrapper.removeClass('hidden');
+                input_wrapper.show();
+            }
+            else {
+                input_wrapper.hide();
+                input_wrapper.find('.hidden-input-field').val('');
+            }
+        });
+
+        $('#pos_product_expire_date').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
+        $('#pos_product_color').spectrum({
+            preferredFormat: "hex3",
+            color: "<%= !@product.new_record? && @product.color.present? ? @product.color : '#ffffff' %>"
+        });
     });
+
+    function check_chekbox(checkbox_element, input_element) {
+        if (checkbox_element.is(':checked')) {
+            input_element.parent().parent().parent().removeClass('hidden');
+        }
+    }
 </script>

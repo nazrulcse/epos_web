@@ -7,19 +7,24 @@ class Pos::Products::SubCategoriesController < InheritedResources::Base
 
   def new
     @sub_category = Pos::Products::SubCategory.new
-    @categories = current_department.products_categories
+    if params[:category_id].present?
+      @category = Pos::Products::Category.find(params[:category_id])
+    else
+      @categories = current_department.products_categories
+    end
   end
 
   def create
     @sub_category = current_department.products_sub_categories.build(sub_category_params)
 
-    if @sub_category.save
-      flash[:notice] = 'Product Sub-Category saved successfully.'
-    else
-      flash[:error] = 'Product Sub-Category saving failed.'
+    respond_to do |format|
+      if @sub_category.save
+        format.html { redirect_to pos_products_sub_categories_path, notice: 'Product Sub-Category saved successfully.' }
+      else
+        format.html { redirect_to pos_products_sub_categories_path, error: 'Product Sub-Category saving failed.' }
+      end
+      format.js {}
     end
-
-    redirect_to pos_products_sub_categories_path
   end
 
   def edit

@@ -20,6 +20,8 @@ class Pos::ProductsController < InheritedResources::Base
     @categories = current_department.products_categories
     @sub_categories = @categories.present? ? @categories.first.sub_categories : []
     @suppliers = current_department.suppliers
+    @brands = current_department.brands
+    @models = current_department.models
   end
 
   def create
@@ -38,6 +40,8 @@ class Pos::ProductsController < InheritedResources::Base
     @categories = current_department.products_categories
     @sub_categories = @product.category.sub_categories
     @suppliers = current_department.suppliers
+    @brands = current_department.brands
+    @models = current_department.models
   end
 
   def update

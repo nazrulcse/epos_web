@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205102416) do
+ActiveRecord::Schema.define(version: 20180206063004) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -401,6 +401,14 @@ ActiveRecord::Schema.define(version: 20180205102416) do
     t.datetime "updated_at",                                    null: false
     t.integer  "supplier_id",     limit: 4
     t.string   "unit",            limit: 255
+    t.string   "size",            limit: 255
+    t.string   "color",           limit: 255
+    t.boolean  "has_warranty"
+    t.string   "warranty",        limit: 255
+    t.date     "expire_date"
+    t.boolean  "has_vat"
+    t.float    "vat",             limit: 24
+    t.float    "discount",        limit: 24
   end
 
   add_index "pos_products", ["brand_id"], name: "index_pos_products_on_brand_id", using: :btree

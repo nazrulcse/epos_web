@@ -12,13 +12,14 @@ class Pos::Products::CategoriesController < InheritedResources::Base
   def create
     @category = current_department.products_categories.build(category_params)
 
-    if @category.save
-      flash[:notice] = 'Product Category saved successfully.'
-    else
-      flash[:error] = 'Product Category saving failed.'
+    respond_to do |format|
+      if @category.save
+        format.html { redirect_to pos_products_categories_path, notice: 'Product Category saved successfully.' }
+      else
+        format.html { redirect_to pos_products_categories_path, error: 'Product Category saving failed.' }
+      end
+      format.js {}
     end
-
-    redirect_to pos_products_categories_path
   end
 
   def edit

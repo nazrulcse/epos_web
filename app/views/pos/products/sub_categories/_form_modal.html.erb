@@ -1,0 +1,29 @@
+<%= render 'shared/modal_header', modal_title: 'New Product Sub-Category' %>
+<%= form_for(@sub_category, remote: true) do |f| %>
+  <div class="modal-body">
+    <div class="form-group">
+      <%= f.label :category_id, 'Category: ' %>
+      <%= @category.name %>
+      <%= f.hidden_field :category_id, value: @category.id %>
+    </div>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :code %>
+      <%= f.text_field :code, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control reset-border-radius' %>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="pull-right">
+      <%= f.submit class: 'btn btn-primary' %>
+      <div class="btn btn-default" data-dismiss='modal'>Cancel</div>
+    </div>
+  </div>
+<% end %>
