@@ -42,28 +42,6 @@ class AppSettings
       pending: 'pending'
   }
 
-  REMARK_STATUS = {
-      approved: 'approved',
-      remarked: 'remarked',
-      pending: 'pending'
-  }
-
-  LEAVE_TYPES = {
-      paid: 'Paid',
-      unpaid: 'Unpaid'
-  }
-
-  ADVANCE_TYPES = {
-      installment: 'Installment',
-      one_time: 'One Time',
-      on_request: 'On Request'
-  }
-
-  LEAVE_REPORT_TYPES = {
-    recent: 'recent',
-    yearly: 'yearly'
-  }
-
-  MODULES_NAME = ['employees', 'leave', 'payroll', 'attendance', 'expense', 'expenses', 'provident_fund', 'bank', 'pos']
+  MODULES_NAME = ['employees', 'attendance', 'bank', 'pos']
 
 end

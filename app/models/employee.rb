@@ -89,27 +89,7 @@ class Employee < ActiveRecord::Base
   has_one :access_right, dependent: :destroy
   accepts_nested_attributes_for :access_right
   has_one :company
-  has_one :provident_fund_account, :class_name => 'ProvidentFund::Account', dependent: :destroy
-
   has_many :attendances, :class_name => 'Attendance::Attendance', dependent: :destroy
-  has_many :leave_applications, :class_name => 'Leave::Application', dependent: :destroy
-  has_many :expenses, :class_name => 'Expenses::Expense', foreign_key: :created_by_id, dependent: :destroy
-  has_many :expenses, :class_name => 'Expenses::Expense', foreign_key: :approved_by_id, dependent: :destroy
-  has_many :advances, :class_name => 'Employees::Advance', dependent: :destroy
-  has_many :remarks, :class_name => 'Remark', foreign_key: :remarked_by_id, dependent: :destroy
-  has_many :payroll_employee_categories, :class_name => 'Payroll::EmployeeCategory', dependent: :destroy
-  has_many :payroll_categories, :class_name => 'Payroll::Category', through: :payroll_employee_categories, source: :category
-  has_many :payroll_salaries, :class_name => 'Payroll::Salary', dependent: :destroy
-  has_many :payroll_increments, :class_name => 'Payroll::Increment', dependent: :destroy
-  has_many :advance_returns, :class_name => 'Employees::AdvanceReturn', dependent: :destroy
-  has_many :bonus_payments, class_name: 'Payroll::BonusPayment', dependent: :destroy
-  has_many :community_posts, :class_name => 'Community::Post', foreign_key: :author_id, dependent: :destroy
-  has_many :community_comments, :class_name => 'Community::Comment', foreign_key: :author_id, dependent: :destroy
-
-
-  accepts_nested_attributes_for :payroll_categories
-  accepts_nested_attributes_for :payroll_employee_categories, reject_if: proc { |attributes| attributes[:category_id].blank? || (attributes[:amount].present? ? attributes[:amount].blank? : attributes[:percentage].blank?) }
-
 
   devise :invitable, :database_authenticatable, :registerable, #:confirmable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -188,7 +168,7 @@ class Employee < ActiveRecord::Base
     start_date = Date.new(year, month, 1)
     end_date = start_date.end_of_month
     dayoffs_report = Attendance::DayOff.day_off_report(current_department, start_date, end_date)
-    leaves_report = # Leave::Application.leave_report(current_department, employee, start_date, end_date)
+    leaves_report = {total_leave: 0, taken_leave: 0, paid_leave: 0, unpaid_leave: 0}
     should_worked = employee_should_worked(current_department, dayoffs_report, leaves_report, start_date, end_date)
     attendance_report = Attendance::Attendance.attendance_report(current_department, employee, start_date, end_date)
     office_days = employee_office_days(dayoffs_report, start_date, end_date)
@@ -347,25 +327,6 @@ class Employee < ActiveRecord::Base
       first_name + ' ' + last_name + '-' + employees.count.to_s
     else
       first_name + ' ' + last_name
-    end
-  end
-
-  def remove_empty_payroll_category(payroll_employee_category_params)
-    payroll_employee_category_params.each do |key, attributes|
-      if attributes[:category_id].present?
-        if attributes.key?('amount') && attributes[:amount].blank?
-          self.remove_payroll_category(attributes[:category_id])
-        elsif attributes.key?('percentage') && attributes[:percentage].blank?
-          self.remove_payroll_category(attributes[:category_id])
-        end
-      end
-    end
-  end
-
-  def remove_payroll_category(category_id)
-    employee_payroll_categories = self.payroll_employee_categories.where(category_id: category_id)
-    if employee_payroll_categories.present?
-      employee_payroll_categories.first.destroy
     end
   end
 

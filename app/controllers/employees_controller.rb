@@ -7,7 +7,7 @@ class EmployeesController < InheritedResources::Base
 
   skip_before_filter :authenticate_employee!, only: :login_as
   before_filter :current_ability
-  before_action :set_employee, only: [:update_info, :edit, :show, :destroy, :payroll_categories, :increments, :activation]
+  before_action :set_employee, only: [:update_info, :edit, :show, :destroy, :increments, :activation]
 
 
   def new
@@ -15,9 +15,6 @@ class EmployeesController < InheritedResources::Base
     @employee = Employee.new(department_id: department_id)
     @designations = Designation.where(department_id: department_id, is_active: true)
     @employee.build_access_right
-    current_department.payroll_categories.each do |category|
-      @employee.payroll_employee_categories.build(category_id: category.id)
-    end
     respond_to do |format|
       format.js
     end
@@ -126,9 +123,6 @@ class EmployeesController < InheritedResources::Base
       access_right = @employee.build_access_right
       access_right.save
     end
-    (@employee.department.payroll_categories.all - @employee.payroll_categories).each do |category|
-      @employee.payroll_employee_categories.build(category_id: category.id)
-    end
     respond_to do |format|
       format.html do
         @edit_modal = true
@@ -148,7 +142,6 @@ class EmployeesController < InheritedResources::Base
     respond_to do |format|
       if @employee.update_attributes(employee_params)
         @employee.create_activity key: 'employee.update', owner: current_employee, recipient: current_department
-        @employee.remove_empty_payroll_category(params[:employee][:payroll_employee_categories_attributes]) if params[:employee][:payroll_employee_categories_attributes].present?
         format.html { redirect_to @employee, notice: 'Successfully updated' }
         format.js
         format.json { render json: @employee }
@@ -282,9 +275,6 @@ class EmployeesController < InheritedResources::Base
 
   def download_templete
     send_file(Rails.root.join('public', 'employee_templete.xlsx'), :type => "application/xlsx", :x_sendfile => true)
-  end
-
-  def payroll_categories
   end
 
   def increments

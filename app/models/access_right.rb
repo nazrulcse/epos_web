@@ -19,14 +19,9 @@ class AccessRight < ActiveRecord::Base
      'Company' => [ :companies ] ,
      'Department' => [ :departments ] ,
      'Designation' => [ :designations ] ,
-     'Remark' => [:remarks],
      'Setting' => [ :settings ] ,
      'Employees' => [:advance_returns, :advances, :employees] ,
      'Attendance' => [ :attendance, :attendances, :day_offs ] ,
-     'Expenses' => [:expense, :categories, :expenses] ,
-     'Payroll' => [:payroll, :bonus_categories, :bonus_payments, :categories, :employee_categories, :increments, :salaries ] ,
-     'ProvidentFund' => [:provident_fund , :accounts, :contributions, :investments, :loan_returns, :loans, :rules],
-     'Leave' => [:leave, :applications, :categories, :category_years ] ,
      'Bank' => [:accounts]
   }
 

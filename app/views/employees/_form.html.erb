@@ -338,45 +338,6 @@
                     <p></p>
                   </div>
 
-                  <table class="table table-borderless excel-tablex">
-                    <thead>
-                    <th> Category Name</th>
-                    <th> Category Details</th>
-                    </thead>
-                    <tbody>
-                    <%= f.fields_for :payroll_employee_categories do |ff| %>
-                        <tr>
-                          <td>
-                            <%= ff.object.category.name %>
-                            <%= ff.hidden_field :category_id %>
-                          </td>
-                          <td class="text-right">
-                            <% if ff.object.category.is_percentage? %>
-
-                                <div class="input-group">
-                                  <%= ff.text_field :percentage, class: 'form-control reset-border-radius', 'aria-describedby' => 'basic-addon1' %>
-                                  <span class="input-group-addon reset-border-radius" id="basic-addon1">% of basic salary</span>
-                                </div>
-
-                            <% else %>
-                                <div class="input-group">
-                                  <%= ff.text_field :amount, class: 'form-control reset-border-radius', 'aria-describedby' => 'basic-addon2' %>
-                                  <span class="input-group-addon reset-border-radius" id="basic-addon2"><%= current_currency %></span>
-                                </div>
-                            <% end %>
-                          </td>
-                        </tr>
-                    <% end %>
-                    </tbody>
-                  </table>
-                  <div class="no-data-found">
-                    <% unless @employee.payroll_employee_categories.present? %>
-                        <p class="warning-color">
-                          <i class="fa fa-exclamation-triangle"></i>
-                          There are no payroll categories. No problem ! Later you can add payroll categories from payroll module and assign it to this employee.</p>
-                        <%#= render 'shared/no_data_found', message: 'No payroll categories found. Add categories from payroll module.' %>
-                    <% end %>
-                  </div>
                 </div>
 
               </div>

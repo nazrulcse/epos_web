@@ -22,7 +22,6 @@ class Company < ActiveRecord::Base
   has_many :departments, dependent: :destroy
   has_many :company_features, dependent: :destroy
   has_many :features, through: :company_features
-  has_many :expenses_budgets, :class_name => 'Expenses::Budget', dependent: :destroy
   validates_presence_of :name, :mobile, :address, :zip_code, :country
 
   def taken_features

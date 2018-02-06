@@ -33,7 +33,7 @@ module Attendance
       report = initialize_report(employees, department.setting, start_date, end_date)
       report = update_settings_data(department, employees, report, start_date, end_date)
       report = update_report_with_day_offs(department, employees, report, start_date, end_date)
-      report = update_report_with_leaves(department, report, start_date, end_date)
+      # report = update_report_with_leaves(department, report, start_date, end_date)
       update_report_with_attendances(attendances, report, department)
     end
 
@@ -100,14 +100,14 @@ module Attendance
       report
     end
 
-    def self.update_report_with_leaves(department, report, start_date, end_date)
-      leave_days = Leave::Day.includes(leave_application: [:employee, :leave_category]).where(day: start_date..end_date, is_approved: true).where('leave_applications.department_id = ? AND leave_applications.is_approved = ?', department.id, true).references(:leave_applications)
-      leave_days.each do |leave_day|
-        report[leave_day.leave_application.employee_id][leave_day.day.day][:leave_status] = leave_day.leave_application if report[leave_day.leave_application.employee_id].present? && report[leave_day.leave_application.employee_id][leave_day.day.day].present?
-      end
-
-      report
-    end
+    # def self.update_report_with_leaves(department, report, start_date, end_date)
+    #   leave_days = Leave::Day.includes(leave_application: [:employee, :leave_category]).where(day: start_date..end_date, is_approved: true).where('leave_applications.department_id = ? AND leave_applications.is_approved = ?', department.id, true).references(:leave_applications)
+    #   leave_days.each do |leave_day|
+    #     report[leave_day.leave_application.employee_id][leave_day.day.day][:leave_status] = leave_day.leave_application if report[leave_day.leave_application.employee_id].present? && report[leave_day.leave_application.employee_id][leave_day.day.day].present?
+    #   end
+    #
+    #   report
+    # end
 
     def self.update_report_with_attendances(attendances, report, department)
       attendances.each do |attendance|

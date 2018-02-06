@@ -145,7 +145,6 @@ class DepartmentsController < ApplicationController
     @setting = @department.setting
     @designations = @department.designations
     @leave_categories = @department.leave_categories
-    @categories = @department.payroll_categories
   end
 
   private

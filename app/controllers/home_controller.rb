@@ -79,10 +79,6 @@ class HomeController < ApplicationController
     @modules = Feature.all
   end
 
-  def payroll
-    @modules = Feature.all
-  end
-
   def provident_fund
     @modules = Feature.all
   end

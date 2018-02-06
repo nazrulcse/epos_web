@@ -31,26 +31,7 @@ class Department < ActiveRecord::Base
   has_many :attendances, :class_name => 'Attendance::Attendance', dependent: :destroy
   has_many :designations, dependent: :destroy
   has_many :day_offs, class_name: 'Attendance::DayOff', dependent: :destroy
-  has_many :leave_applications, :class_name => 'Leave::Application', dependent: :destroy
-  has_many :leave_categories, :class_name => 'Leave::Category', dependent: :destroy
-  has_many :expenses_categories, :class_name => 'Expenses::Category', dependent: :destroy
-  has_many :expenses_expenses, :class_name => 'Expenses::Expense', dependent: :destroy
-  has_many :advances, :class_name => 'Employees::Advance', dependent: :destroy
-  has_many :payroll_categories, :class_name => 'Payroll::Category', dependent: :destroy
-  has_many :payroll_increments, :class_name => 'Payroll::Increment', dependent: :destroy
-  has_many :payroll_salaries, :class_name => 'Payroll::Salary', dependent: :destroy
-  has_many :advance_returns, :class_name => 'Employees::AdvanceReturn', dependent: :destroy
-  has_many :bonus_categories, :class_name => 'Payroll::BonusCategory', dependent: :destroy
-  has_many :bonus_payments, :class_name => 'Payroll::BonusPayment', dependent: :destroy
-  has_many :provident_fund_rules, :class_name => 'ProvidentFund::Rule', dependent: :destroy
-  has_many :provident_fund_accounts, :class_name => 'ProvidentFund::Account', dependent: :destroy
-  has_many :provident_fund_investments, :class_name => 'ProvidentFund::Investment', dependent: :destroy
-  has_many :provident_fund_loans, :class_name => 'ProvidentFund::Loan', dependent: :destroy
-  has_many :provident_fund_loan_returns, :class_name => 'ProvidentFund::LoanReturn', dependent: :destroy
-  has_many :expenses_budgets, :class_name => 'Expenses::Budget', dependent: :destroy
-  has_many :leave_category_years, :class_name => 'Leave::CategoryYear', dependent: :destroy
   has_many :bank_accounts, :class_name => 'Bank::Account', dependent: :destroy
-  has_many :provident_fund_transactions, :class_name => 'ProvidentFund::Transaction'
   has_many :changed_settings, dependent: :destroy
   has_many :customers, :class_name => 'Pos::Customer', dependent: :destroy
   has_many :suppliers, :class_name => 'Pos::Supplier', dependent: :destroy
@@ -68,8 +49,6 @@ class Department < ActiveRecord::Base
       show: 'show',
       employee: 'employee',
       designation: 'designation',
-      leave: 'leave',
-      budget: 'budget',
       general: 'general',
       attendance: 'attendance'
   }
