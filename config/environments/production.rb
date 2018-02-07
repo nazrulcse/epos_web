@@ -23,7 +23,7 @@ Rails.application.configure do
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  config.action_mailer.asset_host = 'https://www.bequent.com'
+  config.action_mailer.asset_host = 'http://159.89.170.58/'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address: '162.221.186.242',
@@ -36,7 +36,7 @@ Rails.application.configure do
       :openssl_verify_mode => 'none'
   }
 
-  config.action_mailer.default_url_options = {:host => 'bequent.com'}
+  config.action_mailer.default_url_options = {:host => '159.89.170.58'}
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
