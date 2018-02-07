@@ -38,6 +38,7 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
   end
 
   def update
+    recheck_purchase_params
     if @purchase.update(purchase_params)
       flash[:notice] = 'Purchase order updated successfully.'
     else
@@ -63,6 +64,10 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
 
   def purchase_params
     params.require(:pos_suppliers_purchase).permit!
+  end
+
+  def recheck_purchase_params
+
   end
 end
 

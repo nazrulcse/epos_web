@@ -5,5 +5,5 @@ class Pos::Product < ActiveRecord::Base
   belongs_to :supplier, :class_name => 'Pos::Supplier', foreign_key: :supplier_id
   belongs_to :model, :class_name => 'Pos::Products::Model', foreign_key: :model_id
   belongs_to :brand, :class_name => 'Pos::Products::Brand', foreign_key: :brand_id
-  has_many :stocks, :class_name => 'Pos::Stock', as: :stockable
+  has_many :stocks, :class_name => 'Pos::Stock', as: :stockable, dependent: :destroy
 end

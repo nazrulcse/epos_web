@@ -133,10 +133,22 @@
               <%= f.text_field :re_order_level, class: 'form-control reset-border-radius' %>
             </div>
 
+            <div class="form-group">
+              <%= f.label :made_in %>
+              <%= f.text_field :made_in, class: 'form-control reset-border-radius' %>
+            </div>
+
             <div class="checkbox">
               <%= f.label :discountable do %>
                 <%= f.check_box :discountable, class: 'form-control form-group' %>
-                <span class="cr"><i class="cr-icon fa fa-check"></i></span> Discountable?
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span> Not in discount?
+              <% end %>
+            </div>
+
+            <div class="checkbox">
+              <%= f.label :expirable, id: 'expirable-label' do %>
+                <%= f.check_box :expirable, class: 'form-control form-group' %>
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span> Expirable?
               <% end %>
             </div>
 
@@ -156,27 +168,6 @@
                 <div class="col-md-10 reset-padding">
                   <div class="form-group">
                     <%= f.text_field :vat, class: 'form-control reset-border-radius hidden-input-field' %>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12 reset-padding">
-              <div class="col-md-3 reset-padding">
-                <div class="checkbox">
-                  <%= f.label :expirable, id: 'expirable-label' do %>
-                    <%= f.check_box :expirable, class: 'form-control form-group' %>
-                    <span class="cr"><i class="cr-icon fa fa-check"></i></span> Expirable?
-                  <% end %>
-                </div>
-              </div>
-              <div class="hidden-input-wrapper col-md-9 reset-padding pt5 hidden">
-                <div class="col-md-3 reset-padding pt5">
-                  <%= f.label :expire_date %>
-                </div>
-                <div class="col-md-9 reset-padding">
-                  <div class="form-group">
-                    <%= f.text_field :expire_date, class: 'form-control reset-border-radius hidden-input-field' %>
                   </div>
                 </div>
               </div>
@@ -251,10 +242,9 @@
         });
 
         check_chekbox($('#pos_product_has_vat'), $('#pos_product_vat'));
-        check_chekbox($('#pos_product_expirable'), $('#pos_product_expire_date'));
         check_chekbox($('#pos_product_has_warranty'), $('#pos_product_warranty'));
 
-        $('#has-vat-label, #expirable-label, #has-warranty-label').click(function () {
+        $('#has-vat-label, #has-warranty-label').click(function () {
             console.log($(this));
             var input_wrapper = $(this).parent().parent().parent().find('.hidden-input-wrapper');
             if ($(this).find('.form-control').is(':checked')) {
@@ -265,10 +255,6 @@
                 input_wrapper.hide();
                 input_wrapper.find('.hidden-input-field').val('');
             }
-        });
-
-        $('#pos_product_expire_date').datetimepicker({
-            format: 'YYYY-MM-DD'
         });
 
         $('#pos_product_color').spectrum({

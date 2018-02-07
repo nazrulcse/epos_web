@@ -4,12 +4,12 @@
     <tr>
       <th>Product</th>
       <th>Stock</th>
-      <th>Quantity</th>
+      <th>Order Qty</th>
       <% unless f.object.new_record? %>
           <th>Received Qty</th>
       <% end %>
-      <th>Price</th>
-      <th>Cost Price</th>
+      <th>Purchase Price</th>
+      <th>Last Price</th>
       <th>Sales Price</th>
       <th>Total</th>
       <th>
@@ -19,7 +19,7 @@
     </thead>
     <tbody id="puchase-order-product-list" style="border-bottom: 1px solid #BBBBBB">
     <%= f.fields_for :items do |ff| %>
-        <%= render 'item_fields', ff: ff %>
+        <%= render "item_fields#{ff.object.persisted? ? '_persisted' : ''}", ff: ff %>
     <% end %>
     </tbody>
   </table>

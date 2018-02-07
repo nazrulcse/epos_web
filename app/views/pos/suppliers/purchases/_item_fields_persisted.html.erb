@@ -1,18 +1,22 @@
 <tr class="order-item-row">
   <td>
-    <%= ff.select :product_id, options_for_select(@supplier.products.collect { |product| [product.name, product.id] }, ff.object.product_id), {prompt: "Select Product..."}, {class: 'custom-chosen purchase-product-item'} if @supplier.present? %>
+    <%= ff.object.product.name %>
+    <%= ff.hidden_field :product_id, value: ff.object.product_id %>
   </td>
   <td class="stock-quantity" style="text-align: center; vertical-align: middle;">
-
+    <%= ff.object.product.stock %>
   </td>
-  <td>
-    <%= ff.text_field :issued_quantity, class: "quantity" %>
+  <td style="text-align: center; vertical-align: middle;">
+    <%= ff.object.issued_quantity %>
   </td>
+    <td>
+      <%= ff.text_field :received_quantity, class: "received_quantity", value: ff.object.issued_quantity %>
+    </td>
   <td>
     <%= ff.text_field :amount, class: "unit-price" %>
   </td>
   <td class="cost-price" style="text-align: center; vertical-align: middle;" >
-
+    <%= ff.object.product.cost_price %>
   </td>
   <td>
     <%= ff.text_field :sale_price, class: "sales-price" %>
@@ -21,9 +25,8 @@
     <%= ff.text_field :total, class: "total-item-price", readonly: "readonly" %>
   </td>
   <td style="text-align: center; vertical-align: middle;">
-        <%= link_to '#', class: 'remove-product-form' do %>
-            <i class="fa fa-times danger-color"></i>
-        <% end %>
+      <%= ff.check_box :_destroy, class: 'destroy-items', style: "width: inherit;" %>
+      <%= ff.label :_destroy, "Remove" %>
   </td>
 </tr>
 
@@ -47,13 +50,14 @@
         });
     });
 
-    $(document).off('keyup', '.unit-price, .quantity').on('keyup', '.unit-price, .quantity', function () {
+    $(document).off('keyup', '.unit-price, .received_quantity').on('keyup', '.unit-price, .received_quantity', function () {
         element = targetElement($(this));
         price = getValue(element, '.unit-price');
-        quantity = getValue(element, '.quantity');
+        quantity = getValue(element, '.received_quantity');
         setValue(element, '.total-item-price', (price * quantity));
         updateTotal();
     });
+
 
     $(document).off('click', '.remove-product-form').on('click', '.remove-product-form', function () {
         $(this).parents('.order-item-row').remove();
@@ -62,6 +66,14 @@
         }
         updateTotal();
         return false;
+    });
+
+    $(document).off('click', '.destroy-items').on('click', '.destroy-items', function () {
+        tr_element = $(this).parents('.order-item-row');
+        tr_element.hide();
+        tr_element.find('.total-item-price').val('');
+        updateTotal();
+        return true;
     });
 
     function updateTotal() {

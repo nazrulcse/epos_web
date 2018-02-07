@@ -70,7 +70,7 @@
               </div>
             </div>
           </div>
-          <%= link_to_add_product 'Add Product', f, :items, {klass: 'btn btn-default add-product-link reset-border-radius pull-right'} %>
+          <%= link_to_add_product @purchase, 'Add Product', f, :items, {klass: 'btn btn-default add-product-link reset-border-radius pull-right'} %>
         </div>
       </div>
     </div>
@@ -89,25 +89,25 @@
                   <%= f.label :amount, 'Sub Total' %>
                 </div>
                 <div class="col-md-8 reset-padding">
-                  <%= f.text_field :amount, class: "form-control subtotal reset-border-radius" %>
+                  <%= f.text_field :amount, class: "form-control subtotal reset-border-radius", readonly: 'readonly' %>
                 </div>
               </div>
 
-              <div class="col-md-12 reset-padding mt5">
-                <div class="col-md-4 reset-padding">
-                  <%= f.label :vat %>
-                </div>
-                <div class="col-md-8 reset-padding">
-                  <%= f.text_field :vat, class: "form-control vat reset-border-radius" %>
-                </div>
-              </div>
+              <!--<div class="col-md-12 reset-padding mt5">-->
+                <!--<div class="col-md-4 reset-padding">-->
+                  <!--<%#= f.label :vat %>-->
+                <!--</div>-->
+                <!--<div class="col-md-8 reset-padding">-->
+                  <!--<%#= f.text_field :vat, class: "form-control vat reset-border-radius" %>-->
+                <!--</div>-->
+              <!--</div>-->
 
               <div class="col-md-12 reset-padding mt5">
                 <div class="col-md-4 reset-padding">
                   <%= f.label :total %>
                 </div>
                 <div class="col-md-8 reset-padding">
-                  <%= f.text_field :total, class: "form-control total_price reset-border-radius" %>
+                  <%= f.text_field :total, class: "form-control total_price reset-border-radius", readonly: 'readonly' %>
                 </div>
               </div>
             </div>
