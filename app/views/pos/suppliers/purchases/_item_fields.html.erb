@@ -2,6 +2,11 @@
   <td>
     <%= ff.select :product_id, options_for_select(@supplier.products.collect { |product| [product.name, product.id] }, ff.object.product_id), {prompt: "Select Product..."}, {class: 'custom-chosen purchase-product-item'} if @supplier.present? %>
   </td>
+  <td class="purchase-history" style="text-align: center; vertical-align: middle;">
+    <%= link_to "#{ff.object.persisted? ? history_pos_suppliers_purchases_path(product_id: ff.object.product_id) : ''}", title: 'Product purchase order history', remote: true, class: 'purchase-history-link' do %>
+      <i class="fa fa-pie-chart" aria-hidden="true"></i>
+    <% end %>
+  </td>
   <td class="stock-quantity" style="text-align: center; vertical-align: middle;">
 
   </td>
@@ -40,8 +45,10 @@
             type: 'get',
             dataType: 'json',
             success: function (product) {
+                console.log('successsssssssssssssssss');
                 element = targetElement(reff);
                 setValue(element, '.quantity', '1');
+                setAttr(element, '.purchase-history-link', product.id);
                 setHtmlValue(element, '.stock-quantity', product.stock);
                 setValue(element, '.unit-price', product.cost_price);
                 setHtmlValue(element, '.cost-price', product.cost_price);
@@ -92,6 +99,10 @@
 
     function setValue(element, selector, value) {
         element.find(selector).val(value);
+    }
+
+    function setAttr(element, selector, value) {
+        element.find(selector).attr("href", ("/pos/suppliers/purchases/history?product_id=" + value));
     }
 
     function setHtmlValue(element, selector, value) {

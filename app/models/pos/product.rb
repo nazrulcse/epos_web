@@ -6,6 +6,7 @@ class Pos::Product < ActiveRecord::Base
   belongs_to :model, :class_name => 'Pos::Products::Model', foreign_key: :model_id
   belongs_to :brand, :class_name => 'Pos::Products::Brand', foreign_key: :brand_id
   has_many :stocks, :class_name => 'Pos::Stock', as: :stockable, dependent: :destroy
+  has_many :purchase_items, :class_name => 'Pos::Suppliers::PurchaseItem', dependent: :destroy
 
   def stock_on_hand
     stock + stocks.sum(:quantity)

@@ -38,6 +38,14 @@
                       <%= @purchase.expected_delivery %>
                     </td>
                   </tr>
+                  <tr>
+                    <td>
+                      <b> Receive Date: </b>
+                    </td>
+                    <td>
+                      <%= f.text_field :receive_date, class: "form-control reset-border-radius mb4 mt5" %>
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -138,7 +146,7 @@
         $('#pos_suppliers_purchase_supplier_id').change(function () {
             window.location.href = '<%= new_pos_suppliers_purchase_path %>?supplier_id=' + $(this).val();
         });
-        $('#pos_suppliers_purchase_issue_date, #pos_suppliers_purchase_expected_delivery').datetimepicker({
+        $('#pos_suppliers_purchase_receive_date').datetimepicker({
             format: 'YYYY-MM-DD',
             defaultDate: "<%= Date.today %>"
         });

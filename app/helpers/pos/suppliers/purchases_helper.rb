@@ -12,10 +12,10 @@ module Pos::Suppliers::PurchasesHelper
 
   def received_status(purchase)
     if purchase.is_received
-      raw "<label class='label label-success'> Received </label>"
+      raw "<label class='label label-success pt5 pr10 pb5 pl10 br5'> Received </label>"
     else
-      html = "<label class='label label-warning'> Pending </label>"
-      html += "<a href=#{receive_pos_suppliers_purchase_path(purchase)} class='btn btn-success ml5 pt2 pb2 pr8 pl8' title='Receive Order'><i class='fa fa-check-circle'></i></a>"
+      html = "<label class='label label-warning pt5 pr10 pb5 pl10 br5'> Pending </label>"
+      html += "<a href=#{receive_pos_suppliers_purchase_path(purchase)} class='btn btn-success ml5 pt0 pb0 pr8 pl8' title='Receive Order'><i class='fa fa-check-circle'></i></a>"
       # html += "<a href=#{receive_pos_suppliers_purchase_path(purchase)} class='btn btn-danger ml5 pt2 pb2 pr8 pl8' title='Cancel Order'><i class='fa fa-ban'></i></a>"
       raw html
     end

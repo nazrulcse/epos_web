@@ -130,6 +130,9 @@ Rails.application.routes.draw do
         member do
           get :receive
         end
+        collection do
+          get :history
+        end
       end
       resources :purchase_items
       resources :payments
@@ -148,7 +151,11 @@ Rails.application.routes.draw do
     end
     resources :products
 
-    resources :stocks
+    resources :stocks do
+      collection do
+        get :history
+      end
+    end
   end
 
   resources :changed_settings, only: [:new, :create, :edit, :update, :destroy]

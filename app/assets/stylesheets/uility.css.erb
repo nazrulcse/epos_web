@@ -51,7 +51,17 @@
 .min-height-viewport-<%= i %> {
     min-height: <%= i %>vh !important;
 }
-<%end%>
+<% end %>
+
+<% (1..5).each do |index| %>
+.br<%= index %> {
+  border-radius: <%= index %>px !important;
+}
+<% end %>
+
+.br50 {
+  border-radius: 50% !important;
+}
 
 .wp100 {
   width: 100% !important;

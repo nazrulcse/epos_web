@@ -3,6 +3,7 @@
     <thead>
     <tr>
       <th>Product</th>
+      <th></th>
       <th>Stock</th>
       <th>Order Qty</th>
       <th>Purchase Price</th>
@@ -30,7 +31,7 @@
             time = new Date().getTime();
             regexp = new RegExp($(this).data('id'), 'g');
             $('#puchase-order-product-list').append($(this).data('fields').replace(regexp, time));
-            $('#inventory_suppliers_order_order_items_attributes_' + time + '_product_id').chosen();
+            $('#pos_suppliers_purchase_items_attributes_' + time + '_product_id').chosen();
             $('#no-data-found').remove();
             event.preventDefault();
         });

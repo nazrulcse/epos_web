@@ -59,6 +59,11 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
     redirect_to pos_suppliers_purchases_path
   end
 
+  def history
+    @product = Pos::Product.find(params[:product_id])
+    @purchase_items = @product.purchase_items.includes(:purchase).where.not(received_quantity: nil)
+  end
+
   private
 
   def set_purchase

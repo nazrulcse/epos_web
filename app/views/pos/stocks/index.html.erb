@@ -43,6 +43,9 @@
                 <td><%= product.name %> </td>
                 <td><%= product.stock_on_hand %> </td>
                 <td class="actions">
+                  <%= link_to history_pos_stocks_path, title: 'Product purchase order history', remote: true, class: 'purchase-history-link' do %>
+                    <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                  <% end %>
                 </td>
               </tr>
             <% end %>
