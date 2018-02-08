@@ -21,9 +21,14 @@
     <%= ff.text_field :total, class: "total-item-price", readonly: "readonly" %>
   </td>
   <td style="text-align: center; vertical-align: middle;">
-        <%= link_to '#', class: 'remove-product-form' do %>
-            <i class="fa fa-times danger-color"></i>
-        <% end %>
+    <% if ff.object.persisted? %>
+      <%= ff.check_box :_destroy, class: 'destroy-items', style: "width: inherit;" %>
+      <%= ff.label :_destroy, "Remove" %>
+    <% else %>
+      <%= link_to '#', class: 'remove-product-form' do %>
+        <i class="fa fa-times danger-color"></i>
+      <% end %>
+    <% end %>
   </td>
 </tr>
 
@@ -62,6 +67,14 @@
         }
         updateTotal();
         return false;
+    });
+
+    $(document).off('click', '.destroy-items').on('click', '.destroy-items', function () {
+        tr_element = $(this).parents('.order-item-row');
+        tr_element.hide();
+        tr_element.find('.total-item-price').val('');
+        updateTotal();
+        return true;
     });
 
     function updateTotal() {

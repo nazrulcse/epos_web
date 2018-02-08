@@ -1,5 +1,5 @@
 class Pos::Suppliers::PurchasesController < InheritedResources::Base
-  before_action :set_purchase, only: [:show, :edit, :update, :delete]
+  before_action :set_purchase, only: [:show, :edit, :update, :delete, :receive]
 
   def index
     @purchases = current_department.suppliers_purchases
@@ -37,8 +37,11 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
     @supplier = @purchase.supplier
   end
 
+  def receive
+    @supplier = @purchase.supplier
+  end
+
   def update
-    recheck_purchase_params
     if @purchase.update(purchase_params)
       flash[:notice] = 'Purchase order updated successfully.'
     else
@@ -64,10 +67,6 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
 
   def purchase_params
     params.require(:pos_suppliers_purchase).permit!
-  end
-
-  def recheck_purchase_params
-
   end
 end
 

@@ -1,0 +1,64 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Product Stock
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper" id="provident-fund-rule-content">
+      <% if @products.present? %>
+        <div class="row actions-button">
+          <div class="add-more-rule clearfix">
+            <div class="pull-left">
+              <%= form_tag('', class: 'search-wrapper') do %>
+                <div class="input-group">
+                      <span class="input-group-addon reset-border-radius" id="sizing-addon2">
+                        <i class="fa fa-search"></i>
+                      </span>
+                  <input type="text" id="employee-search-box" class="form-control reset-border-radius" name="q" value="<%= params[:q] %>" placeholder="Search name, code..." aria-describedby="sizing-addon2">
+                  <% if params[:q].present? %>
+                    <a class="clear-search color-danger"> <i class="fa fa-times"></i> </a>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row content-body">
+          <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
+            <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Stock</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td> #<%= product.id %> </td>
+                <td><%= product.code %> </td>
+                <td><%= product.name %> </td>
+                <td><%= product.stock_on_hand %> </td>
+                <td class="actions">
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Current department don't have any Product.
+          </p>
+          <%= link_to new_pos_product_path, class: 'btn btn-default reset-border-radius' do %>
+            <i class="fa fa-plus-circle"></i> Add new one
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

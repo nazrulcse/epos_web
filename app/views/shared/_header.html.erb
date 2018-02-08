@@ -9,12 +9,13 @@
       </ul>
       <% unless current_employee.next_path.present? %>
           <ul class="pull-left">
-            <%= render "shared/employees/nav_menu" %>
-            <%= render "shared/attendance/nav_menu" %>
-            <%= render "shared/pos/customers/nav_menu" %>
-            <%= render "shared/pos/suppliers/nav_menu" %>
-            <%= render "shared/pos/products/nav_menu" %>
-            <%= render "shared/pos/sales/nav_menu" %>
+            <%= render 'shared/employees/nav_menu' %>
+            <%= render 'shared/attendance/nav_menu' %>
+            <%= render 'shared/pos/customers/nav_menu' %>
+            <%= render 'shared/pos/suppliers/nav_menu' %>
+            <%= render 'shared/pos/products/nav_menu' %>
+            <%= render 'shared/pos/stocks/nav_menu' %>
+            <%= render 'shared/pos/sales/nav_menu' %>
             <%#= render "shared/bank/nav_menu" %>
           </ul>
       <% end %>

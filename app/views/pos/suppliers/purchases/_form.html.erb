@@ -28,16 +28,16 @@
                 <%= f.text_field :expected_delivery, class: "form-control reset-border-radius mb4" %>
               </td>
             </tr>
-            <% unless f.object.new_record? %>
-                <tr>
-                  <td>
-                    <b> Receipt order? </b>
-                  </td>
-                  <td>
-                    <%= f.check_box :is_received, {checked: true}, true %>
-                  </td>
-                </tr>
-            <% end %>
+            <%# unless f.object.new_record? %>
+                <!--<tr>-->
+                  <!--<td>-->
+                    <!--<b> Receipt order? </b>-->
+                  <!--</td>-->
+                  <!--<td>-->
+                    <!--<%#= f.check_box :is_received, {checked: true}, true %>-->
+                  <!--</td>-->
+                <!--</tr>-->
+            <%# end %>
             </tbody>
           </table>
         </div>
@@ -70,7 +70,7 @@
               </div>
             </div>
           </div>
-          <%= link_to_add_product @purchase, 'Add Product', f, :items, {klass: 'btn btn-default add-product-link reset-border-radius pull-right'} %>
+          <%= link_to_add_product 'Add Product', f, :items, {klass: 'btn btn-default add-product-link reset-border-radius pull-right'} %>
         </div>
       </div>
     </div>
@@ -79,8 +79,8 @@
           <%= render 'products', f: f %>
           <div class="col-md-12 reset-padding mt20">
             <div class="col-md-5 reset-padding">
-              <%= f.label :note %>
-              <%= f.text_area :note, class: "form-control note-height" %>
+              <%= f.label :instruction, 'Any Instruction?' %>
+              <%= f.text_area :instruction, class: "form-control note-height" %>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 reset-padding">

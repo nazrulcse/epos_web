@@ -1,0 +1,146 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Receive Purchase Order
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper">
+      <div class="text-centerx pl30 pr30 mt0">
+        <%= form_for @purchase, html: {id: 'supplier-order-form'} do |f| %>
+          <%= f.hidden_field :is_received, value: true %>
+          <div class="clearfix mb5">
+            <div class="col-sm-6">
+              <div class="row">
+                <table style="width: 100%;">
+                  <tbody>
+                  <tr>
+                    <td width="200px">
+                      <b> Supplier: </b>
+                    </td>
+                    <td style="font-size: 18px">
+                      <%= @supplier.name %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="pt5">
+                      <b> Issue Date: </b>
+                    </td>
+                    <td class="pt5">
+                      <%= @purchase.issue_date %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="pt5">
+                      <b> Expected Delivery Date: </b>
+                    </td>
+                    <td class="pt5">
+                      <%= @purchase.expected_delivery %>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="clearfix pl30">
+                  <div class="label label-info text-left" style="display: block;">
+                    <h4 class="mt0 mb0 pt3 pb3"> In case of cost price changes! </h4>
+                  </div>
+
+                  <div class="price-options">
+                    <div class="price-option">
+                      <label>
+                        <%= radio_button_tag :price_option, 'update_all' %>
+                        Change all previous product to new price.
+                      </label>
+                    </div>
+                    <div class="price-option">
+                      <label>
+                        <%= radio_button_tag :price_option, 'average' %>
+                        Change all previous product to in average with price.
+                      </label>
+                    </div>
+                    <div class="price-option">
+                      <label>
+                        <%= radio_button_tag :price_option, 'manual' %>
+                        Will generate price tag for all previous items.
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <%= link_to_add_product 'Add Product', f, :items, {klass: 'btn btn-default add-product-link reset-border-radius pull-right'}, @purchase %>
+              </div>
+            </div>
+          </div>
+          <% if @supplier.present? %>
+            <div class="col-md-12 reset-padding">
+              <%= render 'item', f: f %>
+              <div class="col-md-12 reset-padding mt20">
+                <div class="col-md-5 reset-padding">
+                  <div class="form-group">
+                    <%= label_tag 'Order instructions' %><br>
+                    <%= @purchase.instruction || 'n/a' %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.label :note %>
+                    <%= f.text_area :note, class: "form-control note-height" %>
+                  </div>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-5 reset-padding">
+                  <div class="col-md-12 reset-padding">
+                    <div class="col-md-4 reset-padding">
+                      <%= f.label :amount, 'Sub Total' %>
+                    </div>
+                    <div class="col-md-8 reset-padding">
+                      <%= f.text_field :amount, class: "form-control subtotal reset-border-radius", readonly: 'readonly' %>
+                    </div>
+                  </div>
+
+                  <!--<div class="col-md-12 reset-padding mt5">-->
+                  <!--<div class="col-md-4 reset-padding">-->
+                  <!--<%#= f.label :vat %>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-8 reset-padding">-->
+                  <!--<%#= f.text_field :vat, class: "form-control vat reset-border-radius" %>-->
+                  <!--</div>-->
+                  <!--</div>-->
+
+                  <div class="col-md-12 reset-padding mt5">
+                    <div class="col-md-4 reset-padding">
+                      <%= f.label :total %>
+                    </div>
+                    <div class="col-md-8 reset-padding">
+                      <%= f.text_field :total, class: "form-control total_price reset-border-radius", readonly: 'readonly' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pull-right mt20">
+              <%= f.submit class: 'btn btn-primary' %>
+            </div>
+          <% else %>
+            <%= render 'shared/no_data_found', message: "<strong> Info: </strong> Select supplier first to add purchase item!" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_pos_suppliers_invoice').syftValidator();
+        $('#pos_suppliers_purchase_supplier_id').change(function () {
+            window.location.href = '<%= new_pos_suppliers_purchase_path %>?supplier_id=' + $(this).val();
+        });
+        $('#pos_suppliers_purchase_issue_date, #pos_suppliers_purchase_expected_delivery').datetimepicker({
+            format: 'YYYY-MM-DD',
+            defaultDate: "<%= Date.today %>"
+        });
+    });
+</script>

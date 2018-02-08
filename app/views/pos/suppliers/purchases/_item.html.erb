@@ -5,6 +5,7 @@
       <th>Product</th>
       <th>Stock</th>
       <th>Order Qty</th>
+      <th>Receive Qty</th>
       <th>Purchase Price</th>
       <th>Last Price</th>
       <th>Sales Price</th>
@@ -16,7 +17,7 @@
     </thead>
     <tbody id="puchase-order-product-list" style="border-bottom: 1px solid #BBBBBB">
     <%= f.fields_for :items do |ff| %>
-        <%= render 'item_fields', ff: ff %>
+      <%= render 'item_fields_persisted', ff: ff %>
     <% end %>
     </tbody>
   </table>

@@ -126,7 +126,11 @@ Rails.application.routes.draw do
     resources :customers
 
     namespace :suppliers do
-      resources :purchases
+      resources :purchases do
+        member do
+          get :receive
+        end
+      end
       resources :purchase_items
       resources :payments
     end
@@ -144,6 +148,7 @@ Rails.application.routes.draw do
     end
     resources :products
 
+    resources :stocks
   end
 
   resources :changed_settings, only: [:new, :create, :edit, :update, :destroy]

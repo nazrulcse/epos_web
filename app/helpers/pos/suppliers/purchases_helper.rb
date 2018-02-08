@@ -1,9 +1,9 @@
 module Pos::Suppliers::PurchasesHelper
-  def link_to_add_product(purchase, name, form, association, options = {})
+  def link_to_add_product(name, form, association, options = {}, purchase = nil)
     new_object = form.object.send(association).klass.new
     id = new_object.object_id
     fields = form.fields_for(association, new_object, child_index: id) do |builder|
-      render("#{association.to_s.singularize}_fields#{purchase.persisted? ? '_edit' : ''}", ff: builder)
+      render("#{association.to_s.singularize}_fields#{purchase.present? ? '_edit' : ''}", ff: builder)
     end
     link_to '#', class: "#{options[:klass]}", data: {id: id, fields: fields.gsub('\n', '')} do
       raw "<i class='fa fa-plus-circle'></i> #{name}"
@@ -14,7 +14,10 @@ module Pos::Suppliers::PurchasesHelper
     if purchase.is_received
       raw "<label class='label label-success'> Received </label>"
     else
-      raw "<label class='label label-warning'> Received </label>"
+      html = "<label class='label label-warning'> Pending </label>"
+      html += "<a href=#{receive_pos_suppliers_purchase_path(purchase)} class='btn btn-success ml5 pt2 pb2 pr8 pl8' title='Receive Order'><i class='fa fa-check-circle'></i></a>"
+      # html += "<a href=#{receive_pos_suppliers_purchase_path(purchase)} class='btn btn-danger ml5 pt2 pb2 pr8 pl8' title='Cancel Order'><i class='fa fa-ban'></i></a>"
+      raw html
     end
   end
 end
