@@ -2,12 +2,14 @@ class Pos::ProductsController < InheritedResources::Base
   before_action :set_product, only: [:show, :edit, :update, :delete]
 
   def index
-    @products = current_department.products
+    @products = current_department.products.search(params[:q])
   end
 
   def show
     respond_to do |format|
-      format.html {}
+      format.html {
+        @purchase_items = @product.purchase_items.includes(:purchase).where.not(received_quantity: nil)
+      }
       format.json {
         render json: @product.summary_json
       }

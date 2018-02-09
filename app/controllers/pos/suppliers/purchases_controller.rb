@@ -7,7 +7,9 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
 
   def show
     respond_to do |format|
-      format.html {}
+      format.html {
+        @purchase_items = @purchase.items
+      }
       format.json {
         render json: @product.to_json
       }
@@ -61,7 +63,7 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
 
   def history
     @product = Pos::Product.find(params[:product_id])
-    @purchase_items = @product.purchase_items.includes(:purchase).where.not(received_quantity: nil)
+    @purchase_items = @product.purchase_items.includes(:purchase).received
   end
 
   private

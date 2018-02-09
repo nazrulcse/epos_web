@@ -18,16 +18,86 @@
                 </td>
               </tr>
               <tr>
-                <td><label> Code </label></td>
-                <td> <%= @purchase.code %> </td>
+                <td><label> Supplier </label></td>
+                <td> <%= @purchase.supplier.name if @purchase.supplier.present? %> </td>
               </tr>
               <tr>
-                <td><label> Total </label></td>
-                <td> <%= @purchase.total %> </td>
+                <td><label> Issue Date </label></td>
+                <td> <%= @purchase.issue_date %> </td>
               </tr>
+              <tr>
+                <td><label> Expected Delivery Date </label></td>
+                <td> <%= @purchase.expected_delivery %> </td>
+              </tr>
+
+              <% if @purchase.is_received %>
+                <tr>
+                  <td><label> Order Status </label></td>
+                  <td> Received </td>
+                </tr>
+                <tr>
+                  <td><label> Receive Date </label></td>
+                  <td> <%= @purchase.receive_date %> </td>
+                </tr>
+              <% else %>
+                <tr>
+                  <td><label> Order Status </label></td>
+                  <td> Not received yet. </td>
+                </tr>
+              <% end %>
               </tbody>
 
             </table>
+          </div>
+
+          <div class="">
+            <h4>Ordered Items</h4>
+            <div class="table-warapper ">
+              <div class="table-warapper-body">
+                <table class="table tablesorter beaccount-table table-responsive table-hover table-striped attendance-history-modal">
+                  <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Ordered Qty</th>
+                    <% if @purchase.is_received %>
+                      <th>Received Qty</th>
+                    <% end %>
+                    <th>Purchase Price</th>
+                    <th>Sale Price</th>
+                    <th>Total</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @purchase_items.each do |item| %>
+                    <tr>
+                      <td><%= item.product.name if item.product.present? %></td>
+                      <td><%= item.issued_quantity %></td>
+                      <% if @purchase.is_received %>
+                        <td><%= item.received_quantity %></td>
+                      <% end %>
+                      <td><%= item.amount %></td>
+                      <td><%= item.sale_price %></td>
+                      <td><%= item.total %></td>
+                      <td>
+                        <%= link_to history_pos_suppliers_purchases_path(product_id: item.product_id), title: 'Product purchase order history', remote: true, class: 'purchase-history-link' do %>
+                          <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+                <!--<div id="modal-pager">-->
+                <!--<%#= render 'shared/pagination' if @purchase_items.size > 10 %>-->
+                <!--</div>-->
+                <div class="no-data-found">
+                  <% unless @purchase_items.present? %>
+                    <%= render 'shared/no_data_found', message: 'No items ordered.' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       <% else %>

@@ -2,6 +2,9 @@ class Pos::Suppliers::PurchaseItem < ActiveRecord::Base
   belongs_to :department
   belongs_to :purchase, :class_name => 'Pos::Suppliers::Purchase', foreign_key: :purchase_id
   belongs_to :product, :class_name => 'Pos::Product', foreign_key: :product_id
+
+  scope :received, -> { where.not(received_quantity: nil) }
+
   after_save :update_to_stock
 
   def update_to_stock

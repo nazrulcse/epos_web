@@ -8,54 +8,56 @@
     <div class="content-body-wrapper secondary-color full-content-wrapper">
       <% if @product.present? %>
         <div class="row content-body">
-          <div id="advances">
-            <table class="table table-user-information table-striped">
-              <tbody>
-              <tr>
-                <td><label> Product ID </label></td>
-                <td>
-                  # <%= @product.id %>
-                </td>
-              </tr>
-              <tr>
-                <td><label> Name </label></td>
-                <td> <%= @product.name %> </td>
-              </tr>
-              <tr>
-                <td><label> Product Code </label></td>
-                <td> <%= @product.code %> </td>
-              </tr>
-              <tr>
-                <td><label> Product Barcode </label></td>
-                <td> <%= @product.barcode %> </td>
-              </tr>
-              <tr>
-                <td><label> About Product </label></td>
-                <td> <%= @product.description %> </td>
-              </tr>
-              <tr>
-                <td><label> Minimum Re-Order Level </label></td>
-                <td> <%= @product.re_order_level %> </td>
-              </tr>
-              <tr>
-                <td><label> Cost Price </label></td>
-                <td> <%= @product.cost_price %> </td>
-              </tr>
-              <tr>
-                <td><label> Sale Price </label></td>
-                <td> <%= @product.sale_price %> </td>
-              </tr>
-              <tr>
-                <td><label> Whole Sale Price </label></td>
-                <td> <%= @product.whole_sale %> </td>
-              </tr>
-              <tr>
-                <td><label> Stock </label></td>
-                <td> <%= @product.stock %> </td>
-              </tr>
-              </tbody>
+          <div class="col-md-12 reset-padding">
+            <div class="col-md-6 reset-padding">
+              <table class="table table-user-information table-striped">
+                <tbody>
+                <tr>
+                  <td><label> Product ID </label></td>
+                  <td># <%= @product.id %></td>
+                </tr>
+                <%= render_product_row('Product Code', @product.code) %>
+                <%= render_product_row('Name', @product.name) %>
+                <%= render_product_row('Barcode', @product.barcode) %>
+                <%= render_product_row('About Product', @product.description) %>
+                <%= render_product_row('Category', @product.category.present? ? @product.category.name : 'n/a') %>
+                <%= render_product_row('Sub Category', @product.sub_category.present? ? @product.sub_category.name : 'n/a') %>
+                <%= render_product_row('Brand', @product.brand.present? ? @product.brand.name : 'n/a') %>
+                <%= render_product_row('Model', @product.model.present? ? @product.model.name : 'n/a') %>
+                <%= render_product_row('Size', @product.size) %>
+                <tr>
+                  <td><label> Color </label></td>
+                  <td>
+                    <% if @product.color.present? %>
+                      <span class="product-color-span" style="background:#<%= @product.color %>"></span>
+                    <% end %>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 reset-padding" style="border-left: 1px solid #ebebeb;">
+              <table class="table table-user-information table-striped">
+                <tbody>
+                <%= render_product_row('Supplier', @product.supplier.present? ? @product.supplier.name : '') %>
+                <%= render_product_row('Stock', @product.stock_on_hand) %>
+                <%= render_product_row('Minimum Re-order Level', @product.re_order_level) %>
+                <%= render_product_row('Unit', @product.unit) %>
+                <%= render_product_row('Cost Price', @product.cost_price) %>
+                <%= render_product_row('Sale Price', @product.sale_price) %>
+                <%= render_product_row('Whole Sale Price', @product.whole_sale) %>
+                <%= render_product_row('Not In Discount?', @product.discountable ? 'Yes' : 'No') %>
+                <%= render_product_row('Vat', @product.vat) %>
+                <%= render_product_row('Warranty', @product.warranty) %>
+                <%= render_product_row('Made In', @product.made_in) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-            </table>
+          <div class="purchase-history">
+            <h4>Purchase History</h4>
+            <%= render 'pos/suppliers/purchases/histories' %>
           </div>
         </div>
       <% else %>

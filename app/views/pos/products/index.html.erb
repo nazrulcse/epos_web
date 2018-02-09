@@ -10,12 +10,12 @@
         <div class="row actions-button">
           <div class="add-more-rule clearfix">
             <div class="pull-left">
-              <%= form_tag('', class: 'search-wrapper') do %>
+              <%= form_tag('', method: :get, class: 'search-wrapper') do %>
                   <div class="input-group">
                       <span class="input-group-addon reset-border-radius" id="sizing-addon2">
                         <i class="fa fa-search"></i>
                       </span>
-                    <input type="text" id="employee-search-box" class="form-control reset-border-radius" name="q" value="<%= params[:q] %>" placeholder="Search name, code..." aria-describedby="sizing-addon2">
+                    <input type="text" id="employee-search-box" class="form-control reset-border-radius" name="q" value="<%= params[:q] %>" placeholder="Search name, id, code..." aria-describedby="sizing-addon2">
                     <% if params[:q].present? %>
                         <a class="clear-search color-danger"> <i class="fa fa-times"></i> </a>
                     <% end %>
@@ -37,6 +37,7 @@
               <th>Supplier</th>
               <th>Cost Price</th>
               <th>Sale Price</th>
+              <th>Stock</th>
               <th></th>
             </tr>
             </thead>
@@ -49,6 +50,7 @@
                 <td><%= product.supplier.name if product.supplier %> </td>
                 <td><%= product.cost_price %> </td>
                 <td><%= product.sale_price %> </td>
+                <td><%= product.stock_on_hand %> </td>
                 <td class="actions">
                   <%= link_to pos_product_path(product), class: 'btn info-color' do %>
                     <i class="fa fa-eye"></i>
@@ -79,3 +81,14 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+      $('.clear-search').click(function () {
+          var element = $(this);
+          element.parent().find("input[name='q']").val('');
+          element.hide();
+          element.parents('form').submit();
+      });
+  });
+</script>

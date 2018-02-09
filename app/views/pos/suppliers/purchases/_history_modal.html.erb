@@ -1,55 +1,7 @@
 <%= render 'shared/modal_header', modal_title: "Product Purchase History" %>
 <div class="modal-body">
   <h3>Product: <%= @product.name %></h3>
-  <div class="panelx table-warapper ">
-    <div class="table-warapper-body">
-      <table class="table tablesorter beaccount-table table-responsive table-hover table-striped attendance-history-modal">
-        <thead>
-        <tr>
-          <th>Order Status</th>
-          <th>Supplier</th>
-          <th>Received Date</th>
-          <th>Received Qty</th>
-          <th>Purchased Price</th>
-          <th>Purchase Order ID</th>
-        </tr>
-        </thead>
-        <tbody id="staff-attendance">
-        <% @purchase_items.each do |item| %>
-        <% purchase = item.purchase %>
-          <tr>
-            <td><%= purchase.is_received ? 'Received' : 'Not Received' %></td>
-            <td><%= purchase.supplier.name if purchase.supplier.present? %></td>
-            <td><%= format_date(purchase.receive_date) %></td>
-            <td><%= item.received_quantity %></td>
-            <td><%= item.amount %></td>
-            <td><%= link_to "##{purchase.id}", pos_suppliers_purchase_path(purchase) %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-      <!--<div id="modal-pager">-->
-        <!--<%#= render 'shared/pagination' if @purchase_items.size > 10 %>-->
-      <!--</div>-->
-      <div class="no-data-found">
-        <% unless @purchase_items.present? %>
-          <%= render 'shared/no_data_found', message: 'No purchase history found' %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript">
-      $(function () {
-          if (<%= @purchase_items.present? %>) {
-              if ($(".attendance-history-modal").find("tbody").find("tr").size() > 0) {
-                  $(".attendance-history-modal").tablesorter({
-                      widthFixed: true,
-                      widgets: ['zebra']
-                  }).tablesorterPager({container: $("#modal-pager")});
-              }
-          }
-      });
-  </script>
+  <%= render 'histories' %>
 </div>
 
 <div class="modal-footer">

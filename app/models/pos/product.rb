@@ -10,6 +10,10 @@ class Pos::Product < ActiveRecord::Base
 
   attr_reader :stock_on_hand
 
+  def self.search(q)
+    q.present? ? where('id like :q OR code like :q OR name LIKE :q', q: "%#{q}%") : self.all
+  end
+
   def stock_on_hand
     stock + stocks.sum(:quantity)
   end
