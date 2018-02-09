@@ -35,6 +35,7 @@
               <th>Code</th>
               <th>Name</th>
               <th>Supplier</th>
+              <th>Category</th>
               <th>Cost Price</th>
               <th>Sale Price</th>
               <th>Stock</th>
@@ -47,7 +48,8 @@
                 <td> #<%= product.id %> </td>
                 <td><%= product.code %> </td>
                 <td><%= product.name %> </td>
-                <td><%= product.supplier.name if product.supplier %> </td>
+                <td><%= product.supplier.name if product.supplier.present? %> </td>
+                <td><%= product.category.name if product.category.present? %> </td>
                 <td><%= product.cost_price %> </td>
                 <td><%= product.sale_price %> </td>
                 <td><%= product.stock_on_hand %> </td>
