@@ -112,7 +112,6 @@
     }
 
     function setValue(element, selector, value) {
-        console.log(value);
         element.find(selector).val(isInt(value) ? value : Number(value).toFixed(2));
     }
 

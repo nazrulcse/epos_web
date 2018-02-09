@@ -39,7 +39,7 @@
             dataType: 'json',
             success: function (product) {
                 element = targetElement(reff);
-                setHtmlValue(element, '.stock-quantity', product.stock);
+                setHtmlValue(element, '.stock-quantity', product.stock_on_hand);
                 setValue(element, '.unit-price', product.cost_price);
                 setHtmlValue(element, '.cost-price', product.cost_price);
                 setValue(element, '.sales-price', product.sale_price);
@@ -72,7 +72,7 @@
             var each_total_price = $(this).val() || 0;
             total += parseFloat(each_total_price);
         });
-        $('#pos_suppliers_purchase_amount, #pos_suppliers_purchase_total').val(total);
+        $('#pos_suppliers_purchase_amount, #pos_suppliers_purchase_total').val(Number(total).toFixed(2));
     }
 
     function targetElement(element) {
@@ -80,7 +80,7 @@
     }
 
     function setValue(element, selector, value) {
-        element.find(selector).val(value);
+        element.find(selector).val(isInt(value) ? value : Number(value).toFixed(2));
     }
 
     function setHtmlValue(element, selector, value) {
@@ -96,5 +96,9 @@
             value = parseFloat(value);
         }
         return value;
+    }
+
+    function isInt(n) {
+        return n % 1 === 0;
     }
 </script>
