@@ -9,7 +9,7 @@ class Pos::ProductsController < InheritedResources::Base
     respond_to do |format|
       format.html {}
       format.json {
-        render json: @product.to_json
+        render json: @product.summary_json
       }
     end
   end

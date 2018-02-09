@@ -1,8 +1,8 @@
 <% if @model.errors.any? %>
-popupMessage('<%= escape_javascript( errors_to_message_string(@model.errors)).html_safe %>', 'error');
+popupMessage('<%= escape_javascript( errors_to_message_string(@model.errors)).html_safe %>', 'alert-danger');
 <% else %>
 $("#pos_product_model_id").append("<option value=<%= @model.id %>> <%= @model.name %></option>");
 $('#pos_product_model_id').trigger("chosen:updated");
 $('#global-modal').modal('hide');
-popupMessage('Model saved successfully.', 'success');
+popupMessage('Model saved successfully.', 'alert-success');
 <% end %>

@@ -1,8 +1,8 @@
 <% if @category.errors.any? %>
-popupMessage('<%= escape_javascript( errors_to_message_string(@category.errors)).html_safe %>', 'error');
+popupMessage('<%= escape_javascript( errors_to_message_string(@category.errors)).html_safe %>', 'alert-danger');
 <% else %>
 $("#pos_product_category_id").append("<option value=<%= @category.id %>> <%= @category.name %></option>");
 $('#pos_product_category_id').trigger("chosen:updated");
 $('#global-modal').modal('hide');
-popupMessage('Category saved successfully.', 'success');
+popupMessage('Category saved successfully.', 'alert-info');
 <% end %>

@@ -8,7 +8,7 @@
     <% end %>
   </td>
   <td class="stock-quantity" style="text-align: center; vertical-align: middle;">
-
+    <%= ff.object.persisted? ? ff.object.product.stock_on_hand : '' %>
   </td>
   <td>
     <%= ff.text_field :issued_quantity, class: "quantity" %>
@@ -17,7 +17,7 @@
     <%= ff.text_field :amount, class: "unit-price" %>
   </td>
   <td class="cost-price" style="text-align: center; vertical-align: middle;" >
-
+    <%= ff.object.persisted? ? ff.object.product.cost_price : '' %>
   </td>
   <td>
     <%= ff.text_field :sale_price, class: "sales-price" %>
@@ -40,23 +40,37 @@
 <script type="text/javascript">
     $(document).off('change', '.purchase-product-item').on('change', '.purchase-product-item', function () {
         var reff = $(this);
-        $.ajax({
-            url: '/pos/products/' + $(this).val(),
-            type: 'get',
-            dataType: 'json',
-            success: function (product) {
-                console.log('successsssssssssssssssss');
-                element = targetElement(reff);
-                setValue(element, '.quantity', '1');
-                setAttr(element, '.purchase-history-link', product.id);
-                setHtmlValue(element, '.stock-quantity', product.stock);
-                setValue(element, '.unit-price', product.cost_price);
-                setHtmlValue(element, '.cost-price', product.cost_price);
-                setValue(element, '.sales-price', product.sale_price);
-                setValue(element, '.total-item-price', product.cost_price);
-                updateTotal();
-            }
-        });
+        if ($(this).val()) {
+            $.ajax({
+                url: '/pos/products/' + $(this).val(),
+                type: 'get',
+                dataType: 'json',
+                success: function (product) {
+                    console.log('successsssssssssssssssss');
+                    console.log(product);
+                    element = targetElement(reff);
+                    setValue(element, '.quantity', '1');
+                    setAttr(element, '.purchase-history-link', product.id);
+                    setHtmlValue(element, '.stock-quantity', product.stock_on_hand);
+                    setValue(element, '.unit-price', product.cost_price);
+                    setHtmlValue(element, '.cost-price', product.cost_price);
+                    setValue(element, '.sales-price', product.sale_price);
+                    setValue(element, '.total-item-price', product.cost_price);
+                    updateTotal();
+                }
+            });
+        }
+        else {
+            element = targetElement(reff);
+            setValue(element, '.quantity', '');
+            setAttr(element, '.purchase-history-link', '');
+            setHtmlValue(element, '.stock-quantity', '');
+            setValue(element, '.unit-price', '');
+            setHtmlValue(element, '.cost-price', '');
+            setValue(element, '.sales-price', '');
+            setValue(element, '.total-item-price', '');
+        }
+
     });
 
     $(document).off('keyup', '.unit-price, .quantity').on('keyup', '.unit-price, .quantity', function () {
@@ -90,7 +104,7 @@
             var each_total_price = $(this).val() || 0;
             total += parseFloat(each_total_price);
         });
-        $('#pos_suppliers_purchase_amount, #pos_suppliers_purchase_total').val(total);
+        $('#pos_suppliers_purchase_amount, #pos_suppliers_purchase_total').val(Number(total).toFixed(2));
     }
 
     function targetElement(element) {
@@ -98,11 +112,17 @@
     }
 
     function setValue(element, selector, value) {
-        element.find(selector).val(value);
+        console.log(value);
+        element.find(selector).val(isInt(value) ? value : Number(value).toFixed(2));
     }
 
     function setAttr(element, selector, value) {
-        element.find(selector).attr("href", ("/pos/suppliers/purchases/history?product_id=" + value));
+        if (value) {
+            element.find(selector).attr("href", ("/pos/suppliers/purchases/history?product_id=" + value));
+        }
+        else {
+            element.find(selector).attr("href", '');
+        }
     }
 
     function setHtmlValue(element, selector, value) {
@@ -118,5 +138,9 @@
             value = parseFloat(value);
         }
         return value;
+    }
+
+    function isInt(n) {
+        return n % 1 === 0;
     }
 </script>

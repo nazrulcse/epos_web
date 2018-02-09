@@ -2,7 +2,7 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
   before_action :set_purchase, only: [:show, :edit, :update, :delete, :receive]
 
   def index
-    @purchases = current_department.suppliers_purchases
+    @purchases = current_department.suppliers_purchases.order(id: :desc)
   end
 
   def show
