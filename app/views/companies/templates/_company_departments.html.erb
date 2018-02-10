@@ -23,6 +23,7 @@
           <table class="table action-tablex beaccount-table tablesorter table-responsive table-hover table-striped company-departments">
             <thead>
             <tr>
+              <th>Code</th>
               <th>Name</th>
               <th>Description</th>
               <th>Total Employee</th>
@@ -32,6 +33,7 @@
             <tbody id="department_list">
             <% @departments.each do |department| %>
                 <tr class="departments_<%= department.id %>">
+                  <td># <%= department.id %></td>
                   <td><%= department.name %></td>
                   <td><%= truncate(department.description, length: 50) %></td>
                   <td><%= department.employees.count %></td>

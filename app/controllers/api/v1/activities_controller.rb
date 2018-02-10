@@ -13,6 +13,7 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def offline_changes
+    @department = Department.find(params[:department_id])
     activities = eval(params[:activities])
     @applied_ids = []
     activities.each do |activity|
@@ -54,7 +55,7 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def action_create(activity)
-    klass_name(activity).create(activity[:data])
+    klass_name(activity).create(activity[:data].merge(department_id: @department.id))
     applied(activity)
     true
   rescue

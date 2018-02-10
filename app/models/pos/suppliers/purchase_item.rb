@@ -9,11 +9,11 @@ class Pos::Suppliers::PurchaseItem < ActiveRecord::Base
 
   def update_to_stock
     return unless received_quantity.present?
-    stock = purchase.stocks.where(product_id: self.product_id).first
+    stock = purchase.stocks.where(product_id: product_id).first
     if stock.present?
-      stock.quantity = self.received_quantity
+      stock.quantity = received_quantity
     else
-      stock = purchase.stocks.build({product_id: self.product_id, quantity: self.received_quantity})
+      stock = purchase.stocks.build(product_id: product_id, quantity: received_quantity)
     end
     stock.save
   end
