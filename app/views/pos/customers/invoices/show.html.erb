@@ -2,7 +2,7 @@
   <div class="content-wrapper" id="rule-content">
     <div class="header-wrapper">
       <h4>
-        Invoice: <%= @invoice.number %>
+        Invoice: #<%= @invoice.number %>
       </h4>
     </div>
     <div class="content-body-wrapper secondary-color full-content-wrapper">
@@ -22,16 +22,77 @@
                 <td> <%= @invoice.number %> </td>
               </tr>
               <tr>
-                <td><label> Global ID </label></td>
+                <td><label> Invoice Global ID </label></td>
                 <td> <%= @invoice.global_id %> </td>
               </tr>
               <tr>
-                <td><label> Total </label></td>
+                <td><label> Customer </label></td>
+                <td> <%= @invoice.customer.present? ? @invoice.customer.name : '' %> </td>
+              </tr>
+              <tr>
+                <td><label> Date </label></td>
+                <td> <%= @invoice.date %> </td>
+              </tr>
+              <tr>
+                <td><label> Invoice Amount </label></td>
+                <td> <%= @invoice.amount %> </td>
+              </tr>
+              <tr>
+                <td><label> Vat </label></td>
+                <td> <%= @invoice.vat %> </td>
+              </tr>
+              <tr>
+                <td><label> Discount </label></td>
+                <td> <%= @invoice.discount %> </td>
+              </tr>
+              <tr>
+                <td><label> Invoice Total </label></td>
                 <td> <%= @invoice.total %> </td>
               </tr>
               </tbody>
-
             </table>
+          </div>
+
+          <div class="">
+            <h4>Ordered Items</h4>
+            <div class="table-warapper ">
+              <div class="table-warapper-body">
+                <table class="table tablesorter beaccount-table table-responsive table-hover table-striped attendance-history-modal">
+                  <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Vat</th>
+                    <th>Discount</th>
+                    <th>total</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @invoice_items.each do |item| %>
+                    <tr>
+                      <td><%= item.product.name if item.product.present? %></td>
+                      <td><%= item.quantity %></td>
+                      <td><%= item.amount %></td>
+                      <td><%= item.vat %></td>
+                      <td><%= item.discount %></td>
+                      <td><%= item.total %></td>
+                      <td></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+                <!--<div id="modal-pager">-->
+                <!--<%#= render 'shared/pagination' if @purchase_items.size > 10 %>-->
+                <!--</div>-->
+                <div class="no-data-found">
+                  <% unless @invoice_items.present? %>
+                    <%= render 'shared/no_data_found', message: 'No items ordered.' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       <% else %>

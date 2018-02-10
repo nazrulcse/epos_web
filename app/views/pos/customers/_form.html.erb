@@ -1,6 +1,10 @@
 <div class="provident-fund-rule-form">
   <%= form_for @customer do |f| %>
     <div class="form-group">
+      <%= f.label :category_id, 'Customer Category' %>
+      <%= f.select :category_id, options_for_select(@categories.collect{|cat| [cat.name, cat.id]}, f.object.category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+    </div>
+    <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
     </div>

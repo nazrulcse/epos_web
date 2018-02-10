@@ -6,7 +6,7 @@ class Pos::Customers::InvoicesController < InheritedResources::Base
   end
 
   def show
-
+    @invoice_items = @invoice.items
   end
 
   def new

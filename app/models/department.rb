@@ -33,6 +33,7 @@ class Department < ActiveRecord::Base
   has_many :day_offs, class_name: 'Attendance::DayOff', dependent: :destroy
   has_many :bank_accounts, :class_name => 'Bank::Account', dependent: :destroy
   has_many :changed_settings, dependent: :destroy
+  has_many :customers_categories, :class_name => 'Pos::Customers::Category'
   has_many :customers, :class_name => 'Pos::Customer', dependent: :destroy
   has_many :suppliers, :class_name => 'Pos::Supplier', dependent: :destroy
   has_many :brands, :class_name => 'Pos::Products::Brand', dependent: :destroy

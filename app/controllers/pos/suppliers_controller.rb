@@ -54,7 +54,7 @@ class Pos::SuppliersController < InheritedResources::Base
   end
 
   def supplier_params
-    params.require(:pos_supplier).permit(:name, :company, :address, :city, :email, :mobile, :department_id)
+    params.require(:pos_supplier).permit!
   end
 end
 

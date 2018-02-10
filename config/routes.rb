@@ -119,6 +119,7 @@ Rails.application.routes.draw do
   namespace :pos do
 
     namespace :customers do
+      resources :categories
       resources :invoices
       resources :invoice_items
       resources :payments

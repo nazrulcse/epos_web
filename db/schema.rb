@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210054724) do
+ActiveRecord::Schema.define(version: 20180210081717) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -311,9 +311,22 @@ ActiveRecord::Schema.define(version: 20180210054724) do
     t.text     "driving_licence_image", limit: 65535
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "category_id",           limit: 4
   end
 
+  add_index "pos_customers", ["category_id"], name: "index_pos_customers_on_category_id", using: :btree
   add_index "pos_customers", ["department_id"], name: "index_pos_customers_on_department_id", using: :btree
+
+  create_table "pos_customers_categories", force: :cascade do |t|
+    t.integer  "department_id", limit: 4
+    t.string   "name",          limit: 255
+    t.text     "description",   limit: 65535
+    t.boolean  "is_active"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "pos_customers_categories", ["department_id"], name: "index_pos_customers_categories_on_department_id", using: :btree
 
   create_table "pos_customers_invoice_items", force: :cascade do |t|
     t.integer  "department_id", limit: 4
@@ -584,6 +597,8 @@ ActiveRecord::Schema.define(version: 20180210054724) do
   add_foreign_key "bank_accounts", "departments"
   add_foreign_key "changed_settings", "departments"
   add_foreign_key "pos_customers", "departments"
+  add_foreign_key "pos_customers", "pos_customers_categories", column: "category_id"
+  add_foreign_key "pos_customers_categories", "departments"
   add_foreign_key "pos_customers_invoice_items", "departments"
   add_foreign_key "pos_customers_invoice_items", "pos_customers_invoices", column: "invoice_id"
   add_foreign_key "pos_customers_invoice_items", "pos_products", column: "product_id"

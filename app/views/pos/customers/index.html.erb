@@ -22,6 +22,7 @@
               <th>Name</th>
               <th>Email</th>
               <th>Mobile</th>
+              <th>Category</th>
               <th></th>
             </tr>
             </thead>
@@ -32,6 +33,7 @@
                 <td><%= customer.name %> </td>
                 <td><%= customer.email %> </td>
                 <td><%= customer.mobile %> </td>
+                <td><%= customer.category.present? ? customer.category.name : '' %> </td>
                 <td class="actions">
                   <%= link_to pos_customer_path(customer), class: 'btn info-color' do %>
                     <i class="fa fa-eye"></i>

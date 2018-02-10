@@ -9,9 +9,9 @@
       <% if @invoices.present? %>
         <div class="row actions-button">
           <div class="add-more-rule clearfix">
-            <%= link_to new_pos_customers_invoice_path, class: 'btn btn-default pull-right' do %>
-              <i class="fa fa-plus-circle"></i> Add Invoice
-            <% end %>
+            <%#= link_to new_pos_customers_invoice_path, class: 'btn btn-default pull-right' do %>
+              <!--<i class="fa fa-plus-circle"></i> Add Invoice-->
+            <%# end %>
           </div>
         </div>
         <div class="row content-body">
@@ -38,12 +38,12 @@
                   <%= link_to pos_customers_invoice_path(invoice), class: 'btn info-color' do %>
                     <i class="fa fa-eye"></i>
                   <% end %>
-                  <%= link_to edit_pos_customers_invoice_path(invoice), class: 'btn warning-color' do %>
-                    <i class="fa fa-pencil-square-o"></i>
-                  <% end %>
-                  <%= link_to pos_customers_invoice_path(invoice), class: 'btn danger-color', method: :delete, data: {confirm: 'Are you sure?'} do %>
-                    <i class="fa fa-times"></i>
-                  <% end %>
+                  <%#= link_to edit_pos_customers_invoice_path(invoice), class: 'btn warning-color' do %>
+                    <!--<i class="fa fa-pencil-square-o"></i>-->
+                  <%# end %>
+                  <%#= link_to pos_customers_invoice_path(invoice), class: 'btn danger-color', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                    <!--<i class="fa fa-times"></i>-->
+                  <%# end %>
                 </td>
               </tr>
             <% end %>
@@ -56,9 +56,9 @@
             Current department don't have any Customer Invoice. <%#= link_to 'Learn more', '#', class: 'link' %>
             <!--<i class="fa fa-info-circle btn btn-info reset-border-radius" data-toggle='popover' data-placement='top' title="Provident Fund Account" data-content="Click on the create new one button to create provident fund account then it will show the account  list  "></i>-->
           </p>
-          <%= link_to new_pos_customers_invoice_path, class: 'btn btn-default reset-border-radius' do %>
-            <i class="fa fa-plus-circle"></i> Add new one
-          <% end %>
+          <%#= link_to new_pos_customers_invoice_path, class: 'btn btn-default reset-border-radius' do %>
+            <!--<i class="fa fa-plus-circle"></i> Add new one-->
+          <%# end %>
         </div>
       <% end %>
     </div>

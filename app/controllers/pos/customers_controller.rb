@@ -12,6 +12,7 @@ class Pos::CustomersController < InheritedResources::Base
 
   def new
     @customer = Pos::Customer.new
+    @categories = current_department.customers_categories
   end
 
   def create
@@ -27,7 +28,7 @@ class Pos::CustomersController < InheritedResources::Base
   end
 
   def edit
-
+    @categories = current_department.customers_categories
   end
 
   def update
@@ -55,7 +56,7 @@ class Pos::CustomersController < InheritedResources::Base
   end
 
   def customer_params
-    params.require(:pos_customer).permit(:name, :company, :address, :city, :email, :mobile, :department_id, :initial_balance, :nid, :nid_image, :passport_no, :passport_image, :driving_licence, :driving_licence_image)
+    params.require(:pos_customer).permit!
   end
 end
 
