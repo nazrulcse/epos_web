@@ -18,5 +18,5 @@ json.cost_price product.cost_price
 json.sale_price product.sale_price
 json.expirable product.expirable
 json.discountable product.discountable
-json.stock product.stock
+json.stock product.stock_on_hand
 json.is_active product.is_active
