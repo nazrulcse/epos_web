@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207064349) do
+ActiveRecord::Schema.define(version: 20180210054724) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -261,12 +261,14 @@ ActiveRecord::Schema.define(version: 20180207064349) do
     t.text     "bank_details",                limit: 65535
     t.string   "previous_employment_history", limit: 255
     t.string   "religion",                    limit: 255
+    t.string   "user_id",                     limit: 255
   end
 
   add_index "employees", ["confirmation_token"], name: "index_employees_on_confirmation_token", unique: true, using: :btree
   add_index "employees", ["email"], name: "index_employees_on_email", unique: true, using: :btree
   add_index "employees", ["invitation_token"], name: "index_employees_on_invitation_token", unique: true, using: :btree
   add_index "employees", ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true, using: :btree
+  add_index "employees", ["user_id"], name: "index_employees_on_user_id", unique: true, using: :btree
 
   create_table "features", force: :cascade do |t|
     t.string   "name",        limit: 255

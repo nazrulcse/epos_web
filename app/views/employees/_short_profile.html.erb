@@ -26,6 +26,10 @@
         <table class="table table-user-information table-striped beaccount-table">
           <tbody>
           <tr>
+            <td> <%= label_tag 'User ID' %> </td>
+            <td> <%= @employee.user_id %> </td>
+          </tr>
+          <tr>
             <td> <%= label_tag 'Name' %> </td>
             <td> <%= @employee.full_name %> </td>
           </tr>

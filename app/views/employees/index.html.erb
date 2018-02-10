@@ -47,7 +47,7 @@
                                   <span class="input-group-addon reset-border-radius" id="sizing-addon2">
                                     <i class="fa fa-search"></i>
                                   </span>
-                                  <input type="text" id="employee-search-box" class="form-control reset-border-radius" name="q" value="<%= params[:q] %>" placeholder="Search name, EID, email, phone, type " aria-describedby="sizing-addon2">
+                                  <input type="text" id="employee-search-box" class="form-control reset-border-radius" name="q" value="<%= params[:q] %>" placeholder="Search name, user id, EID, email, phone, type " aria-describedby="sizing-addon2">
                                   <% if params[:q].present? %>
                                       <a class="clear-search color-danger"> <i class="fa fa-times"></i> </a>
                                   <% end %>
@@ -85,6 +85,7 @@
                 <tr class="trew">
                   <th><span> Name</span></th>
                   <th><span>Email</span></th>
+                  <th><span>User ID</span></th>
                   <th><span>Status</span></th>
                   <th><span>Mobile</span></th>
                   <th></th>

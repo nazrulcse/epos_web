@@ -68,6 +68,12 @@
                 </div>
 
                 <div class="form-group">
+                  <%= f.label :user_id, '*User ID' %>
+                  <%= f.text_field :user_id, autofocus: true, data: {required: true}, class: "form-control modal-input-field-height reset-border-radius", placeholder: 'Enter user id' %>
+                  <p></p>
+                </div>
+
+                <div class="form-group">
                   <%= f.label :email, '*Email' %>
                   <%= f.email_field :email, autofocus: true, data: {required: true}, class: "form-control modal-input-field-height reset-border-radius", placeholder: 'Enter your email' %>
                   <p></p>

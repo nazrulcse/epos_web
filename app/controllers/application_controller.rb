@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
                 :current_company, :resource, :resource_name, :devise_mapping, :is_available_module?, :current_namespace
   before_action :complete_profile
   around_filter :set_time_zone
+  before_action :configure_permitted_parameters, if: :devise_controller?
   add_flash_types :info, :success, :danger, :warning
 
 
@@ -220,6 +221,14 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       response.headers['Vary'] = 'accept'
     end
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    added_attrs = [:user_id, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :note, :location, :dob, :address, :gender, :image, :department_id, :role, :blood_group, :joining_date, :designation_id, :basic_salary, :mobile, :nid, :kin_name, :kin_contact, :is_active, :id_card_no, :employee_type, :present_address, :permanent_address, :color, :slug, :kin_relationship, :marital_status, :nationality, :country, :attachment, :bank_account_number, :bank_details, :previous_employment_history, :religion]
+    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
 
 end

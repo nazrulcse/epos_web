@@ -1,6 +1,7 @@
 # json.employees @employees, :id, :email, :designation
 json.array! @employees do |employee|
   json.id employee.id
+  json.user_id employee.user_id
   json.name employee.full_name
   json.email employee.email
   json.password employee.password

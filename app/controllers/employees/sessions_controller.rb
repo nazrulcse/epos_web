@@ -9,7 +9,7 @@ class Employees::SessionsController < Devise::SessionsController
 
   #POST /resource/sign_in
   def create
-    resource = Employee.find_for_database_authentication(email: params[:employee][:email])
+    resource = Employee.find_for_database_authentication(login: params[:employee][:login])
     respond_to do |format|
       if resource.present? && (resource.confirmation_token.present? || resource.invitation_token.present?)
         flash[:danger] = 'You have to confirm your email address before continuing.'

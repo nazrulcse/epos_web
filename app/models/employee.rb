@@ -64,24 +64,30 @@
 #  religion                 :string(255)
 
 class Employee < ActiveRecord::Base
+  attr_accessor :login
+
   extend FriendlyId
   friendly_id :employee_slug, use: [:slugged, :finders]
 
   ROLE = {
-      admin: 'admin',
-      stuff: 'stuff'
-  }
+    admin: 'admin',
+    stuff: 'stuff'
+  }.freeze
 
   TYPE = {
-      full_time: 'Full Time',
-      part_time: 'Part Time',
-      remote: 'Remote',
-      contractual: 'Contractual',
-      full_time_probation: 'Full Time(Probation)',
-      intern: 'Intern'
-  }
+    full_time: 'Full Time',
+    part_time: 'Part Time',
+    remote: 'Remote',
+    contractual: 'Contractual',
+    full_time_probation: 'Full Time(Probation)',
+    intern: 'Intern'
+  }.freeze
   mount_uploader :image, ImageUploader
   mount_uploader :attachment, FileUploader
+
+  validates :user_id, presence: :true, uniqueness: { case_sensitive: false }
+  validate :validate_user_id
+  # validates_format_of :user_id, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   belongs_to :department
   belongs_to :designation
@@ -89,10 +95,10 @@ class Employee < ActiveRecord::Base
   has_one :access_right, dependent: :destroy
   accepts_nested_attributes_for :access_right
   has_one :company
-  has_many :attendances, :class_name => 'Attendance::Attendance', dependent: :destroy
+  has_many :attendances, class_name: 'Attendance::Attendance', dependent: :destroy
 
   devise :invitable, :database_authenticatable, :registerable, #:confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:login]
   attr_accessor :accept_tac
 
   before_create :assign_color_code
@@ -147,6 +153,29 @@ class Employee < ActiveRecord::Base
     role == Employee::ROLE[:admin]
   end
 
+  def validate_user_id
+    if Employee.where(email: user_id).exists?
+      errors.add(:user_id, :invalid)
+    end
+  end
+
+  def login=(login)
+    @login = login
+  end
+
+  def login
+    @login || user_id || email
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_hash).where(["lower(user_id) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    elsif conditions.has_key?(:user_id) || conditions.has_key?(:email)
+      where(conditions.to_hash).first
+    end
+  end
+
   def self.prepare_company(resource, company_params)
     if company_params.present?
       company = resource.build_company(company_params)
@@ -168,18 +197,18 @@ class Employee < ActiveRecord::Base
     start_date = Date.new(year, month, 1)
     end_date = start_date.end_of_month
     dayoffs_report = Attendance::DayOff.day_off_report(current_department, start_date, end_date)
-    leaves_report = {total_leave: 0, taken_leave: 0, paid_leave: 0, unpaid_leave: 0}
+    leaves_report = { total_leave: 0, taken_leave: 0, paid_leave: 0, unpaid_leave: 0 }
     should_worked = employee_should_worked(current_department, dayoffs_report, leaves_report, start_date, end_date)
     attendance_report = Attendance::Attendance.attendance_report(current_department, employee, start_date, end_date)
     office_days = employee_office_days(dayoffs_report, start_date, end_date)
     absent_days = employee_absent_days(office_days, leaves_report, attendance_report)
     status = {
-        dayoffs_report: dayoffs_report,
-        leaves_report: leaves_report,
-        attendance_report: attendance_report,
-        should_worked: should_worked,
-        office_days: office_days,
-        absent_days: absent_days
+      dayoffs_report: dayoffs_report,
+      leaves_report: leaves_report,
+      attendance_report: attendance_report,
+      should_worked: should_worked,
+      office_days: office_days,
+      absent_days: absent_days
     }
     status
   end
@@ -187,9 +216,9 @@ class Employee < ActiveRecord::Base
   def self.search(department, params)
     all_employee = department.employees.where('invitation_token IS NULL').includes(:designation)
     if params[:q].present?
-      all_employee = all_employee.where("CONCAT(IFNULL(first_name,''),' ',IFNULL(last_name,'')) like :q or email like :q or mobile like :q or id_card_no like :q or employee_type like :q", q: "%#{params[:q]}%")
+      all_employee = all_employee.where("CONCAT(IFNULL(first_name,''),' ',IFNULL(last_name,'')) like :q or email like :q or user_id like :q or mobile like :q or id_card_no like :q or employee_type like :q", q: "%#{params[:q]}%")
     end
-    all_employee.paginate(:page => params[:page], :per_page => 10)
+    all_employee.paginate(page: params[:page], per_page: 10)
   end
 
   def self.employee_should_worked(current_department, dayoffs_report, leaves_report, start_date, end_date)
@@ -207,7 +236,7 @@ class Employee < ActiveRecord::Base
   end
 
   def self.number_of_days(start_date, end_date)
-    ((end_date - start_date).to_i) + 1
+    (end_date - start_date).to_i + 1
   end
 
   def amount_from_percentage(percentage)
@@ -215,11 +244,11 @@ class Employee < ActiveRecord::Base
   end
 
   def daily_rate(days, salary = nil)
-    ((salary.present? ? salary : self.get_basic_salary).to_f / days.to_f).round(2)
+    ((salary.present? ? salary : get_basic_salary).to_f / days.to_f).round(2)
   end
 
   def hourly_rate(per_day_rate, start_date, end_date)
-    emp_dept = self.department
+    emp_dept = department
     monthly_hour = emp_dept.monthly_working_hours(emp_dept.setting, start_date, end_date)
     p '*****************************************************'
     p monthly_hour
@@ -233,40 +262,39 @@ class Employee < ActiveRecord::Base
   def self.working_hours_stat(department, from, to)
     employee_work_hours = department.attendances.where(in_date: from..to).order('employee_id asc').group('employee_id').sum(:duration)
     work_hours = employee_work_hours.values.collect { |dur| (dur.to_f / 3600).round }
-    employees = self.where(id: employee_work_hours.keys).order('id asc').map(&:first_name)
-    colors = self.where(id: employee_work_hours.keys).map(&:color)
-    {work_hours: work_hours, employees: employees, colors: colors, total: employees.length}
+    employees = where(id: employee_work_hours.keys).order('id asc').map(&:first_name)
+    colors = where(id: employee_work_hours.keys).map(&:color)
+    { work_hours: work_hours, employees: employees, colors: colors, total: employees.length }
   end
 
   def on_leave(date)
-    ''# Leave::Day.where(day: date.to_date, is_approved: true).includes(:leave_application).where('leave_applications.employee_id = ? AND leave_applications.is_approved = ?', self.id, true).references(:leave_applications).first
+    '' # Leave::Day.where(day: date.to_date, is_approved: true).includes(:leave_application).where('leave_applications.employee_id = ? AND leave_applications.is_approved = ?', self.id, true).references(:leave_applications).first
   end
 
   def short_name
-    short_name = self.full_name.split.map(&:first).join
+    short_name = full_name.split.map(&:first).join
     short_name.upcase
   end
 
   def sidebar_menu_generator
     {
-        title: 'Employee Profile',
-        tooltip: 'Employee Profile',
-        menus: [
-            {title: 'Personal Info', url: "/employees/#{self.slug}", icon: 'fa-info-circle', class: 'information sidebar-menu-active', tooltip: 'Personal Informations'},
-            {title: 'Attendance', url: "/employees/#{self.slug}/attendances?no_modal=true", icon: 'fa-calendar-check-o', class: 'attendance', tooltip: 'Employee\'s Attendance'},
-            {title: 'Settings', url: "/employees/#{self.slug}/settings", icon: 'fa-cog', class: 'employee-settings', tooltip: 'Account Settings'},
-        ]
+      title: 'Employee Profile',
+      tooltip: 'Employee Profile',
+      menus: [
+        { title: 'Personal Info', url: "/employees/#{slug}", icon: 'fa-info-circle', class: 'information sidebar-menu-active', tooltip: 'Personal Informations' },
+        { title: 'Attendance', url: "/employees/#{slug}/attendances?no_modal=true", icon: 'fa-calendar-check-o', class: 'attendance', tooltip: 'Employee\'s Attendance' },
+        { title: 'Settings', url: "/employees/#{slug}/settings", icon: 'fa-cog', class: 'employee-settings', tooltip: 'Account Settings' }
+      ]
     }
   end
 
   def next_path
-    if self.department.present?
-      self.department.company.next_path.present? ? self.department.company.next_path : nil
+    if department.present?
+      department.company.next_path.present? ? department.company.next_path : nil
     else
       AppSettings::REGISTRATION_STEPS[:registration]
     end
   end
-
 
   def self.import(spreadsheet, header, department)
     # spreadsheet = Roo::Spreadsheet.open(file.path)
@@ -276,7 +304,7 @@ class Employee < ActiveRecord::Base
       row = Hash[[header, spreadsheet.row(i)].transpose]
       employee = Employee.find_by(email: row['Email'])
       if employee.present?
-        hash.push({row: i, email: row['Email'], status: false, message: " '#{row['Email']}' already exists."})
+        hash.push(row: i, email: row['Email'], status: false, message: " '#{row['Email']}' already exists.")
       else
         employee = Employee.new(email: row['Email'], department_id: department.id)
         employee.first_name = row['FirstName']
@@ -290,9 +318,7 @@ class Employee < ActiveRecord::Base
         employee.nid = row['NationalId']
         if row['Country'].present?
           country = ISO3166::Country.find_by_name(row['Country'])
-          if country.present?
-            employee.country = country[0]
-          end
+          employee.country = country[0] if country.present?
         end
         employee.blood_group = row['BloodGroup']
         employee.dob = row['Dateofbirth'].strftime('%Y-%m-%d')
@@ -312,9 +338,9 @@ class Employee < ActiveRecord::Base
         begin
           employee.save
           employee.send_reset_password_instructions
-            # hash.push({ row: i, email: row['Email'], status: false, message: "Employee Successfully imported."  })
+        # hash.push({ row: i, email: row['Email'], status: false, message: "Employee Successfully imported."  })
         rescue => e
-          hash.push({row: i, email: row['Email'], status: false, message: e.message})
+          hash.push(row: i, email: row['Email'], status: false, message: e.message)
         end
       end
     end
@@ -337,5 +363,4 @@ class Employee < ActiveRecord::Base
   def company_created_info(company)
     NotificationMailer.company_created_notice(self, company).deliver_now
   end
-
 end

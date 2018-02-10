@@ -5,6 +5,7 @@
     <span> <%= employee.designation.name if employee.designation.present? %> </span>
   </td>
   <td><%= employee.email %></td>
+  <td><%= employee.user_id %></td>
   <td>
     <div class="label label-<%= employee.is_active ? 'success' : 'default' %>" id="employee_status_<%= employee.id %>">
       <%= employee.is_active ? 'Active' : 'Inactive' %>
