@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       namespace :pos do
         resources :suppliers, only: [:index]
         resources :customers, only: [:index]
-        resources :products, only: [:index]
+        resources :products
       end
     end
   end
@@ -148,6 +148,7 @@ Rails.application.routes.draw do
           get :sub_categories
         end
       end
+      resources :queue_codes
       resources :sub_categories
     end
     resources :products

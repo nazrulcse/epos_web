@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210081717) do
+ActiveRecord::Schema.define(version: 20180212124205) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -312,6 +312,7 @@ ActiveRecord::Schema.define(version: 20180210081717) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "category_id",           limit: 4
+    t.float    "credit_limit",          limit: 24
   end
 
   add_index "pos_customers", ["category_id"], name: "index_pos_customers_on_category_id", using: :btree
@@ -387,8 +388,24 @@ ActiveRecord::Schema.define(version: 20180210081717) do
     t.string   "global_id",         limit: 255
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.date     "value_date"
+    t.string   "cheque_number",     limit: 255
+    t.string   "bank_name",         limit: 255
+    t.string   "bank_branch",       limit: 255
+    t.boolean  "status"
+    t.boolean  "confirmed"
+    t.boolean  "is_collection"
+    t.boolean  "is_group"
+    t.boolean  "account_payable"
+    t.float    "commission",        limit: 24
+    t.integer  "bank_account_id",   limit: 4
+    t.integer  "collected_by_id",   limit: 4
+    t.integer  "cashier_id",        limit: 4
   end
 
+  add_index "pos_customers_payments", ["bank_account_id"], name: "index_pos_customers_payments_on_bank_account_id", using: :btree
+  add_index "pos_customers_payments", ["cashier_id"], name: "index_pos_customers_payments_on_cashier_id", using: :btree
+  add_index "pos_customers_payments", ["collected_by_id"], name: "index_pos_customers_payments_on_collected_by_id", using: :btree
   add_index "pos_customers_payments", ["customer_id"], name: "index_pos_customers_payments_on_customer_id", using: :btree
   add_index "pos_customers_payments", ["department_id"], name: "index_pos_customers_payments_on_department_id", using: :btree
   add_index "pos_customers_payments", ["employee_id"], name: "index_pos_customers_payments_on_employee_id", using: :btree
@@ -467,6 +484,17 @@ ActiveRecord::Schema.define(version: 20180210081717) do
   end
 
   add_index "pos_products_models", ["department_id"], name: "index_pos_products_models_on_department_id", using: :btree
+
+  create_table "pos_products_queue_codes", force: :cascade do |t|
+    t.integer  "department_id", limit: 4
+    t.integer  "product_id",    limit: 4
+    t.integer  "quantity",      limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "pos_products_queue_codes", ["department_id"], name: "index_pos_products_queue_codes_on_department_id", using: :btree
+  add_index "pos_products_queue_codes", ["product_id"], name: "index_pos_products_queue_codes_on_product_id", using: :btree
 
   create_table "pos_products_sub_categories", force: :cascade do |t|
     t.string   "code",          limit: 255
@@ -605,8 +633,11 @@ ActiveRecord::Schema.define(version: 20180210081717) do
   add_foreign_key "pos_customers_invoices", "departments"
   add_foreign_key "pos_customers_invoices", "employees"
   add_foreign_key "pos_customers_invoices", "pos_customers", column: "customer_id"
+  add_foreign_key "pos_customers_payments", "bank_accounts"
   add_foreign_key "pos_customers_payments", "departments"
   add_foreign_key "pos_customers_payments", "employees"
+  add_foreign_key "pos_customers_payments", "employees", column: "cashier_id"
+  add_foreign_key "pos_customers_payments", "employees", column: "collected_by_id"
   add_foreign_key "pos_customers_payments", "pos_customers", column: "customer_id"
   add_foreign_key "pos_customers_payments", "pos_customers_invoices", column: "invoice_id"
   add_foreign_key "pos_products", "departments"
@@ -617,6 +648,8 @@ ActiveRecord::Schema.define(version: 20180210081717) do
   add_foreign_key "pos_products_brands", "departments"
   add_foreign_key "pos_products_categories", "departments"
   add_foreign_key "pos_products_models", "departments"
+  add_foreign_key "pos_products_queue_codes", "departments"
+  add_foreign_key "pos_products_queue_codes", "pos_products", column: "product_id"
   add_foreign_key "pos_products_sub_categories", "departments"
   add_foreign_key "pos_products_sub_categories", "pos_products_categories", column: "category_id"
   add_foreign_key "pos_suppliers", "departments"

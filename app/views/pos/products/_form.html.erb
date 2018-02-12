@@ -36,9 +36,7 @@
                 </div>
               </div>
               <div class="col-md-3 pr0">
-                <%= link_to new_pos_products_category_path, remote: true, class: 'btn btn-info wp100 mt25' do %>
-                  New
-                <% end %>
+                <%= link_to 'New', new_pos_products_category_path, remote: true, class: 'btn btn-info wp100 mt25' %>
               </div>
             </div>
 
@@ -50,7 +48,7 @@
                 </div>
               </div>
               <div class="col-md-3 pr0">
-                <button class="btn btn-info wp100 mt25" id="product-sub-category-new-btn">New</button>
+                <%= link_to 'New', new_pos_products_sub_category_path(category_id: @product.category.present? ? @product.category_id : @categories.present? ? @categories.first.id : ''), remote: true, class: 'btn btn-info wp100 mt25', id: 'product-sub-category-new-btn' %>
               </div>
             </div>
 
@@ -62,9 +60,7 @@
                 </div>
               </div>
               <div class="col-md-3 pr0">
-                <%= link_to new_pos_products_brand_path, remote: true, class: 'btn btn-info wp100 mt25' do %>
-                  New
-                <% end %>
+                <%= link_to 'New', new_pos_products_brand_path, remote: true, class: 'btn btn-info wp100 mt25' %>
               </div>
             </div>
 
@@ -76,9 +72,7 @@
                 </div>
               </div>
               <div class="col-md-3 pr0">
-                <%= link_to new_pos_products_model_path, remote: true, class: 'btn btn-info wp100 mt25' do %>
-                  New
-                <% end %>
+                <%= link_to 'New', new_pos_products_model_path, remote: true, class: 'btn btn-info wp100 mt25' %>
               </div>
             </div>
 
@@ -87,9 +81,16 @@
               <%= f.text_field :code, class: 'form-control reset-border-radius', data: {required: true} %>
             </div>
 
-            <div class="form-group">
-              <%= f.label :barcode, 'Product Barcode' %>
-              <%= f.text_field :barcode, class: 'form-control reset-border-radius', data: {required: true} %>
+            <div class="col-md-12 reset-padding">
+              <div class="col-md-9 reset-padding">
+                <div class="form-group">
+                  <%= f.label :barcode, 'Product Barcode' %>
+                  <%= f.text_field :barcode, class: 'form-control reset-border-radius', placeholder: 'Scan barcode or generate', data: {required: true} %>
+                </div>
+              </div>
+              <div class="col-md-3 pr0">
+                <%= link_to 'Generate', '#', remote: true, class: 'btn btn-info wp100 mt25', id: 'product-barcode-generate-btn' %>
+              </div>
             </div>
 
             <div class="form-group">
@@ -110,7 +111,7 @@
             </div>
             <div class="form-group">
               <%= f.label :unit %>
-              <%= f.select :unit, options_for_select(['Pcs', 'Kg', 'Gram', 'Lb'], f.object.supplier_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+              <%= f.select :unit, options_for_select(%w(Pcs Kg Gram Lb), f.object.supplier_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
             </div>
             <div class="form-group">
               <%= f.label :cost_price %>
@@ -218,7 +219,14 @@
     $(function () {
         $('#new_pos_product').syftValidator();
 
+        $("form").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+
         $('#pos_product_category_id').change(function () {
+            $('#product-sub-category-new-btn').attr("href", ("/pos/products/sub_categories/new?category_id=" + $(this).val()));
             if ($(this).val().length > 0) {
                 $.ajax({
                     url: "/pos/products/categories/" + $(this).val() + "/sub_categories",
@@ -229,16 +237,6 @@
             else {
                 $("#pos_product_sub_category_id").find('option:gt(0)').remove();
             }
-        });
-
-        $('#product-sub-category-new-btn').click(function (e) {
-            e.preventDefault();
-            console.log($('#pos_product_category_id').val());
-            $.ajax({
-                url: "/pos/products/sub_categories/new?category_id=" + $('#pos_product_category_id').val(),
-                type: 'get',
-                dataType: 'script'
-            });
         });
 
         check_chekbox($('#pos_product_has_vat'), $('#pos_product_vat'));
@@ -260,6 +258,10 @@
         $('#pos_product_color').spectrum({
             preferredFormat: "hex3",
             color: "<%= !@product.new_record? && @product.color.present? ? @product.color : '#ffffff' %>"
+        });
+
+        $('#product-barcode-generate-btn').click(function () {
+            $('#pos_product_barcode').val(new Date().getTime());
         });
     });
 

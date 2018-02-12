@@ -1,0 +1,21 @@
+<div class="provident-fund-rule-form">
+  <%= form_for @queue_code do |f| %>
+    <div class="form-group">
+      <%= f.label :product_id, 'Product' %>
+      <%= f.select :product_id, options_for_select(@products.collect{|product| [product.name, product.id]}, f.object.product_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+    <div class="actions clearfix">
+      <%= f.submit @queue_code.new_record? ? 'Add Into Queue' : 'Update Queued Item', class: 'btn btn-default pull-right reset-border-radius' %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_pos_products_queue_code').syftValidator();
+    });
+</script>

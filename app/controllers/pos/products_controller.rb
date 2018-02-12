@@ -18,7 +18,7 @@ class Pos::ProductsController < InheritedResources::Base
 
   def new
     product_code = "P000#{current_department.products.count + 1}"
-    @product = Pos::Product.new({code: product_code})
+    @product = Pos::Product.new(code: product_code)
     @categories = current_department.products_categories
     @sub_categories = @categories.present? ? @categories.first.sub_categories : []
     @suppliers = current_department.suppliers

@@ -1,0 +1,8 @@
+<% if @brand.errors.any? %>
+popupMessage('<%= escape_javascript( errors_to_message_string(@brand.errors)).html_safe %>', 'alert-danger');
+<% else %>
+$("#pos_product_brand_id").append("<option value=<%= @brand.id %>> <%= @brand.name %></option>");
+$('#pos_product_brand_id').trigger("chosen:updated");
+$('#global-modal').modal('hide');
+popupMessage('Brand saved successfully.', 'alert-info');
+<% end %>

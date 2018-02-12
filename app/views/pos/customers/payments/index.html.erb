@@ -14,28 +14,43 @@
             <% end %>
           </div>
         </div>
-        <div class="row content-body">
+        <div class="p10">
           <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
             <thead>
             <tr>
-              <th>Payment ID</th>
+              <th>ID</th>
               <th>Global ID</th>
+              <th>Invoice</th>
               <th>Customer</th>
-              <th>Invoice Number</th>
-              <th>Invoice Total</th>
-              <th>Payment Total</th>
+              <th>Collected By</th>
+              <th>Method</th>
+              <th>Cheque</th>
+              <th>Group Payment</th>
+              <th>Amount</th>
+              <th>Commission</th>
+              <th>Collection</th>
+              <th>Received date</th>
+              <th>Validation date</th>
+              <th>Status</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
             <% @payments.each do |payment| %>
               <tr>
-                <td> #<%= payment.id %> </td>
-                <td><%= payment.global_id %> </td>
-                <td><%= payment.customer.name if payment.customer.present? %> </td>
-                <td><%= payment.invoice.number if payment.invoice.present? %> </td>
-                <td><%= payment.invoice.total if payment.invoice.present? %> </td>
-                <td><%= payment.total %> </td>
+                <td>#<%= payment.id %></td>
+                <td><%= payment.global_id %></td><td><%= (link_to payment.invoice.number, payment.invoice) if payment.invoice.present? %></td>
+                <td><%= (link_to payment.customer.name, payment.customer) if payment.customer.present? %></td>
+                <td><%= (link_to payment.collected_by.full_name, payment.collected_by) if payment.collected_by.present? %></td>
+                <td><%= payment.payment_method %></td>
+                <td><%= payment.cheque_number %></td>
+                <td><%= 'Yes' if payment.is_group? %></td>
+                <td><%= payment.amount %></td>
+                <td><%= payment.commission %></td>
+                <td><%= 'Collection' if payment.is_collection? %></td>
+                <td><%= payment.date %></td>
+                <td><%= payment.value_date %></td>
+                <td><%= payment.status %></td>
                 <td class="actions">
                   <%= link_to pos_customers_payment_path(payment), class: 'btn info-color' do %>
                     <i class="fa fa-eye"></i>

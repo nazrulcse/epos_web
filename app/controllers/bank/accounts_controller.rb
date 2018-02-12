@@ -27,26 +27,18 @@ class Bank::AccountsController < ApplicationController
   end
 
   def update
-    if @bank_account.present?
-      if @bank_account.update_attributes(bank_account_params)
-        redirect_to bank_accounts_path, success: 'Account has been updated successfully'
-      else
-        render :edit
-      end
+    if @bank_account.update_attributes(bank_account_params)
+      redirect_to bank_accounts_path, success: 'Account has been updated successfully'
     else
-      redirect_to bank_accounts_path, error: 'Bank account not found'
+      render :edit
     end
   end
 
   def destroy
-    if @bank_account.present?
-      if @bank_account.destroy
-        redirect_to bank_accounts_path, success: 'Account has been deleted successfully'
-      else
-        redirect_to bank_accounts_path, error: 'Unable to delete account, Please try again!'
-      end
+    if @bank_account.destroy
+      redirect_to bank_accounts_path, success: 'Account has been deleted successfully'
     else
-      redirect_to bank_accounts_path, error: 'Bank account not found'
+      redirect_to bank_accounts_path, error: 'Unable to delete account, Please try again!'
     end
   end
 
@@ -57,6 +49,6 @@ class Bank::AccountsController < ApplicationController
   end
 
   def set_bank_account
-    @bank_account = current_department.bank_accounts.find_by_id(params[:id])
+    @bank_account = current_department.bank_accounts.find(params[:id])
   end
 end

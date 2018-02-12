@@ -28,23 +28,24 @@ class Department < ActiveRecord::Base
   has_one :setting, dependent: :destroy
 
   has_many :employees, dependent: :destroy
-  has_many :attendances, :class_name => 'Attendance::Attendance', dependent: :destroy
+  has_many :attendances, class_name: 'Attendance::Attendance', dependent: :destroy
   has_many :designations, dependent: :destroy
   has_many :day_offs, class_name: 'Attendance::DayOff', dependent: :destroy
-  has_many :bank_accounts, :class_name => 'Bank::Account', dependent: :destroy
+  has_many :bank_accounts, class_name: 'Bank::Account', dependent: :destroy
   has_many :changed_settings, dependent: :destroy
-  has_many :customers_categories, :class_name => 'Pos::Customers::Category'
-  has_many :customers, :class_name => 'Pos::Customer', dependent: :destroy
-  has_many :suppliers, :class_name => 'Pos::Supplier', dependent: :destroy
-  has_many :brands, :class_name => 'Pos::Products::Brand', dependent: :destroy
-  has_many :models, :class_name => 'Pos::Products::Model', dependent: :destroy
-  has_many :products_categories, :class_name => 'Pos::Products::Category', dependent: :destroy
-  has_many :products_sub_categories, :class_name => 'Pos::Products::SubCategory', dependent: :destroy
-  has_many :products, :class_name => 'Pos::Product', dependent: :destroy
-  has_many :customers_invoices, :class_name => 'Pos::Customers::Invoice', dependent: :destroy
-  has_many :customers_payments, :class_name => 'Pos::Customers::Payment', dependent: :destroy
-  has_many :suppliers_purchases, :class_name => 'Pos::Suppliers::Purchase', dependent: :destroy
-  has_many :suppliers_payments, :class_name => 'Pos::Suppliers::Payment', dependent: :destroy
+  has_many :customers_categories, class_name: 'Pos::Customers::Category'
+  has_many :customers, class_name: 'Pos::Customer', dependent: :destroy
+  has_many :suppliers, class_name: 'Pos::Supplier', dependent: :destroy
+  has_many :brands, class_name: 'Pos::Products::Brand', dependent: :destroy
+  has_many :models, class_name: 'Pos::Products::Model', dependent: :destroy
+  has_many :products_categories, class_name: 'Pos::Products::Category', dependent: :destroy
+  has_many :products_sub_categories, class_name: 'Pos::Products::SubCategory', dependent: :destroy
+  has_many :products, class_name: 'Pos::Product', dependent: :destroy
+  has_many :customers_invoices, class_name: 'Pos::Customers::Invoice', dependent: :destroy
+  has_many :customers_payments, class_name: 'Pos::Customers::Payment', dependent: :destroy
+  has_many :suppliers_purchases, class_name: 'Pos::Suppliers::Purchase', dependent: :destroy
+  has_many :suppliers_payments, class_name: 'Pos::Suppliers::Payment', dependent: :destroy
+  has_many :queue_codes, class_name: 'Pos::Products::QueueCode'
 
   SWITCH_ACTIONS = {
       show: 'show',
@@ -52,7 +53,7 @@ class Department < ActiveRecord::Base
       designation: 'designation',
       general: 'general',
       attendance: 'attendance'
-  }
+  }.freeze
 
 
   mount_uploader :image, LogoUploader
