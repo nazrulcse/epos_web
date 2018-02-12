@@ -1,8 +1,6 @@
-<% if @brand.errors.any? %>
-popupMessage('<%= escape_javascript( errors_to_message_string(@brand.errors)).html_safe %>', 'alert-danger');
+<% if @queue_code.errors.any? %>
+popupMessage('<%= escape_javascript( errors_to_message_string(@queue_code.errors)).html_safe %>', 'alert-danger');
 <% else %>
-$("#pos_product_brand_id").append("<option value=<%= @brand.id %>> <%= @brand.name %></option>");
-$('#pos_product_brand_id').trigger("chosen:updated");
 $('#global-modal').modal('hide');
-popupMessage('Brand saved successfully.', 'alert-info');
+popupMessage('Product added into queue.', 'alert-info');
 <% end %>

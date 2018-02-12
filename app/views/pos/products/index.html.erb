@@ -54,6 +54,9 @@
                 <td><%= product.sale_price %> </td>
                 <td><%= product.stock_on_hand %> </td>
                 <td class="actions">
+                  <%= link_to new_pos_products_queue_code_path(product_id: product.id), remote: true, class: 'btn success-color', title: 'Add Into Queue To Print Barcode' do %>
+                    <i class="fa fa-barcode" aria-hidden="true"></i>
+                  <% end %>
                   <%= link_to pos_product_path(product), class: 'btn info-color' do %>
                     <i class="fa fa-eye"></i>
                   <% end %>

@@ -10,7 +10,11 @@ class Pos::Products::QueueCodesController < InheritedResources::Base
 
   def new
     @queue_code = Pos::Products::QueueCode.new
-    @products = current_department.products
+    if params[:product_id].present?
+      @product = current_department.products.find(params[:product_id])
+    else
+      @products = current_department.products
+    end
   end
 
   def create

@@ -1,24 +1,26 @@
-<%= render 'shared/modal_header', modal_title: 'New Brand' %>
-<%= form_for(@brand, remote: true) do |f| %>
+<%= render 'shared/modal_header', modal_title: 'Add Item Into Queue' %>
+<%= form_for(@queue_code, remote: true) do |f| %>
   <div class="modal-body">
     <div class="form-group">
-      <%= f.label :code %>
-      <%= f.text_field :code, class: 'form-control reset-border-radius', data: {required: true} %>
+      <%= label_tag 'Product: ' %> <%= @product.name %>
+      <%= f.hidden_field :product_id, value: @product.id %>
     </div>
     <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
-    </div>
-    <div class="form-group">
-      <%= f.label :description %>
-      <%= f.text_field :description, class: 'form-control reset-border-radius' %>
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity, class: 'form-control reset-border-radius', data: {required: true} %>
     </div>
   </div>
 
   <div class="modal-footer">
     <div class="pull-right">
-      <%= f.submit class: 'btn btn-primary' %>
+      <%= f.submit 'Add Into Queue', class: 'btn btn-primary' %>
       <div class="btn btn-default" data-dismiss='modal'>Cancel</div>
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_pos_products_queue_code').syftValidator();
+    });
+</script>
