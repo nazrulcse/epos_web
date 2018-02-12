@@ -1,4 +1,5 @@
 json.id activity.id
+json.model 'Employee'
 action = activity.key
 action.slice! 'employee.'
 json.action action

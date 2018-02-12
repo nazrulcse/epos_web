@@ -29,7 +29,7 @@
                   <td><label> Color </label></td>
                   <td>
                     <% if @product.color.present? %>
-                      <span class="product-color-span" style="background:#<%= @product.color %>"></span>
+                      <span class="product-color-span" style="background:<%= @product.color %>"></span>
                     <% end %>
                   </td>
                 </tr>

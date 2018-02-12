@@ -78,10 +78,10 @@ class EmployeesController < InheritedResources::Base
         unless params[:employee_account].present?
           @employee.send_reset_password_instructions
         end
-        format.html { redirect_to :back, notice: "Employee has been successfully created" }
+        format.html { redirect_to :back, notice: 'Employee has been successfully created' }
         format.js
       else
-        format.html { redirect_to :back, notice: "Employee creation failed" }
+        format.html { redirect_to :back, notice: 'Employee creation failed' }
         format.js
       end
     end
@@ -163,7 +163,7 @@ class EmployeesController < InheritedResources::Base
       else
         @employee.update(is_active: false, deactivated_by: current_employee.id, deactivate_date: Date.today)
         @employee.create_activity key: 'employee.update', owner: current_employee, recipient: current_department
-        format.html { redirect_to :back, notice: "Successfully deleted" }
+        format.html { redirect_to :back, notice: 'Successfully deleted' }
         format.json { head :no_content }
         format.js
       end
@@ -174,7 +174,7 @@ class EmployeesController < InheritedResources::Base
   def activation
     respond_to do |format|
       @employee.update(is_active: true, deactivate_date: nil)
-      format.html { redirect_to :back, notice: "Successfully activated" }
+      format.html { redirect_to :back, notice: 'Successfully activated' }
       format.json { head :no_content }
       format.js
     end
@@ -229,7 +229,7 @@ class EmployeesController < InheritedResources::Base
             header = spreadsheet.row(1)
           rescue NoMethodError => err
             respond_to do |format|
-              format.html { redirect_to :back, notice: " This file is not containing valid employee information. check the file" }
+              format.html { redirect_to :back, notice: 'This file is not containing valid employee information. check the file' }
             end
           end
 
@@ -251,10 +251,10 @@ class EmployeesController < InheritedResources::Base
           end
 
           if missing_column_name.present?
-            format.html { redirect_to :back, notice: "Invalid file format; Please download the template and follow it" }
+            format.html { redirect_to :back, notice: 'Invalid file format; Please download the template and follow it' }
 
           elsif missing_column_value.present?
-            format.html { redirect_to :back, notice: " Please check carefully what you have missed (First Name, last Name, Email, Employee Id, Basic Salary, Mobile, Present Address, Permanent Address  which can not be empty)." }
+            format.html { redirect_to :back, notice: 'Please check carefully what you have missed (First Name, last Name, Email, Employee Id, Basic Salary, Mobile, Present Address, Permanent Address  which can not be empty).' }
 
           else
             response = Employee.import(spreadsheet, header, @cur_department)
@@ -264,17 +264,17 @@ class EmployeesController < InheritedResources::Base
           end
 
         else
-          format.html { redirect_to :back, notice: "Invalid file selected.Download the template/select a valid excel file and try again" }
+          format.html { redirect_to :back, notice: 'Invalid file selected.Download the template/select a valid excel file and try again' }
         end
 
       else
-        format.html { redirect_to :back, notice: "File not selected; Select and Upload a valid file and try again" }
+        format.html { redirect_to :back, notice: 'File not selected; Select and Upload a valid file and try again' }
       end
     end
   end
 
   def download_templete
-    send_file(Rails.root.join('public', 'employee_templete.xlsx'), :type => "application/xlsx", :x_sendfile => true)
+    send_file(Rails.root.join('public', 'employee_templete.xlsx'), :type => 'application/xlsx', :x_sendfile => true)
   end
 
   def increments
@@ -285,7 +285,7 @@ class EmployeesController < InheritedResources::Base
   def generate_password
     # o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
     # string = (0...50).map { o[rand(o.length)] }.join
-    "123456789"
+    '123456789'
   end
 
   def set_employee

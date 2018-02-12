@@ -1,32 +1,33 @@
 class AppSettings
-  EXPORT_TO = ['pdf', 'xls', 'word']
+  EXPORT_TO = %w(pdf xls word).freeze
 
-  MONTHS_SHORT_NAME = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+  MONTHS_SHORT_NAME = %w(Jan Feb Mar Apr May June July Aug Sept Oct Nov Dec).freeze
 
   TRACKABLE_TYPES = {
       employees: 'Employee',
       departments: 'Department',
-      designations: 'Designation'
-  }
+      designations: 'Designation',
+      products: 'Pos::Product',
+      suppliers: 'Pos::Supplier',
+      customers: 'Pos::Customer'
+  }.freeze
 
   REGISTRATION_PROGRESS = {
       create_account: 'Create Account',
       company_profile: 'Company Profile',
-      select_module: 'Finalize',
-      # finalize: 'Finalize'
-  }
+      select_module: 'Finalize'
+  }.freeze
 
   REGISTRATION_STEPS = {
       registration: '/companies/new',
-      feature_selection: '/settings/features',
-      #payment: '/settings/billing'
-  }
+      feature_selection: '/settings/features'
+  }.freeze
 
   DAYOFF_TYPES = {
       weekend: 'Weekend',
       holiday: 'Holiday',
       custom_holiday: 'Custom Holiday'
-  }
+  }.freeze
 
   ACTIONS = {
       delete: 'delete',
@@ -34,14 +35,14 @@ class AppSettings
       reject: 'reject',
       active: 'active',
       deactivate: 'deactivate'
-  }
+  }.freeze
 
   STATUS = {
       approved: 'approved',
       rejected: 'rejected',
       pending: 'pending'
-  }
+  }.freeze
 
-  MODULES_NAME = ['employees', 'attendance', 'bank', 'pos']
+  MODULES_NAME = %w(employees attendance bank pos).freeze
 
 end
