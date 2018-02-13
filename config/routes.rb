@@ -148,7 +148,11 @@ Rails.application.routes.draw do
           get :sub_categories
         end
       end
-      resources :queue_codes
+      resources :queue_codes do
+        collection do
+          get :print_barcode
+        end
+      end
       resources :sub_categories
     end
     resources :products

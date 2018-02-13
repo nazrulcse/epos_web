@@ -1,3 +1,13 @@
 // Place all the styles related to the pos/products/queue_codes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.print-label {
+  //padding: 0 !important;
+  margin: 20px;
+  display: inline-block;
+  position: relative;
+  .company-name, .product-barcode, .product-name, .product-price {
+    max-width: 180px;
+  }
+}

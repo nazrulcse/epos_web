@@ -1,0 +1,20 @@
+<% @queue_codes.each do |queue_code| %>
+  <% (1..queue_code.quantity).each do %>
+    <div class="print-label">
+      <div class="company-name text-center">
+        <%= current_company.name %>
+      </div>
+      <%= image_tag "data:image/png;base64,#{Rack::Utils.escape(@barcode_images[queue_code.id])}" %>
+      <div class="product-barcode text-center">
+        <%= queue_code.product.barcode %>
+      </div>
+      <div class="product-name text-center">
+        <%= queue_code.product.name %>
+      </div>
+      <div class="product-price text-center">
+        Tk. <%= queue_code.product.sale_price %> + VAT
+      </div>
+    </div>
+
+  <% end %>
+<% end %>

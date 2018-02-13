@@ -1,0 +1,57 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <div class="header-container clearfix">
+        <h4 class="title-section">
+          Queued Products Barcode
+        </h4>
+
+        <div class="action-section">
+          <%= link_to new_pos_products_queue_code_path, class: 'btn btn-info' do %>
+            Add Item
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper" id="provident-fund-rule-content">
+      <% if @queue_codes.present? %>
+        <div class="row actions-button">
+          <div class="add-more-rule clearfix">
+            <%= link_to 'Print This', '#', onclick: 'window.print();', class: 'btn btn-success print-button' %>
+          </div>
+        </div>
+        <div class="row content-body">
+          <% @queue_codes.each do |queue_code| %>
+            <% (1..queue_code.quantity).each do %>
+              <div class="print-label">
+                <div class="company-name text-center">
+                  <%= current_company.name %>
+                </div>
+                <%= image_tag "data:image/png;base64,#{Rack::Utils.escape(@barcode_images[queue_code.id])}" %>
+                <div class="product-barcode text-center">
+                  <%= queue_code.product.barcode %>
+                </div>
+                <div class="product-name text-center">
+                  <%= queue_code.product.name %>
+                </div>
+                <div class="product-price text-center">
+                  Tk. <%= queue_code.product.sale_price %> + VAT
+                </div>
+              </div>
+
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Current department don't have any Product into queue.
+          </p>
+          <%= link_to new_pos_products_queue_code_path, class: 'btn btn-default reset-border-radius' do %>
+            <i class="fa fa-plus-circle"></i> Add item
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

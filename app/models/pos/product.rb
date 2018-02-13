@@ -10,6 +10,9 @@ class Pos::Product < ActiveRecord::Base
 
   attr_reader :stock_on_hand
 
+  validates :code, presence: true, uniqueness: true
+  validates :barcode, presence: true, uniqueness: true
+
   include PublicActivity::Model
   tracked owner: proc { |controller, model| controller.current_employee },
           recipient: proc { |controller, model| controller.current_department }

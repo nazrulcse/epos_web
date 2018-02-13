@@ -17,6 +17,9 @@
       <% if @queue_codes.present? %>
           <div class="row actions-button">
             <div class="add-more-rule clearfix">
+              <%= link_to print_barcode_pos_products_queue_codes_path, class: 'btn btn-success pull-right ml10' do %>
+                <i class="fa fa-print" aria-hidden="true"></i> Print
+              <% end %>
               <%= link_to new_pos_products_queue_code_path, class: 'btn btn-default pull-right' do %>
                   <i class="fa fa-plus-circle"></i> Add Item
               <% end %>
@@ -54,7 +57,7 @@
       <% else %>
           <div class="text-center table-cell">
             <p>
-              Current department don't have any Brand.
+              Current department don't have any Product into queue.
             </p>
             <%= link_to new_pos_products_queue_code_path, class: 'btn btn-default reset-border-radius' do %>
                 <i class="fa fa-plus-circle"></i> Add item

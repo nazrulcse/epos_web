@@ -1,5 +1,6 @@
 <div class="provident-fund-rule-form">
   <%= form_for @queue_code do |f| %>
+    <%= hidden_field_tag :print, 'yes' %>
     <div class="form-group">
       <%= f.label :product_id, 'Product' %>
       <%= f.select :product_id, options_for_select(@products.collect{|product| [product.name, product.id]}, f.object.product_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
@@ -8,14 +9,21 @@
       <%= f.label :quantity %>
       <%= f.text_field :quantity, class: 'form-control reset-border-radius', data: {required: true} %>
     </div>
-    <div class="actions clearfix">
-      <%= f.submit @queue_code.new_record? ? 'Add Into Queue' : 'Update Queued Item', class: 'btn btn-default pull-right reset-border-radius' %>
+    <div class="clearfix">
+      <%= f.submit @queue_code.new_record? ? 'Add Into Queue' : 'Update Queued Item', class: 'btn btn-default pull-right reset-border-radius ml10' %>
+      <%= link_to 'Go To Print', '#', class: 'btn btn-success pull-right reset-border-radius', id: 'go-to-print-btn' %>
+      <%#= f.submit 'Go To Print Page', class: 'btn btn-success pull-right reset-border-radius' %>
     </div>
-  <% end %>
+  <% end %><input type="hidden" name="print" id="print" value="yes">
 </div>
 
 <script type="text/javascript">
     $(function () {
         $('#new_pos_products_queue_code').syftValidator();
+
+        $('#go-to-print-btn').click(function () {
+            $('form').prepend("<input type='hidden' name='print' id='print' value='yes'>");
+            $('form').submit();
+        });
     });
 </script>
