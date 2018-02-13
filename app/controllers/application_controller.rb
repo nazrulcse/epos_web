@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_active_employees
-    current_department.employees.where('invitation_token IS NULL and is_active = true')
+    current_department.employees.where(is_active: true)
   end
 
   def current_currency
@@ -176,6 +176,13 @@ class ApplicationController < ActionController::Base
     @current_ability.authorize! params[:action].to_sym, params[:controller].classify
   end
 
+  def error_messages(object)
+    message = ''
+    object.errors.each do |err|
+      message << " - error with #{err} - <br/>"
+    end
+    message.to_s
+  end
 
   private
 

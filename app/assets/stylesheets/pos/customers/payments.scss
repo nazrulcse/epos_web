@@ -1,3 +1,30 @@
 // Place all the styles related to the pos/customers/payments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.customer-details-fieldset, .supplier-details-fieldset {
+  border: solid 1px silver;
+  padding: 10px;
+  legend {
+    width: auto;
+    margin: 0;
+    border: none;
+    padding: 0 5px;
+  }
+  p.customer-address {
+    padding: 5px;
+    border: solid 1px silver;
+    min-height: 30px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+  select {
+    min-width: 350px;
+  }
+
+  .credit-text {
+    display: inline-block;
+    min-width: 140px;
+  }
+}

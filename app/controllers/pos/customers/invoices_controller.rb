@@ -47,6 +47,28 @@ class Pos::Customers::InvoicesController < InheritedResources::Base
     redirect_to pos_customers_invoices_path
   end
 
+  def close_invoice
+    @invoices = params[:advance_amount]
+    @invoices.each do |key, value|
+      if value.to_f > 0
+        @invoice = Pos::Customers::Invoice.find_by_id(key)
+        remaining_amount = @invoice.amount.to_f - @invoice.advance_paid.to_f
+        if remaining_amount == value.to_f
+          @invoice.is_complete = true
+        elsif value.to_f > remaining_amount
+          @invoice.is_advance = true
+          extra_amount = value.to_f - remaining_amount
+          @invoice.amount += extra_amount
+          @invoice.advance_paid = @invoice.amount
+          Pos::Customers::Payment.create(amount: extra_amount, collected_by_id: current_employee.id, customer_id: @invoice.customer_id, method: 'cash', date: Date.today, value_date: Date.today)
+        else
+          @invoice.advance_paid = value
+        end
+        @invoice.save
+      end
+    end
+  end
+
   private
 
   def set_invoice

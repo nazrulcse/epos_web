@@ -120,11 +120,19 @@ Rails.application.routes.draw do
 
     namespace :customers do
       resources :categories
-      resources :invoices
+      resources :invoices do
+        collection do
+          get :close_invoice
+        end
+      end
       resources :invoice_items
       resources :payments
     end
-    resources :customers
+    resources :customers do
+      collection do
+        post :process_invoice
+      end
+    end
 
     namespace :suppliers do
       resources :purchases do

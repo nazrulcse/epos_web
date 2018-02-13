@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180212124205) do
+ActiveRecord::Schema.define(version: 20180213114347) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -309,10 +309,11 @@ ActiveRecord::Schema.define(version: 20180212124205) do
     t.text     "passport_image",        limit: 65535
     t.string   "driving_licence",       limit: 255
     t.text     "driving_licence_image", limit: 65535
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "category_id",           limit: 4
     t.float    "credit_limit",          limit: 24
+    t.boolean  "is_active",                           default: true
   end
 
   add_index "pos_customers", ["category_id"], name: "index_pos_customers_on_category_id", using: :btree
@@ -352,20 +353,25 @@ ActiveRecord::Schema.define(version: 20180212124205) do
   add_index "pos_customers_invoice_items", ["product_id"], name: "index_pos_customers_invoice_items_on_product_id", using: :btree
 
   create_table "pos_customers_invoices", force: :cascade do |t|
-    t.string   "number",        limit: 255
+    t.string   "number",         limit: 255
     t.date     "date"
-    t.integer  "department_id", limit: 4
-    t.integer  "employee_id",   limit: 4
-    t.integer  "customer_id",   limit: 4
-    t.text     "note",          limit: 65535
-    t.float    "amount",        limit: 24
-    t.float    "discount",      limit: 24
-    t.float    "vat",           limit: 24
-    t.float    "total",         limit: 24
-    t.text     "attachment",    limit: 65535
-    t.string   "global_id",     limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "department_id",  limit: 4
+    t.integer  "employee_id",    limit: 4
+    t.integer  "customer_id",    limit: 4
+    t.text     "note",           limit: 65535
+    t.float    "amount",         limit: 24
+    t.float    "discount",       limit: 24
+    t.float    "vat",            limit: 24
+    t.float    "total",          limit: 24
+    t.text     "attachment",     limit: 65535
+    t.string   "global_id",      limit: 255
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.boolean  "is_credit",                    default: false
+    t.boolean  "is_advance",                   default: false
+    t.boolean  "is_complete",                  default: false
+    t.float    "advance_paid",   limit: 24
+    t.float    "transport_cost", limit: 24
   end
 
   add_index "pos_customers_invoices", ["customer_id"], name: "index_pos_customers_invoices_on_customer_id", using: :btree
@@ -386,17 +392,17 @@ ActiveRecord::Schema.define(version: 20180212124205) do
     t.string   "transaction_token", limit: 255
     t.text     "attachment",        limit: 65535
     t.string   "global_id",         limit: 255
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.date     "value_date"
     t.string   "cheque_number",     limit: 255
     t.string   "bank_name",         limit: 255
     t.string   "bank_branch",       limit: 255
-    t.boolean  "status"
-    t.boolean  "confirmed"
-    t.boolean  "is_collection"
-    t.boolean  "is_group"
-    t.boolean  "account_payable"
+    t.string   "status",            limit: 255
+    t.boolean  "confirmed",                       default: false
+    t.boolean  "is_collection",                   default: false
+    t.boolean  "is_group",                        default: false
+    t.boolean  "account_payable",                 default: false
     t.float    "commission",        limit: 24
     t.integer  "bank_account_id",   limit: 4
     t.integer  "collected_by_id",   limit: 4
@@ -528,8 +534,9 @@ ActiveRecord::Schema.define(version: 20180212124205) do
     t.string   "email",         limit: 255
     t.string   "mobile",        limit: 255
     t.integer  "department_id", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "is_active",                 default: true
   end
 
   add_index "pos_suppliers", ["department_id"], name: "index_pos_suppliers_on_department_id", using: :btree
@@ -562,7 +569,7 @@ ActiveRecord::Schema.define(version: 20180212124205) do
     t.integer  "issued_quantity",   limit: 4
     t.integer  "department_id",     limit: 4
     t.text     "note",              limit: 65535
-    t.boolean  "is_received"
+    t.boolean  "is_received",                     default: false
     t.integer  "received_quantity", limit: 4
     t.float    "cost_price",        limit: 24
     t.float    "sale_price",        limit: 24
@@ -571,8 +578,8 @@ ActiveRecord::Schema.define(version: 20180212124205) do
     t.float    "discount",          limit: 24
     t.float    "vat",               limit: 24
     t.float    "total",             limit: 24
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   add_index "pos_suppliers_purchase_items", ["department_id"], name: "index_pos_suppliers_purchase_items_on_department_id", using: :btree
@@ -588,7 +595,7 @@ ActiveRecord::Schema.define(version: 20180212124205) do
     t.integer  "received_employee_id", limit: 4
     t.integer  "supplier_id",          limit: 4
     t.text     "instruction",          limit: 65535
-    t.boolean  "is_received"
+    t.boolean  "is_received",                        default: false
     t.date     "receive_date"
     t.float    "amount",               limit: 24
     t.float    "discount",             limit: 24
@@ -596,8 +603,8 @@ ActiveRecord::Schema.define(version: 20180212124205) do
     t.float    "total",                limit: 24
     t.text     "note",                 limit: 65535
     t.text     "attachment",           limit: 65535
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   add_index "pos_suppliers_purchases", ["department_id"], name: "index_pos_suppliers_purchases_on_department_id", using: :btree
