@@ -59,7 +59,7 @@ class Pos::CustomersController < InheritedResources::Base
     payment_method.each do |key, value|
       if value.present?
         invoice = Pos::Customers::Invoice.find(key)
-        payment = invoice.payments.build(customer_id: params['customer_id'])
+        payment = invoice.payments.build(customer_id: params['customer_id'], department_id: current_department.id)
         if params['invoice_pay'].present? && params['invoice_pay'][key].present?
           payment.amount = invoice.due_amount
         else
@@ -68,7 +68,7 @@ class Pos::CustomersController < InheritedResources::Base
         if payment.amount && payment.amount > 1
           payment.collected_by_id = params['collected_by_id']
           payment.cashier_id = params['cashier_id']
-          payment.method = value
+          payment.payment_method = value
           payment.commission = params['invoice_commission'][key]
           payment.date = Date.parse(params[:received_date]) || Date.today
           payment.is_collection = (params['is_collection'].present? && params['is_collection'][key].present?)

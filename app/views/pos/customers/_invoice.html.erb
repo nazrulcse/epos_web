@@ -14,7 +14,7 @@
       </label>
     </div>
   </td>
-  <td> <%= invoice.amount %> </td>
+  <td> <%= invoice.invoice_total %> </td>
   <td> <%#= invoice.total_refund %> </td>
   <td> <%#= invoice.total_discount %> </td>
   <td> <%= text_field_tag "invoice_commission[#{invoice.id}]",'', value: invoice.payments.sum(:commission), placeholder: '0.00',  class: 'commission-input' %> </td>
@@ -29,6 +29,6 @@
     </div>
   </td>
   <td>
-    <%= text_field_tag "invoice_amount[#{invoice.id}]", '', placeholder: '0.00', data: {limit: invoice.due_amount}, class: 'table-input pay-amount' %>
+    <%= text_field_tag "invoice_amount[#{invoice.id}]", '', placeholder: '0.00', data: {limit: invoice.due_amount}, class: 'table-inputxx pay-amount' %>
   </td>
 </tr>

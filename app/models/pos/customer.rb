@@ -23,7 +23,7 @@ class Pos::Customer < ActiveRecord::Base
   end
 
   def total_invoice
-    @total_invoice ||= self.invoices.where(is_advance: false).map(&:amount).sum
+    @total_invoice ||= self.invoices.where(is_advance: false).map(&:invoice_total).sum
   end
 
   def total_payment
@@ -71,6 +71,6 @@ class Pos::Customer < ActiveRecord::Base
   end
 
   def advanced_paid
-    invoices.where(is_advance: true).sum(:amount) || 0
+    invoices.where(is_advance: true).sum(:invoice_total) || 0
   end
 end

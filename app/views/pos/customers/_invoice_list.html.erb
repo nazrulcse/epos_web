@@ -31,7 +31,7 @@
     <tfoot>
     <tr>
       <th colspan="5" class="right-aligned"> Total:</th>
-      <th> <%= customer.active_invoice.sum(:amount) %></th>
+      <th> <%= customer.active_invoice.sum(:invoice_total) %></th>
       <th> <%= refund_total %></th>
       <th> <%= discount_total %></th>
       <th> </th>

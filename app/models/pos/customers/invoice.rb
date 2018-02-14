@@ -10,7 +10,7 @@ class Pos::Customers::Invoice < ActiveRecord::Base
   validates :global_id, uniqueness: true
 
   def due_amount
-    total - payments.sum(:amount)
+    net_total - payments.sum(:amount)
   end
 
   def paid
