@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214052530) do
+ActiveRecord::Schema.define(version: 20180214063609) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -361,10 +361,10 @@ ActiveRecord::Schema.define(version: 20180214052530) do
     t.integer  "employee_id",    limit: 4
     t.integer  "customer_id",    limit: 4
     t.text     "note",           limit: 65535
-    t.float    "amount",         limit: 24
+    t.float    "invoice_total",  limit: 24
     t.float    "discount",       limit: 24
     t.float    "vat",            limit: 24
-    t.float    "total",          limit: 24
+    t.float    "net_total",      limit: 24
     t.text     "attachment",     limit: 65535
     t.string   "global_id",      limit: 255
     t.datetime "created_at",                                   null: false
@@ -374,6 +374,7 @@ ActiveRecord::Schema.define(version: 20180214052530) do
     t.boolean  "is_complete",                  default: false
     t.float    "advance_paid",   limit: 24
     t.float    "transport_cost", limit: 24
+    t.boolean  "is_paid",                      default: false
   end
 
   add_index "pos_customers_invoices", ["customer_id"], name: "index_pos_customers_invoices_on_customer_id", using: :btree

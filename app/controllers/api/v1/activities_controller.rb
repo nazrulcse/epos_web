@@ -57,7 +57,7 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def action_create(activity)
-    klass_name(activity).create(activity[:data].merge(department_id: @department.id)) if activity[:data].present?
+    klass_name(activity).create(activity[:data]) if activity[:data].present? # .merge(department_id: @department.id)
     applied(activity)
     true
   rescue StandardError => e
