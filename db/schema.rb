@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214121126) do
+ActiveRecord::Schema.define(version: 20180214133020) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -641,19 +641,7 @@ ActiveRecord::Schema.define(version: 20180214121126) do
   add_foreign_key "pos_customers", "departments"
   add_foreign_key "pos_customers", "pos_customers_categories", column: "category_id"
   add_foreign_key "pos_customers_categories", "departments"
-  add_foreign_key "pos_customers_invoice_items", "departments"
-  add_foreign_key "pos_customers_invoice_items", "pos_customers_invoices", column: "invoice_id"
-  add_foreign_key "pos_customers_invoice_items", "pos_products", column: "product_id"
-  add_foreign_key "pos_customers_invoices", "departments"
-  add_foreign_key "pos_customers_invoices", "employees"
-  add_foreign_key "pos_customers_invoices", "pos_customers", column: "customer_id"
-  add_foreign_key "pos_customers_payments", "bank_accounts"
-  add_foreign_key "pos_customers_payments", "departments"
-  add_foreign_key "pos_customers_payments", "employees"
-  add_foreign_key "pos_customers_payments", "employees", column: "cashier_id"
-  add_foreign_key "pos_customers_payments", "employees", column: "collected_by_id"
   add_foreign_key "pos_customers_payments", "pos_customers", column: "customer_id"
-  add_foreign_key "pos_customers_payments", "pos_customers_invoices", column: "invoice_id"
   add_foreign_key "pos_products", "departments"
   add_foreign_key "pos_products", "pos_products_brands", column: "brand_id"
   add_foreign_key "pos_products", "pos_products_categories", column: "category_id"
