@@ -14,12 +14,10 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
 
   def offline_changes
     #@department = Department.find(params[:department_id])
-    activities = params['activities']
-    p activities
+    activities = params['activities'] || []
     @applied_ids = []
     activities.each do |act|
       activity = JSON.parse(act)
-      p "action_#{activity['key']}"
       break unless send "action_#{activity['key']}".to_sym, activity
     end
     render_json
@@ -38,7 +36,6 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def render_json
-    p @applied_ids
     json_response(applied_activies: @applied_ids.join(','))
   end
 
@@ -59,7 +56,6 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def action_create(activity)
-    p activity['trackable_id']
     klass_name(activity).create(activity['data']) if activity['data'].present? # .merge(department_id: @department.id)
     applied(activity)
     true
