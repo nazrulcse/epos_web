@@ -15,8 +15,10 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   def offline_changes
     @department = Department.find(params[:department_id])
     activities = eval(params[:activities])
+    p activities
     @applied_ids = []
     activities.each do |activity|
+      p 'looping'
       break unless send "action_#{activity[:key]}".to_sym, activity
     end
     render_json
@@ -55,10 +57,11 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def action_create(activity)
-    klass_name(activity).create(activity[:data].merge(department_id: @department.id))
+    klass_name(activity).create(activity[:data].merge(department_id: @department.id)) if activity[:data].present?
     applied(activity)
     true
-  rescue
+  rescue StandardError => e
+    p e.message.to_s
     false
   end
 
@@ -67,7 +70,7 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def klass_name(activity)
-    activity[:trackable_type].constantize
+    AppSettings::OFFLINE_TRACKABLE_TYPES[activity[:trackable_type].to_sym].constantize
   end
 
   def find_object(activity)

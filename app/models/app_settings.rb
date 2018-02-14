@@ -12,6 +12,12 @@ class AppSettings
       customers: 'Pos::Customer'
   }.freeze
 
+  OFFLINE_TRACKABLE_TYPES = {
+      invoice: 'Pos::Customers::Invoice',
+      invoice_item: 'Pos::Customers::InvoiceItem',
+      payment: 'Pos::Customers::Payment'
+  }.freeze
+
   REGISTRATION_PROGRESS = {
       create_account: 'Create Account',
       company_profile: 'Company Profile',

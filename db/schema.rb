@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180213114347) do
+ActiveRecord::Schema.define(version: 20180214052530) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -331,21 +331,23 @@ ActiveRecord::Schema.define(version: 20180213114347) do
   add_index "pos_customers_categories", ["department_id"], name: "index_pos_customers_categories_on_department_id", using: :btree
 
   create_table "pos_customers_invoice_items", force: :cascade do |t|
-    t.integer  "department_id", limit: 4
-    t.integer  "invoice_id",    limit: 4
-    t.integer  "product_id",    limit: 4
-    t.text     "note",          limit: 65535
-    t.float    "cost_price",    limit: 24
-    t.float    "sale_price",    limit: 24
-    t.float    "whole_sale",    limit: 24
-    t.integer  "quantity",      limit: 4
-    t.float    "amount",        limit: 24
-    t.float    "discount",      limit: 24
-    t.float    "vat",           limit: 24
-    t.float    "total",         limit: 24
-    t.text     "attachment",    limit: 65535
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "department_id",     limit: 4
+    t.integer  "invoice_id",        limit: 4
+    t.integer  "product_id",        limit: 4
+    t.text     "note",              limit: 65535
+    t.float    "cost_price",        limit: 24
+    t.float    "sale_price",        limit: 24
+    t.float    "whole_sale",        limit: 24
+    t.integer  "quantity",          limit: 4
+    t.float    "amount",            limit: 24
+    t.float    "discount",          limit: 24
+    t.float    "vat",               limit: 24
+    t.float    "total",             limit: 24
+    t.text     "attachment",        limit: 65535
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "global_id",         limit: 255
+    t.string   "invoice_global_id", limit: 255
   end
 
   add_index "pos_customers_invoice_items", ["department_id"], name: "index_pos_customers_invoice_items_on_department_id", using: :btree
