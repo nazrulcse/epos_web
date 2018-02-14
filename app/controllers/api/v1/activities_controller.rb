@@ -13,13 +13,14 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def offline_changes
-    @department = Department.find(params[:department_id])
-    activities = eval(params[:activities])
+    #@department = Department.find(params[:department_id])
+    activities = params['activities']
     p activities
     @applied_ids = []
-    activities.each do |activity|
-      p 'looping'
-      break unless send "action_#{activity[:key]}".to_sym, activity
+    activities.each do |act|
+      activity = JSON.parse(act)
+      p "action_#{activity['key']}"
+      break unless send "action_#{activity['key']}".to_sym, activity
     end
     render_json
   end
@@ -37,6 +38,7 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def render_json
+    p @applied_ids
     json_response(applied_activies: @applied_ids.join(','))
   end
 
@@ -51,29 +53,30 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   def action_update(activity)
     object = find_object(activity)
     return false unless object.present?
-    return false unless object.update_attributes(activity[:data])
+    return false unless object.update_attributes(activity['data'])
     applied(activity)
     true
   end
 
   def action_create(activity)
-    klass_name(activity).create(activity[:data]) if activity[:data].present? # .merge(department_id: @department.id)
+    p activity['trackable_id']
+    klass_name(activity).create(activity['data']) if activity['data'].present? # .merge(department_id: @department.id)
     applied(activity)
     true
-  rescue StandardError => e
+  rescue Exception => e
     p e.message.to_s
     false
   end
 
   def applied(activity)
-    @applied_ids << activity[:id]
+    @applied_ids << activity['id']
   end
 
   def klass_name(activity)
-    AppSettings::OFFLINE_TRACKABLE_TYPES[activity[:trackable_type].to_sym].constantize
+    AppSettings::OFFLINE_TRACKABLE_TYPES[activity['trackable_type'].to_sym].constantize
   end
 
   def find_object(activity)
-    klass_name(activity).find_by_global_id(activity[:trackable_id])
+    klass_name(activity).find_by_global_id(activity['trackable_id'])
   end
 end
