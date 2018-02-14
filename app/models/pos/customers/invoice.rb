@@ -11,6 +11,10 @@ class Pos::Customers::Invoice < ActiveRecord::Base
     total - payments.sum(:amount)
   end
 
+  def paid
+    payments.sum(:amount)
+  end
+
   def self.active_invoice_customer(department)
     customers_ids = where(customer_id: department.customers.map(&:id), is_complete: false).map(&:customer_id)
     Pos::Customer.where(id: customers_ids)

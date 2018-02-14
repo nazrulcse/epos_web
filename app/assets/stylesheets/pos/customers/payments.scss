@@ -28,3 +28,105 @@
     min-width: 140px;
   }
 }
+
+.process-invoice-list {
+  tfoot {
+    tr {
+      th {
+        border: none;
+      }
+    }
+  }
+  table {
+    margin: 0;
+    .table-input {
+      background: transparent;
+      border: none;
+      min-width: 50px;
+    }
+  }
+}
+
+.action-process-action {
+  background: #1397C4;
+  padding: 5px;
+  display: none;
+}
+
+.advance-payment {
+  display: none;
+  color: white;
+  vertical-align: -moz-middle-with-baseline;
+}
+.advance-invoice-list {
+  padding: 5px;
+}
+
+.select-default {
+  display: block;
+  label {
+    font-weight: normal;
+  }
+}
+
+#print-voucher {
+  width: 800px;
+  font-family: 'Helvetica Neue';
+  .print-voucher-form {
+    border: solid 1px black;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    padding: 10px;
+  }
+  .main-logo {
+    width: 95px;
+    padding-right: 10px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .company-details {
+    width: calc(100% - 340px);
+    display: inline-block;
+    vertical-align: top;
+  }
+  .department-logo {
+    width: 215px;
+    padding-left: 10px;
+    display: inline-block;
+    vertical-align: top;
+    img {
+      max-height: 80px;
+      max-width: 100%;
+    }
+  }
+  .sl-no, .amount-no {
+    width: 110px;
+  }
+  .credit-voucher {
+    font-family: 'Helvetica';
+  }
+  .signatory-wrapper {
+    div.signatory {
+      border-top: dotted 1px #CCCCCC;
+      max-width: 200px;
+    }
+  }
+  .signature {
+    height: 50px;
+  }
+  .printed-by {
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+  }
+}
+
+.print-voucher-action {
+  width: 900px;
+  //margin: auto;
+  margin-top: 50px;
+  .print {
+    display: none;
+  }
+}

@@ -1,0 +1,19 @@
+$('.customer-invoice-list').html("<%= escape_javascript(render 'invoice_list', customer: @customer).html_safe %>");
+$('.action-process-action').show();
+<%if @customer.advance_invoice.present? %>
+$('.advance-payment').show();
+$('.advance-history').html("<%= escape_javascript(render 'advance_invoice_list', customer: @customer).html_safe %>");
+<% else %>
+$('.advance-payment').hide();
+<% end %>
+$('.customer-address').text("<%= address(@customer) %>");
+$('.credit-limit').text("<%= @customer.credit_limit %>");
+$('.credit-available').text("<%= @customer.credit_limit - @customer.due_balance.abs %>");
+$('.customer-due-amount').text("<%= @customer.active_invoice.map(&:due_amount).sum %>");
+$('.last_payment_date').text("<%= @customer.last_payment_date %>");
+<% if @customer.last_payment_date.present? %>
+$('.last_paid_amount').text("<%= @customer.last_payment_amount %>");
+<% end %>
+
+$('.advanced_paid_amount').text("<%= @customer.advanced_paid %>");
+$('.print-voucher').attr('href', "<%= print_voucher_pos_customer_path(@customer) %>");

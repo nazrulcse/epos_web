@@ -1,6 +1,6 @@
 class Pos::CustomersController < InheritedResources::Base
 
-  before_action :set_customer, only: [:show, :edit, :update, :delete]
+  before_action :set_customer, only: [:show, :edit, :update, :delete, :history, :print_voucher]
 
   def index
     @customers = current_department.customers
@@ -47,6 +47,9 @@ class Pos::CustomersController < InheritedResources::Base
       flash[:error] = 'Customer deletion failed.'
     end
     redirect_to pos_customers_path
+  end
+
+  def history
   end
 
   def process_invoice
@@ -105,6 +108,15 @@ class Pos::CustomersController < InheritedResources::Base
       end
     end
     redirect_to new_pos_customers_payment_path(customer_id: params['customer_id']), notice: @response << '</ul>'
+  end
+
+  def print_voucher
+    if params[:payment_id].present?
+      @payments = @customer.payments.where(id: params[:payment_id])
+    else
+      payment_date = params[:payment_date] || Date.today
+      @payments = @customer.payments.where('date(created_at) = ?', payment_date)
+    end
   end
 
   private

@@ -84,35 +84,35 @@
         </div>
       </div>
     </fieldset>
-    <!--<div class="action-process-action right-aligned col-sm-12">-->
-    <!--<div class="col-sm-6 advance-invoice-list">-->
-    <!--<%= link_to '#', class: 'advance-list advance-payment' do %>-->
-      <!--<i class="fa fa-align-left"></i> Advance Invoice-->
-      <!--<% end %>-->
-    <!--</div>-->
-    <!--<div class="col-sm-6">-->
-    <!--<%=  select_tag "payment_type", options_for_select([ "Normal Payment", "Group Payment" ], "Normal Payment") %>-->
-    <!--<%= link_to :back, class: 'btn btn-warning' do %>-->
-      <!--<i class="fa fa-times-circle"></i> Close-->
-      <!--<% end %>-->
-    <!--<%= link_to '#', class: 'btn btn-success print-voucher' do %>-->
-      <!--<i class="fa fa-print"></i> Voucher-->
-      <!--<% end %>-->
-    <!--<button type="submit" class='btn btn-success'><i class="fa fa-cog"></i> Process</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="customer-invoice-list">-->
+    <div class="action-process-action right-aligned col-sm-12">
+    <div class="col-sm-6 advance-invoice-list">
+    <%= link_to '#', class: 'advance-list advance-payment' do %>
+      <i class="fa fa-align-left"></i> Advance Invoice
+      <% end %>
+    </div>
+    <div class="col-sm-6">
+    <%=  select_tag "payment_type", options_for_select([ "Normal Payment", "Group Payment" ], "Normal Payment") %>
+    <%= link_to :back, class: 'btn btn-warning' do %>
+      <i class="fa fa-times-circle"></i> Close
+      <% end %>
+    <%= link_to '#', class: 'btn btn-success print-voucher' do %>
+      <i class="fa fa-print"></i> Voucher
+      <% end %>
+    <button type="submit" class='btn btn-success'><i class="fa fa-cog"></i> Process</button>
+    </div>
+    </div>
+    <div class="customer-invoice-list">
 
-    <!--</div>-->
-    <!--<div class="action-process-action right-aligned">-->
-    <!--<%= link_to :back, class: 'btn btn-warning' do %>-->
-      <!--<i class="fa fa-times-circle"></i> Close-->
-      <!--<% end %>-->
-    <!--<%= link_to '#', class: 'btn btn-success print-voucher' do %>-->
-      <!--<i class="fa fa-print"></i> Voucher-->
-      <!--<% end %>-->
-    <!--<button type="submit" class='btn btn-success'><i class="fa fa-cog"></i> Process</button>-->
-    <!--</div>-->
+    </div>
+    <div class="action-process-action right-aligned">
+    <%= link_to :back, class: 'btn btn-warning' do %>
+      <i class="fa fa-times-circle"></i> Close
+      <% end %>
+    <%= link_to '#', class: 'btn btn-success print-voucher' do %>
+      <i class="fa fa-print"></i> Voucher
+      <% end %>
+    <button type="submit" class='btn btn-success'><i class="fa fa-cog"></i> Process</button>
+    </div>
     <%= render 'group_cheque_payment' %>
   <% end %>
 </div>
@@ -197,6 +197,52 @@
         $('#received_date').datetimepicker({
             format: 'YYYY-MM-DD'
         });
+
+        $('#payment_type').change(function () {
+            var payment_process = $(this).val();
+            if (payment_process == 'Group Payment') {
+                $('#group-payment').modal('show');
+            }
+
+            else {
+                var items = $('.process-invoice-list').find('tbody').find('tr');
+                console.log(items);
+                $.each(items, function (index, value) {
+                    var item = $(value);
+                    var id = item.attr('data-invoice-id');
+                    console.log(item.find('a.payment-method-' + id));
+                    item.find('a.payment-method-' + id).text('Cash');
+                    item.find('.payment-method-' + id).prop( "disabled", false );
+                    item.find('#payment_method_' + id).val('cash');
+                });
+            }
+        });
+
+        // $('#customer_default_collected').click(function () {
+        //     var employee = $('#collected_by_id').val();
+        //     if (employee == '') {
+        //         $(this).prop('checked', false);
+        //         alert('Select Collected Employee');
+        //     }
+        //     else {
+        //         if (confirm("Are you sure? You want to change default Collector?")) {
+        //             default_collector(employee, $(this).is(':checked'), 'collector');
+        //         }
+        //     }
+        // });
+        //
+        // $('#customer_default_cashier').click(function () {
+        //     var employee = $('#cashier_id').val();
+        //     if (employee == '') {
+        //         $(this).prop('checked', false);
+        //         alert('Select Cashier Employee');
+        //     }
+        //     else {
+        //         if (confirm("Are you sure? You want to change default Cashier?")) {
+        //             default_collector(employee, $(this).is(':checked'), 'cashier');
+        //         }
+        //     }
+        // });
     });
 
     payable_amount = function () {
@@ -211,30 +257,10 @@
         $('.payable-amount').text(pay_amount);
     };
 
-    $('#payment_type').change(function () {
-        var payment_process = $(this).val();
-        if (payment_process == 'Group Payment') {
-            $('#group-payment').modal('show');
-        }
-
-        else {
-            var items = $('.process-invoice-list').find('tbody').find('tr');
-            console.log(items);
-            $.each(items, function (index, value) {
-                var item = $(value);
-                var id = item.attr('data-invoice-id');
-                console.log(item.find('a.payment-method-' + id));
-                item.find('a.payment-method-' + id).text('Cash');
-                item.find('.payment-method-' + id).prop( "disabled", false );
-                item.find('#payment_method_' + id).val('cash');
-            });
-        }
-    });
-
     function customer_invoice(customer_id) {
         $.ajax({
             type: 'get',
-            url: '/customers/' + customer_id + '/get_history',
+            url: '/pos/customers/' + customer_id + '/history',
             dataType: 'script',
             error: function (e) {
                 $('.customer-invoice-list').html(e);
@@ -242,41 +268,13 @@
             }
         })
     }
-</script>
 
-<script type="text/javascript">
-    $('#customer_default_collected').click(function () {
-        var employee = $('#collected_by_id').val();
-        if (employee == '') {
-            $(this).prop('checked', false);
-            alert('Select Collected Employee');
-        }
-        else {
-            if (confirm("Are you sure? You want to change default Collector?")) {
-                default_collector(employee, $(this).is(':checked'), 'collector');
-            }
-        }
-    });
-
-    $('#customer_default_cashier').click(function () {
-        var employee = $('#cashier_id').val();
-        if (employee == '') {
-            $(this).prop('checked', false);
-            alert('Select Cashier Employee');
-        }
-        else {
-            if (confirm("Are you sure? You want to change default Cashier?")) {
-                default_collector(employee, $(this).is(':checked'), 'cashier');
-            }
-        }
-    });
-
-    function default_collector(employee, add, field) {
-        $.ajax({
-            url: '/customers/add_remove_default_collector_cashier',
-            type: 'get',
-            data: {employee: employee, is_added: add, field: field},
-            dataType: 'script'
-        });
-    }
+    // function default_collector(employee, add, field) {
+    //     $.ajax({
+    //         url: '/customers/add_remove_default_collector_cashier',
+    //         type: 'get',
+    //         data: {employee: employee, is_added: add, field: field},
+    //         dataType: 'script'
+    //     });
+    // }
 </script>

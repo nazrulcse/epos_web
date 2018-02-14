@@ -211,4 +211,12 @@ HTML
       ''
     end
   end
+
+  def address(customer)
+    address = customer.company
+    address << ', ' << customer.address
+    address << ', ' << customer.city
+    address << ', ' << customer.email
+    address << ', ' << customer.mobile
+  end
 end

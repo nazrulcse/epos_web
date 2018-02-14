@@ -69,6 +69,10 @@ class Pos::Customers::InvoicesController < InheritedResources::Base
     end
   end
 
+  def history
+    @invoice = Customers::Invoice.find_by_id(params[:invoice_id])
+  end
+
   private
 
   def set_invoice

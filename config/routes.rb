@@ -124,6 +124,9 @@ Rails.application.routes.draw do
         collection do
           get :close_invoice
         end
+        member do
+          get :history
+        end
       end
       resources :invoice_items
       resources :payments
@@ -131,6 +134,10 @@ Rails.application.routes.draw do
     resources :customers do
       collection do
         post :process_invoice
+      end
+      member do
+        get :history
+        get :print_voucher
       end
     end
 
