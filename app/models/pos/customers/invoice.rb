@@ -9,6 +9,8 @@ class Pos::Customers::Invoice < ActiveRecord::Base
 
   validates :global_id, uniqueness: true
 
+  after_create :check_payments, :check_items
+
   def due_amount
     net_total - payments.sum(:amount)
   end
@@ -20,5 +22,15 @@ class Pos::Customers::Invoice < ActiveRecord::Base
   def self.active_invoice_customer(department)
     customers_ids = where(customer_id: department.customers.map(&:id), is_complete: false).map(&:customer_id)
     Pos::Customer.where(id: customers_ids)
+  end
+
+  def check_payments
+    pays = department.customers_payments.where(invoice_global_id: id, invoice_id: nil)
+    pays.update_all(invoice_id: id) if pays.present?
+  end
+
+  def check_items
+    itms = department.invoice_items.where(invoice_global_id: id, invoice_id: nil)
+    itms.update_all(invoice_id: id) if itms.present?
   end
 end

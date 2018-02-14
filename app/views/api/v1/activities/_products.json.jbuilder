@@ -5,6 +5,8 @@ action.slice! 'pos_product.'
 json.action action
 product = activity.trackable
 
-json.product do
-  json.partial! 'api/v1/pos/products/product', product: product
+if product.present?
+  json.product do
+    json.partial! 'api/v1/pos/products/product', product: product
+  end
 end

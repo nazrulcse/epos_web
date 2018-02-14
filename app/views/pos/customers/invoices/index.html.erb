@@ -33,7 +33,7 @@
                 <td><%= invoice.number %> </td>
                 <td><%= invoice.global_id %> </td>
                 <td><%= invoice.customer.name if invoice.customer.present? %> </td>
-                <td><%= invoice.total %> </td>
+                <td><%= invoice.net_total %> </td>
                 <td class="actions">
                   <%= link_to pos_customers_invoice_path(invoice), class: 'btn info-color' do %>
                     <i class="fa fa-eye"></i>

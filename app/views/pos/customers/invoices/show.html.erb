@@ -34,8 +34,8 @@
                 <td> <%= @invoice.date %> </td>
               </tr>
               <tr>
-                <td><label> Invoice Amount </label></td>
-                <td> <%= @invoice.amount %> </td>
+                <td><label> Invoice Total </label></td>
+                <td> <%= @invoice.invoice_total %> </td>
               </tr>
               <tr>
                 <td><label> Vat </label></td>
@@ -46,8 +46,8 @@
                 <td> <%= @invoice.discount %> </td>
               </tr>
               <tr>
-                <td><label> Invoice Total </label></td>
-                <td> <%= @invoice.total %> </td>
+                <td><label> Net Total </label></td>
+                <td> <%= @invoice.net_total %> </td>
               </tr>
               </tbody>
             </table>
@@ -65,7 +65,7 @@
                     <th>Price</th>
                     <th>Vat</th>
                     <th>Discount</th>
-                    <th>total</th>
+                    <th>Total</th>
                     <th></th>
                   </tr>
                   </thead>
@@ -74,7 +74,7 @@
                     <tr>
                       <td><%= item.product.name if item.product.present? %></td>
                       <td><%= item.quantity %></td>
-                      <td><%= item.amount %></td>
+                      <td><%= item.price %></td>
                       <td><%= item.vat %></td>
                       <td><%= item.discount %></td>
                       <td><%= item.total %></td>
