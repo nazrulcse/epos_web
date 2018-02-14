@@ -2,6 +2,8 @@ class Pos::Customers::InvoiceItem < ActiveRecord::Base
   belongs_to :product, :class_name => 'Pos::Product'
   belongs_to :invoice, :class_name => 'Pos::Customers::Invoice', foreign_key: :invoice_id
 
+  validates :global_id, uniqueness: true
+
   after_save :update_to_stock
   before_create :check_invoice
 
