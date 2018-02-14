@@ -7,6 +7,8 @@ class Pos::Customers::Invoice < ActiveRecord::Base
   has_many :stocks, class_name: 'Pos::Stock', as: :stockable, dependent: :destroy
   accepts_nested_attributes_for :items
 
+  validates :global_id, uniqueness: true
+
   def due_amount
     total - payments.sum(:amount)
   end
