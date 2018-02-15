@@ -15,7 +15,6 @@ class MembersController < InheritedResources::Base
 
   def create
     @member = current_company.members.build(member_params)
-
     if @member.save
       @member.create_activity key: 'member.create', owner: current_employee, recipient: current_company
       flash[:notice] = 'Member saved successfully.'

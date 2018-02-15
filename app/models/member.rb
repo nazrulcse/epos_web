@@ -3,4 +3,6 @@ class Member < ActiveRecord::Base
 
   validates :code, presence: true, uniqueness: true
   validates_presence_of :name, :email, :mobile
+
+  include PublicActivity::Common
 end
