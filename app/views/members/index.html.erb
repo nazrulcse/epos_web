@@ -1,0 +1,75 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <div class="header-container clearfix">
+        <h4 class="title-section">
+          Member List
+        </h4>
+
+        <div class="action-section">
+          <%= link_to new_member_path, class: 'btn btn-info' do %>
+            Add New Member
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper" id="provident-fund-rule-content">
+      <% if @members.present? %>
+        <div class="row actions-button">
+          <div class="add-more-rule clearfix">
+            <%= link_to new_member_path, class: 'btn btn-default pull-right' do %>
+              <i class="fa fa-plus-circle"></i> Add New Member
+            <% end %>
+          </div>
+        </div>
+        <div class="row content-body">
+          <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
+            <thead>
+            <tr>
+              <th>Member ID</th>
+              <th>Member Code</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Point Gained</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @members.each do |member| %>
+              <tr>
+                <td> #<%= member.id %> </td>
+                <td><%= member.code %> </td>
+                <td><%= member.name %> </td>
+                <td><%= member.email %> </td>
+                <td><%= member.mobile %> </td>
+                <td><%= member.point %> </td>
+                <td class="actions">
+                  <%= link_to member_path(member), class: 'btn info-color' do %>
+                    <i class="fa fa-eye"></i>
+                  <% end %>
+                  <%= link_to edit_member_path(member), class: 'btn warning-color' do %>
+                    <i class="fa fa-pencil-square-o"></i>
+                  <% end %>
+                  <%= link_to member_path(member), class: 'btn danger-color', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                    <i class="fa fa-times"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Company don't have any Member.
+          </p>
+          <%= link_to new_member_path, class: 'btn btn-default reset-border-radius' do %>
+            <i class="fa fa-plus-circle"></i> Add new one
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

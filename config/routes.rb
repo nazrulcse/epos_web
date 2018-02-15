@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post '/activities/offline_changes', to: 'activities#offline_changes'
       resources :employees, only: [:index, :show]
       resources :departments, only: [:index]
+      resources :members, only: [:index]
       namespace :pos do
         resources :suppliers, only: [:index]
         resources :customers, only: [:index]
@@ -43,6 +44,8 @@ Rails.application.routes.draw do
   get 'modules/employee', to: 'home#employee'
   get 'modules/attendance', to: 'home#attendance'
   get 'modules/bank', to: 'home#bank'
+
+  resources :members
 
   # For employee resources
   resources :employees do

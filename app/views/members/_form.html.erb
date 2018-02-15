@@ -1,0 +1,54 @@
+<div class="provident-fund-rule-form">
+  <%= form_for @member do |f| %>
+    <div class="form-group">
+      <%= f.label :name, 'Member Name' %>
+      <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :mobile %>
+      <%= f.text_field :mobile, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+    <div class="col-md-12 reset-padding">
+      <div class="col-md-9 reset-padding">
+        <div class="form-group">
+          <%= f.label :code, 'Member code' %>
+          <%= f.text_field :code, class: 'form-control reset-border-radius', placeholder: 'Scan barcode or generate', data: {required: true} %>
+        </div>
+      </div>
+      <div class="col-md-3 pr0">
+        <%= link_to 'Generate', '#', remote: true, class: 'btn btn-info wp100 mt25', id: 'member-code-generate-btn' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_area :address, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :point %>
+      <%= f.text_field :point, class: 'form-control reset-border-radius' %>
+    </div>
+    <div class="actions clearfix">
+      <%= f.submit class: 'btn btn-default pull-right reset-border-radius' %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_member').syftValidator();
+
+        $("form").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+
+        $('#member-code-generate-btn').click(function () {
+            $('#member_code').val(new Date().getTime());
+        });
+    });
+</script>

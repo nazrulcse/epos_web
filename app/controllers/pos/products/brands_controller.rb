@@ -20,7 +20,7 @@ class Pos::Products::BrandsController < InheritedResources::Base
       if @brand.save
         format.html { redirect_to pos_products_brands_path, notice: 'Brand saved successfully.' }
       else
-        format.html { redirect_to pos_products_brands_path, error: 'Brand saving failed.' }
+        format.html { redirect_to pos_products_brands_path, danger: errors_to_message_string(@brand.errors) }
       end
       format.js {}
     end
@@ -34,7 +34,7 @@ class Pos::Products::BrandsController < InheritedResources::Base
     if @brand.update(brand_params)
       flash[:notice] = 'Brand info updated successfully.'
     else
-      flash[:error] = 'Brand info update failed.'
+      flash[:error] = errors_to_message_string(@brand.errors)
     end
     redirect_to pos_products_brands_path
   end
@@ -43,7 +43,7 @@ class Pos::Products::BrandsController < InheritedResources::Base
     if @brand.destroy
       flash[:notice] = 'Brand deleted successfully.'
     else
-      flash[:error] = 'Brand deletion failed.'
+      flash[:danger] = errors_to_message_string(@brand.errors)
     end
     redirect_to pos_products_brands_path
   end

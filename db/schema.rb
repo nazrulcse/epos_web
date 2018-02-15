@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180215051118) do
+ActiveRecord::Schema.define(version: 20180215074355) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -294,6 +294,22 @@ ActiveRecord::Schema.define(version: 20180215051118) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "members", force: :cascade do |t|
+    t.integer  "company_id", limit: 4
+    t.string   "name",       limit: 255
+    t.string   "email",      limit: 255
+    t.string   "mobile",     limit: 255
+    t.string   "code",       limit: 255
+    t.string   "address",    limit: 255
+    t.float    "point",      limit: 53,  default: 0.0
+    t.float    "last_point", limit: 53
+    t.boolean  "is_active",              default: true
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "members", ["company_id"], name: "index_members_on_company_id", using: :btree
+
   create_table "pos_customers", force: :cascade do |t|
     t.string   "name",                  limit: 255
     t.string   "company",               limit: 255
@@ -534,16 +550,18 @@ ActiveRecord::Schema.define(version: 20180215051118) do
   end
 
   create_table "pos_suppliers", force: :cascade do |t|
-    t.string   "name",          limit: 255
-    t.string   "company",       limit: 255
-    t.string   "address",       limit: 255
-    t.string   "city",          limit: 255
-    t.string   "email",         limit: 255
-    t.string   "mobile",        limit: 255
-    t.integer  "department_id", limit: 4
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.boolean  "is_active",                 default: true
+    t.string   "name",                 limit: 255
+    t.string   "company",              limit: 255
+    t.string   "address",              limit: 255
+    t.string   "city",                 limit: 255
+    t.string   "email",                limit: 255
+    t.string   "mobile",               limit: 255
+    t.integer  "department_id",        limit: 4
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.boolean  "is_active",                        default: true
+    t.float    "initial_balance",      limit: 53
+    t.date     "initial_balance_date"
   end
 
   add_index "pos_suppliers", ["department_id"], name: "index_pos_suppliers_on_department_id", using: :btree

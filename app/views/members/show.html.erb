@@ -1,0 +1,62 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Member: <%= @member.name %>
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper">
+      <% if @member.present? %>
+        <div class="row content-body">
+          <div id="advances">
+            <table class="table table-user-information table-striped">
+              <tbody>
+              <tr>
+                <td><label> Member ID </label></td>
+                <td>
+                  # <%= @member.id %>
+                </td>
+              </tr>
+              <tr>
+                <td><label> Member COde </label></td>
+                <td> <%= @member.code %> </td>
+              </tr>
+              <tr>
+                <td><label> Name </label></td>
+                <td> <%= @member.name %> </td>
+              </tr>
+              <tr>
+                <td><label> Email </label></td>
+                <td> <%= @member.email %> </td>
+              </tr>
+              <tr>
+                <td><label> Mobile </label></td>
+                <td> <%= @member.mobile %> </td>
+              </tr>
+              <tr>
+                <td><label> Address </label></td>
+                <td> <%= @member.address %> </td>
+              </tr>
+              <tr>
+                <td><label> Point Gained </label></td>
+                <td> <%= @member.point %> </td>
+              </tr>
+              <tr>
+                <td><label> Last Point </label></td>
+                <td> <%= @member.last_point %> </td>
+              </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Sorry record not found :(
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
