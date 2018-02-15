@@ -17,6 +17,7 @@ class MembersController < InheritedResources::Base
     @member = current_company.members.build(member_params)
 
     if @member.save
+      @member.create_activity key: 'member.create', owner: current_employee, recipient: current_company
       flash[:notice] = 'Member saved successfully.'
     else
       flash[:danger] = errors_to_message_string(@member.errors)
@@ -30,7 +31,8 @@ class MembersController < InheritedResources::Base
   end
 
   def update
-    if @member.update(brand_params)
+    if @member.update(member_params)
+      @member.create_activity key: 'member.update', owner: current_employee, recipient: current_company
       flash[:notice] = 'Member info updated successfully.'
     else
       flash[:danger] = errors_to_message_string(@member.errors)
@@ -40,6 +42,7 @@ class MembersController < InheritedResources::Base
 
   def delete
     if @member.destroy
+      @member.create_activity key: 'member.destroy', owner: current_employee, recipient: current_company
       flash[:notice] = 'Member deleted successfully.'
     else
       flash[:danger] = errors_to_message_string(@member.errors)

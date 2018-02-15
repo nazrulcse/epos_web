@@ -26,7 +26,7 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   private
 
   def find_class
-    if params[:type] == 'departments'
+    if params[:type] == 'departments' || params[:type] == 'members'
       @klass = Company
       @attr = 'company_id'
     else
@@ -73,6 +73,10 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
   end
 
   def find_object(activity)
-    klass_name(activity).find_by_global_id(activity['trackable_id'])
+    activity['trackable_type'] == 'membership' ? find_member(activity) : klass_name(activity).find_by_global_id(activity['trackable_id'])
+  end
+
+  def find_member(activity)
+    Member.find_by_id(activity['trackable_id'])
   end
 end

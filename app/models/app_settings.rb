@@ -7,12 +7,14 @@ class AppSettings
       employees: 'Employee',
       departments: 'Department',
       designations: 'Designation',
+      members: 'Member',
       products: 'Pos::Product',
       suppliers: 'Pos::Supplier',
       customers: 'Pos::Customer'
   }.freeze
 
   OFFLINE_TRACKABLE_TYPES = {
+      membership: 'Member',
       invoice: 'Pos::Customers::Invoice',
       invoice_item: 'Pos::Customers::InvoiceItem',
       payment: 'Pos::Customers::Payment'
