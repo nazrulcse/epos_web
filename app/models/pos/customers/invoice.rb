@@ -12,11 +12,11 @@ class Pos::Customers::Invoice < ActiveRecord::Base
   after_create :check_payments, :check_items
 
   def due_amount
-    net_total - payments.sum(:amount)
+    (net_total - payments.sum(:amount)).round(2)
   end
 
   def paid
-    payments.sum(:amount)
+    payments.sum(:amount).round(2)
   end
 
   def self.active_invoice_customer(department)

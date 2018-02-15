@@ -15,11 +15,11 @@ class Pos::Customer < ActiveRecord::Base
   end
 
   def active_invoice
-    invoices.where(is_complete: false, is_advance: false)
+    self.invoices.where(is_complete: false, is_advance: false)
   end
 
   def advance_invoice
-    invoices.where(is_advance: true, is_complete: false)
+    self.invoices.where(is_advance: true, is_complete: false)
   end
 
   def total_invoice

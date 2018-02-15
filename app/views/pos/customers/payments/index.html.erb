@@ -39,9 +39,9 @@
             <% @payments.each do |payment| %>
               <tr>
                 <td>#<%= payment.id %></td>
-                <td><%= payment.global_id %></td><td><%= (link_to payment.invoice.number, payment.invoice) if payment.invoice.present? %></td>
-                <td><%= (link_to payment.customer.name, payment.customer) if payment.customer.present? %></td>
-                <td><%= (link_to payment.collected_by.full_name, payment.collected_by) if payment.collected_by.present? %></td>
+                <td><%= payment.global_id %></td><td><%= (link_to payment.invoice.number, pos_customers_invoice_path(payment.invoice)) if payment.invoice.present? %></td>
+                <td><%= (link_to payment.customer.name, pos_customer_path(payment.customer)) if payment.customer.present? %></td>
+                <td><%= (link_to payment.collected_by.full_name, employee_path(payment.collected_by)) if payment.collected_by.present? %></td>
                 <td><%= payment.payment_method %></td>
                 <td><%= payment.cheque_number %></td>
                 <td><%= 'Yes' if payment.is_group? %></td>

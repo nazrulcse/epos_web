@@ -11,8 +11,8 @@ class Pos::Customers::Payment < ActiveRecord::Base
   after_save :set_global_id
   before_create :check_invoice
 
-  def self.update_some
-    where(invoice_id: nil).upda
+  def complete?
+    self.status == "complete"
   end
 
   private
