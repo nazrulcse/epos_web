@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214133020) do
+ActiveRecord::Schema.define(version: 20180215051118) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.string   "number",        limit: 255
     t.string   "bank_name",     limit: 255
     t.string   "bank_branch",   limit: 255
-    t.float    "balance",       limit: 24
+    t.float    "balance",       limit: 53
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20180214133020) do
   create_table "changed_settings", force: :cascade do |t|
     t.time     "open_time"
     t.time     "close_time"
-    t.float    "working_hours", limit: 24
+    t.float    "working_hours", limit: 53
     t.date     "from_date"
     t.date     "to_date"
     t.integer  "department_id", limit: 4
@@ -238,7 +238,7 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.string   "blood_group",                 limit: 255
     t.date     "joining_date"
     t.integer  "designation_id",              limit: 4
-    t.float    "basic_salary",                limit: 24
+    t.float    "basic_salary",                limit: 53
     t.string   "mobile",                      limit: 255
     t.string   "nid",                         limit: 255
     t.string   "kin_name",                    limit: 255
@@ -272,7 +272,7 @@ ActiveRecord::Schema.define(version: 20180214133020) do
 
   create_table "features", force: :cascade do |t|
     t.string   "name",        limit: 255
-    t.float    "cost",        limit: 24
+    t.float    "cost",        limit: 53
     t.text     "description", limit: 65535
     t.string   "app_module",  limit: 255
     t.datetime "created_at",                null: false
@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.string   "email",                 limit: 255
     t.string   "mobile",                limit: 255
     t.integer  "department_id",         limit: 4
-    t.float    "initial_balance",       limit: 24
+    t.float    "initial_balance",       limit: 53
     t.string   "nid",                   limit: 255
     t.text     "nid_image",             limit: 65535
     t.string   "passport_no",           limit: 255
@@ -312,7 +312,7 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.integer  "category_id",           limit: 4
-    t.float    "credit_limit",          limit: 24
+    t.float    "credit_limit",          limit: 53
     t.boolean  "is_active",                           default: true
   end
 
@@ -335,14 +335,14 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.integer  "invoice_id",        limit: 4
     t.integer  "product_id",        limit: 4
     t.text     "note",              limit: 65535
-    t.float    "cost_price",        limit: 24
-    t.float    "price",             limit: 24
-    t.float    "whole_sale",        limit: 24
+    t.float    "cost_price",        limit: 53
+    t.float    "price",             limit: 53
+    t.float    "whole_sale",        limit: 53
     t.integer  "quantity",          limit: 4
-    t.float    "amount",            limit: 24
-    t.float    "discount",          limit: 24
-    t.float    "vat",               limit: 24
-    t.float    "total",             limit: 24
+    t.float    "amount",            limit: 53
+    t.float    "discount",          limit: 53
+    t.float    "vat",               limit: 53
+    t.float    "total",             limit: 53
     t.text     "attachment",        limit: 65535
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
@@ -364,10 +364,10 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.integer  "employee_id",    limit: 4
     t.integer  "customer_id",    limit: 4
     t.text     "note",           limit: 65535
-    t.float    "invoice_total",  limit: 24
-    t.float    "discount",       limit: 24
-    t.float    "vat",            limit: 24
-    t.float    "net_total",      limit: 24
+    t.float    "invoice_total",  limit: 53
+    t.float    "discount",       limit: 53
+    t.float    "vat",            limit: 53
+    t.float    "net_total",      limit: 53
     t.text     "attachment",     limit: 65535
     t.string   "global_id",      limit: 255
     t.datetime "created_at",                                   null: false
@@ -375,8 +375,8 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.boolean  "is_credit",                    default: false
     t.boolean  "is_advance",                   default: false
     t.boolean  "is_complete",                  default: false
-    t.float    "advance_paid",   limit: 24
-    t.float    "transport_cost", limit: 24
+    t.float    "advance_paid",   limit: 53
+    t.float    "transport_cost", limit: 53
     t.boolean  "is_paid",                      default: false
   end
 
@@ -392,9 +392,9 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.date     "date"
     t.string   "payment_method",    limit: 255
     t.text     "note",              limit: 65535
-    t.float    "amount",            limit: 24
-    t.float    "discount",          limit: 24
-    t.float    "total",             limit: 24
+    t.float    "amount",            limit: 53
+    t.float    "discount",          limit: 53
+    t.float    "total",             limit: 53
     t.string   "transaction_token", limit: 255
     t.text     "attachment",        limit: 65535
     t.string   "global_id",         limit: 255
@@ -409,7 +409,7 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.boolean  "is_collection",                   default: false
     t.boolean  "is_group",                        default: false
     t.boolean  "account_payable",                 default: false
-    t.float    "commission",        limit: 24
+    t.float    "commission",        limit: 53
     t.integer  "bank_account_id",   limit: 4
     t.integer  "collected_by_id",   limit: 4
     t.integer  "cashier_id",        limit: 4
@@ -435,9 +435,9 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.integer  "model_id",        limit: 4
     t.integer  "brand_id",        limit: 4
     t.integer  "re_order_level",  limit: 4,     default: 0
-    t.float    "cost_price",      limit: 24,    default: 0.0
-    t.float    "sale_price",      limit: 24,    default: 0.0
-    t.float    "whole_sale",      limit: 24,    default: 0.0
+    t.float    "cost_price",      limit: 53,    default: 0.0
+    t.float    "sale_price",      limit: 53,    default: 0.0
+    t.float    "whole_sale",      limit: 53,    default: 0.0
     t.boolean  "expirable",                     default: false
     t.boolean  "discountable",                  default: false
     t.integer  "stock",           limit: 4,     default: 0
@@ -451,8 +451,8 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.boolean  "has_warranty"
     t.string   "warranty",        limit: 255
     t.boolean  "has_vat"
-    t.float    "vat",             limit: 24
-    t.float    "discount",        limit: 24
+    t.float    "vat",             limit: 53
+    t.float    "discount",        limit: 53
     t.string   "made_in",         limit: 255
   end
 
@@ -556,9 +556,9 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.date     "date"
     t.string   "payment_method",    limit: 255
     t.text     "note",              limit: 65535
-    t.float    "amount",            limit: 24
-    t.float    "discount",          limit: 24
-    t.float    "total",             limit: 24
+    t.float    "amount",            limit: 53
+    t.float    "discount",          limit: 53
+    t.float    "total",             limit: 53
     t.string   "transaction_token", limit: 255
     t.text     "attachment",        limit: 65535
     t.datetime "created_at",                      null: false
@@ -578,13 +578,13 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.text     "note",              limit: 65535
     t.boolean  "is_received",                     default: false
     t.integer  "received_quantity", limit: 4
-    t.float    "cost_price",        limit: 24
-    t.float    "sale_price",        limit: 24
-    t.float    "whole_sale",        limit: 24
-    t.float    "amount",            limit: 24
-    t.float    "discount",          limit: 24
-    t.float    "vat",               limit: 24
-    t.float    "total",             limit: 24
+    t.float    "cost_price",        limit: 53
+    t.float    "sale_price",        limit: 53
+    t.float    "whole_sale",        limit: 53
+    t.float    "amount",            limit: 53
+    t.float    "discount",          limit: 53
+    t.float    "vat",               limit: 53
+    t.float    "total",             limit: 53
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
   end
@@ -604,10 +604,10 @@ ActiveRecord::Schema.define(version: 20180214133020) do
     t.text     "instruction",          limit: 65535
     t.boolean  "is_received",                        default: false
     t.date     "receive_date"
-    t.float    "amount",               limit: 24
-    t.float    "discount",             limit: 24
-    t.float    "vat",                  limit: 24
-    t.float    "total",                limit: 24
+    t.float    "amount",               limit: 53
+    t.float    "discount",             limit: 53
+    t.float    "vat",                  limit: 53
+    t.float    "total",                limit: 53
     t.text     "note",                 limit: 65535
     t.text     "attachment",           limit: 65535
     t.datetime "created_at",                                         null: false
