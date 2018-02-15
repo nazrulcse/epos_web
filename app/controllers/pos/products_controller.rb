@@ -32,7 +32,7 @@ class Pos::ProductsController < InheritedResources::Base
     if @product.save
       flash[:notice] = 'Product saved successfully.'
     else
-      flash[:error] = 'Product saving failed.'
+      flash[:danger] = errors_to_message_string(@product.errors)
     end
 
     redirect_to pos_products_path
