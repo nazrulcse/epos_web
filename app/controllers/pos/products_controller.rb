@@ -50,7 +50,7 @@ class Pos::ProductsController < InheritedResources::Base
     if @product.update(product_params)
       flash[:notice] = 'Product info updated successfully.'
     else
-      flash[:error] = 'Product info update failed.'
+      flash[:danger] = errors_to_message_string(@product.errors)
     end
     redirect_to pos_products_path
   end
