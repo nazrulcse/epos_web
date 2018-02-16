@@ -9,7 +9,5 @@ json.action action
 supplier = activity.trackable
 
 if supplier.present?
-  json.supplier do
-    json.partial! 'api/v1/pos/suppliers/supplier', supplier: supplier
-  end
+  json.partial! 'api/v1/pos/suppliers/supplier', supplier: supplier
 end
