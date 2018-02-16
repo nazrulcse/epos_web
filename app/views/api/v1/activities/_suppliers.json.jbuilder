@@ -1,9 +1,9 @@
 action = activity.key
-action.slice! 'supplier.'
+action.slice! 'pos_supplier.'
 
 json.id activity.trackable_id
 json.log_id activity.id
-json.model 'pos_supplier'
+json.model 'supplier'
 json.action action
 
 supplier = activity.trackable

@@ -1,5 +1,5 @@
 action = activity.key
-action.slice! 'pos_product.'
+action.slice! 'pos_customer.'
 
 json.id activity.trackable_id
 json.log_id activity.id
