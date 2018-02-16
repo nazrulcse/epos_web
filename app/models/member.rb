@@ -5,4 +5,10 @@ class Member < ActiveRecord::Base
   validates_presence_of :name, :email, :mobile
 
   include PublicActivity::Common
+
+  after_initialize :init
+
+  def init
+    self.last_point ||= 0.0
+  end
 end

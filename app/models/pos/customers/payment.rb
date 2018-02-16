@@ -7,15 +7,39 @@ class Pos::Customers::Payment < ActiveRecord::Base
   belongs_to :customer, class_name: 'Pos::Customer', foreign_key: :customer_id
 
   validates :global_id, uniqueness: true
+  validate :validate_value_date
 
   after_save :set_global_id
-  before_create :check_invoice
+  before_create :check_invoice, :set_status
+  before_save :set_value_date
 
   def complete?
-    self.status == "complete"
+    status == 'complete'
+  end
+
+  def cash?
+    payment_method == 'cash'
+  end
+
+  def cheque?
+    payment_method == 'cheque'
   end
 
   private
+
+  def set_status
+    self.status = 'pending'
+  end
+
+  def set_value_date
+    self.value_date = date if cash?
+  end
+
+  def validate_value_date
+    if cheque? && [2, 5].include?(value_date.wday)
+      errors.add(:value_date, "can't select Tuesday or Friday")
+    end
+  end
 
   def set_global_id
     update_attributes(global_id: "web-#{department.company.id}-#{department.id}-#{id}") unless global_id.present?

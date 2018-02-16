@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180215074355) do
+ActiveRecord::Schema.define(version: 20180216042530) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -579,12 +579,25 @@ ActiveRecord::Schema.define(version: 20180215074355) do
     t.float    "total",             limit: 53
     t.string   "transaction_token", limit: 255
     t.text     "attachment",        limit: 65535
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.date     "value_date"
+    t.string   "cheque_number",     limit: 255
+    t.string   "bank_name",         limit: 255
+    t.string   "bank_branch",       limit: 255
+    t.string   "paid_to",           limit: 255
+    t.boolean  "status",                          default: false
+    t.boolean  "confirmed",                       default: false
+    t.boolean  "is_group",                        default: false
+    t.float    "commission",        limit: 53
+    t.integer  "bank_account_id",   limit: 4
+    t.integer  "paid_by_id",        limit: 4
   end
 
+  add_index "pos_suppliers_payments", ["bank_account_id"], name: "index_pos_suppliers_payments_on_bank_account_id", using: :btree
   add_index "pos_suppliers_payments", ["department_id"], name: "index_pos_suppliers_payments_on_department_id", using: :btree
   add_index "pos_suppliers_payments", ["employee_id"], name: "index_pos_suppliers_payments_on_employee_id", using: :btree
+  add_index "pos_suppliers_payments", ["paid_by_id"], name: "index_pos_suppliers_payments_on_paid_by_id", using: :btree
   add_index "pos_suppliers_payments", ["purchase_id"], name: "index_pos_suppliers_payments_on_purchase_id", using: :btree
   add_index "pos_suppliers_payments", ["supplier_id"], name: "index_pos_suppliers_payments_on_supplier_id", using: :btree
 

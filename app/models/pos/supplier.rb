@@ -7,4 +7,61 @@ class Pos::Supplier < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: proc { |controller, model| controller.current_employee },
           recipient: proc { |controller, model| controller.current_department }
+
+  after_initialize :init
+
+  def init
+    self.initial_balance ||= 0.0
+  end
+
+  def active_invoice
+    purchases.where(is_complete: false)
+  end
+
+  def total_invoice
+    @total_invoice ||= purchases.map(&:invoice_total).sum
+  end
+
+  def total_payment
+    @total_payment ||= payments.map { |p| p.complete? ? p.amount : 0 }.sum
+  end
+
+  def total_refund
+    0.0 # @total_refund ||= self.refunds.map(&:amount).sum
+  end
+
+  def total_discount
+    0.0 # @total_discount ||= self.discounts.map(&:amount).sum
+  end
+
+  def due_balance
+    @due_balance ||= total_invoice - total_payment - total_refund - total_discount + (initial_balance || 0)
+  end
+
+  def last_payment_date
+    payment_date = ''
+    payment = payments.where(status: 'complete', is_collection: true).last
+    payment_date = payment.date.strftime('%d/%m/%Y') if payment.present?
+    payment_date
+  end
+
+  def last_any_payment_date
+    payment_date = ''
+    payment = payments.where(status: 'complete').last
+    payment_date = payment.date.strftime('%d/%m/%Y') if payment.present?
+    payment_date
+  end
+
+  def last_payment_amount
+    payment_date = ''
+    payment = payments.where(status: 'complete', is_collection: true).last
+    payment_date = payment.date if payment.present?
+    if payment_date.present?
+      @last_payment_amount = payments.where(status: 'complete',
+                                            date: payment_date).sum(:amount)
+    else
+      @last_payment_amount = 0
+    end
+    @last_payment_amount
+  end
 end

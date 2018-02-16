@@ -1,8 +1,9 @@
 class Api::V1::ActivitiesController < Api::V1::V1Base
-  before_action :find_class, only: :changes
+  # before_action :find_class, only: :changes
 
   def changes
-    object = @klass.find(params[@attr.to_sym])
+    object = Department.find(params[:department_id])
+    object = object.company if %w(departments memberships).include?(params[:type])
     @activities = PublicActivity::Activity.where(trackable_type: AppSettings::TRACKABLE_TYPES[params[:type].to_sym], recipient_id: object.id, recipient_type: object.class.to_s)
   end
 
@@ -25,15 +26,15 @@ class Api::V1::ActivitiesController < Api::V1::V1Base
 
   private
 
-  def find_class
-    if params[:type] == 'departments' || params[:type] == 'members'
-      @klass = Company
-      @attr = 'company_id'
-    else
-      @klass = Department
-      @attr = 'department_id'
-    end
-  end
+  # def find_class
+  #   if params[:type] == 'departments' || params[:type] == 'members'
+  #     @klass = Company
+  #     @attr = 'company_id'
+  #   else
+  #     @klass = Department
+  #     @attr = 'department_id'
+  #   end
+  # end
 
   def render_json
     json_response(applied_activies: @applied_ids.join(','))

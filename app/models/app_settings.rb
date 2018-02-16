@@ -7,7 +7,7 @@ class AppSettings
       employees: 'Employee',
       departments: 'Department',
       designations: 'Designation',
-      members: 'Member',
+      memberships: 'Member',
       products: 'Pos::Product',
       suppliers: 'Pos::Supplier',
       customers: 'Pos::Customer'

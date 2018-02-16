@@ -12,4 +12,17 @@ class Pos::Suppliers::Purchase < ActiveRecord::Base
                                 :reject_if => proc { |attributes|
                                   attributes.all? { |k, v| v.blank? }
                                 }
+
+  def due_amount
+    total - payments.sum(:amount)
+  end
+
+  def paid
+    payments.sum(:amount)
+  end
+
+  def self.active_invoice_supplier(department)
+    supplier_ids = where(supplier_id: department.suppliers.map(&:id), is_complete: false).map(&:supplier_id)
+    Pos::Supplier.where(id: supplier_ids)
+  end
 end

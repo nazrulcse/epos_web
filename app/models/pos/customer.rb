@@ -12,22 +12,23 @@ class Pos::Customer < ActiveRecord::Base
 
   def init
     self.credit_limit ||= 0.0
+    self.initial_balance ||= 0.0
   end
 
   def active_invoice
-    self.invoices.where(is_complete: false, is_advance: false)
+    invoices.where(is_complete: false, is_advance: false)
   end
 
   def advance_invoice
-    self.invoices.where(is_advance: true, is_complete: false)
+    invoices.where(is_advance: true, is_complete: false)
   end
 
   def total_invoice
-    @total_invoice ||= self.invoices.where(is_advance: false).map(&:invoice_total).sum
+    @total_invoice ||= invoices.where(is_advance: false).map(&:invoice_total).sum
   end
 
   def total_payment
-    @total_payment||= self.payments.map { |p| p.complete? ? p.amount : 0 }.sum
+    @total_payment||= payments.map { |p| p.complete? ? p.amount : 0 }.sum
   end
 
   def total_refund

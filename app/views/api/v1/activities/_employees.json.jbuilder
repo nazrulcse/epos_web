@@ -1,8 +1,11 @@
-json.id activity.id
-json.model 'Employee'
 action = activity.key
 action.slice! 'employee.'
+
+json.id activity.trackable_id
+json.log_id activity.id
+json.model 'employee'
 json.action action
+
 employee = activity.trackable
 
 if employee.present?

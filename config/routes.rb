@@ -156,7 +156,15 @@ Rails.application.routes.draw do
       resources :purchase_items
       resources :payments
     end
-    resources :suppliers
+    resources :suppliers do
+      collection do
+        post :process_invoice
+      end
+      member do
+        get :history
+        get :print_voucher
+      end
+    end
 
     namespace :products do
       resources :brands
