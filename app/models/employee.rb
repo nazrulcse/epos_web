@@ -85,8 +85,8 @@ class Employee < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :attachment, FileUploader
 
-  validates :user_id, presence: :true, uniqueness: { case_sensitive: false }
-  validate :validate_user_id
+  # validates :user_id, presence: :true, uniqueness: { case_sensitive: false }
+  # validate :validate_user_id
   # validates_format_of :user_id, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   belongs_to :department
