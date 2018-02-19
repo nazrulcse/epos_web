@@ -71,7 +71,7 @@ class EmployeesController < InheritedResources::Base
 
   def add
     @employee = Employee.new(employee_params)
-    @employee.password = generate_password
+    @employee.password = generate_password unless params[:employee][:password].present?
     respond_to do |format|
       if @employee.save
         @employee.create_activity key: 'employee.create', owner: current_employee, recipient: current_department

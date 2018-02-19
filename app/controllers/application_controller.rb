@@ -160,9 +160,10 @@ class ApplicationController < ActionController::Base
   end
 
   def is_available_module?(namespace = current_namespace)
-    available_modules_name = current_employee.department.company.features.collect { |f| f.app_module }
-    total_modules = available_modules_name + Ability::SETUP_MODULES
-    total_modules.include?(namespace)
+    true
+    # available_modules_name = current_employee.department.company.features.collect { |f| f.app_module }
+    # total_modules = available_modules_name + Ability::SETUP_MODULES
+    # total_modules.include?(namespace)
   end
 
   def current_namespace(controller = params[:controller])

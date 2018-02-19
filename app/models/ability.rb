@@ -13,7 +13,8 @@ class Ability
       'Department' => 'Department',
       'Designation' => 'Designation',
       'Setting' => 'Setting',
-      'Home' => 'Home'
+      'Home' => 'Home',
+      'Member' => 'Member'
   }
 
   DEFAULT_ACCESS = {
@@ -41,7 +42,7 @@ class Ability
           can action.to_sym, controller.classify
         else
 
-          # p namespace
+          p namespace
           # p operational_controller
           # p user.access_right.permissions
           # p "user access"
