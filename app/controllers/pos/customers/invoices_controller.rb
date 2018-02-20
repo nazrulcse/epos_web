@@ -1,5 +1,5 @@
 class Pos::Customers::InvoicesController < InheritedResources::Base
-  before_action :set_invoice, only: [:show, :edit, :update, :delete]
+  before_action :set_invoice, only: [:show, :edit, :update, :delete, :history]
 
   def index
     @invoices = current_department.customers_invoices
@@ -70,7 +70,7 @@ class Pos::Customers::InvoicesController < InheritedResources::Base
   end
 
   def history
-    @invoice = Customers::Invoice.find_by_id(params[:invoice_id])
+    # @invoice = Pos::Customers::Invoice.find_by_id(params[:invoice_id])
   end
 
   private
