@@ -1,32 +1,19 @@
-<div class="process-customer-invoice p15">
-  <%= form_tag process_invoice_pos_customers_path do %>
-    <fieldset class="customer-details-fieldset">
-      <legend> Customer Details</legend>
+<div class="process-supplier-invoice p15">
+  <%= form_tag process_purchase_pos_suppliers_path do %>
+    <fieldset class="supplier-details-fieldset">
+      <legend> Supplier Details</legend>
       <div class="col-sm-12 row">
         <div class="col-sm-6 pr100">
           <div class="form-group">
             Customer: <br/>
-            <%= select_tag :customer_id, options_for_select(Pos::Customers::Invoice.active_invoice_customer(current_department).map { |cus| [cus.name, cus.id] }, params[:customer_id]), {class: 'form-control custom-chosen', prompt: 'Select Customer...'} %>
-          </div>
-          <div class="form-group">
-            <div class="select-default">
-              <div class="checkbox reset-margin">
-                Collected By:
-                <!--<label class="reset-padding">-->
-                <!--<input type="checkbox" value="<%= @default_collector_id %>" <%= @default_collector_id.present? ? 'checked' : '' %> id="customer_default_collected" name="customer_default_collected">-->
-                <!--<span class="cr"><i class="cr-icon fa fa-check"></i></span>-->
-                <!--Default-->
-                <!--</label>-->
-              </div>
-            </div>
-            <%= select_tag :collected_by_id, options_for_select(current_active_employees.map { |c| [c.full_name, c.id] }), {class: 'form-control custom-chosen', prompt: 'Select One...'} %>
+            <%= select_tag :supplier_id, options_for_select(Pos::Suppliers::Purchase.active_purchase_supplier(current_department).map { |sup| [sup.name, sup.id] }, params[:supplier_id]), {class: 'form-control custom-chosen', prompt: 'Select Supplier...'} %>
           </div>
           <div class="form-group">
             <div class="select-default">
               <div class="checkbox reset-margin">
                 Cashier:
                 <!--<label class="reset-padding">-->
-                <!--<input type="checkbox" value="<%= @default_customer_cashier_id %>" <%= @default_customer_cashier_id.present? ? 'checked' : '' %> id="customer_default_cashier" name="customer_default_cashier">-->
+                <!--<input type="checkbox" value="<%#= @default_customer_cashier_id %>" <%#= @default_customer_cashier_id.present? ? 'checked' : '' %> id="customer_default_cashier" name="customer_default_cashier">-->
                 <!--<span class="cr"><i class="cr-icon fa fa-check"></i></span>-->
                 <!--Default-->
                 <!--</label>-->
@@ -37,6 +24,11 @@
           <div class="form-group">
             Received Date:
             <%= text_field_tag :received_date, Date.today, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            Paid To:
+            <%= text_field_tag :paid_to, '', class: 'form-control' %>
           </div>
         </div>
         <div class="col-sm-6">
@@ -84,24 +76,17 @@
         </div>
       </div>
     </fieldset>
-    <div class="action-process-action right-aligned col-sm-12">
-      <div class="col-sm-6 advance-invoice-list">
-        <%= link_to '#', class: 'advance-list advance-payment' do %>
-          <i class="fa fa-align-left"></i> Advance Invoice
-        <% end %>
-      </div>
-      <div class="col-sm-6">
-        <%=  select_tag "payment_type", options_for_select([ "Normal Payment", "Group Payment" ], "Normal Payment") %>
-        <%= link_to :back, class: 'btn btn-warning' do %>
-          <i class="fa fa-times-circle"></i> Close
-        <% end %>
-        <%= link_to '#', class: 'btn btn-success print-voucher' do %>
-          <i class="fa fa-print"></i> Voucher
-        <% end %>
-        <button type="submit" class='btn btn-success'><i class="fa fa-cog"></i> Process</button>
-      </div>
+    <div class="action-process-action right-aligned">
+      <%=  select_tag "payment_type", options_for_select([ "Normal Payment", "Group Payment" ], "Normal Payment") %>
+      <%= link_to :back, class: 'btn btn-warning' do %>
+        <i class="fa fa-times-circle"></i> Close
+      <% end %>
+      <%= link_to '#', class: 'btn btn-success print-voucher' do %>
+        <i class="fa fa-print"></i> Voucher
+      <% end %>
+      <button type="submit" class='btn btn-success'><i class="fa fa-cog"></i> Process</button>
     </div>
-    <div class="customer-invoice-list">
+    <div class="supplier-invoice-list">
 
     </div>
     <div class="action-process-action right-aligned">
@@ -135,67 +120,16 @@
   </div>
 </div>
 
-<div class="modal fade" id="show_list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Advance Invoice List</h4>
-      </div>
-      <%= form_tag(close_invoice_pos_customers_invoices_path, method: 'get', remote: true) do %>
-        <div class="modal-body advance-history">
-
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class='btn btn-success'><i class="fa fa-cog"></i> Close Invoice</button>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-
 <script type="text/javascript">
     $(function () {
-        $('.advance-list').click(function (e) {
-            $('#show_list').modal('show');
-        });
-
-        $('.process-customer-invoice #customer_id').change(function () {
-            var customer_id = $(this).val();
-            if (customer_id == '') {
-                $('.customer-invoice-list').html('');
+        $('.process-supplier-invoice #supplier_id').change(function () {
+            var supplier_id = $(this).val();
+            if (supplier_id == '') {
+                $('.supplier-invoice-list').html('');
             }
             else {
-                customer_invoice(customer_id);
+                customer_invoice(supplier_id);
             }
-        });
-
-        $(document).on('keyup', '.pay-amount', function () {
-            var due = $(this).attr('data-limit');
-            var amount = $(this).val();
-            if (parseFloat(due) < parseFloat(amount)) {
-                alert("Pay amount can't grater than due amount!");
-                $(this).val(due);
-            }
-            payable_amount();
-        });
-        if (<%= params[:customer_id].present? %>) {
-            customer_invoice(<%= params[:customer_id] %>)
-        }
-
-        $(document).on('click', '.full-pay', function () {
-            if ($(this).is(':checked')) {
-                $(this).parents('tr').find('.table-input').val($(this).val());
-            }
-            else {
-                $(this).parents('tr').find('.table-input').val('0.0');
-            }
-            payable_amount();
-        });
-
-        $('#received_date').datetimepicker({
-            format: 'YYYY-MM-DD'
         });
 
         $('#payment_type').change(function () {
@@ -218,20 +152,34 @@
             }
         });
 
-        // $('#customer_default_collected').click(function () {
-        //     var employee = $('#collected_by_id').val();
-        //     if (employee == '') {
-        //         $(this).prop('checked', false);
-        //         alert('Select Collected Employee');
-        //     }
-        //     else {
-        //         if (confirm("Are you sure? You want to change default Collector?")) {
-        //             default_collector(employee, $(this).is(':checked'), 'collector');
-        //         }
-        //     }
-        // });
-        //
-        // $('#customer_default_cashier').click(function () {
+        $(document).on('keyup', '.pay-amount', function () {
+            var due = $(this).attr('data-limit');
+            var amount = $(this).val();
+            if (parseFloat(due) < parseFloat(amount)) {
+                alert("Pay amount can't grater than due amount!");
+                $(this).val(due);
+            }
+            payable_amount();
+        });
+        if (<%= params[:supplier_id].present? %>) {
+            customer_invoice(<%= params[:supplier_id] %>)
+        }
+
+        $(document).on('click', '.full-pay', function () {
+            if ($(this).is(':checked')) {
+                $(this).parents('tr').find('.table-input').val($(this).val());
+            }
+            else {
+                $(this).parents('tr').find('.table-input').val('0.0');
+            }
+            payable_amount();
+        });
+
+        $('#received_date').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
+        // $('#supplier_default_cashier').click(function () {
         //     var employee = $('#cashier_id').val();
         //     if (employee == '') {
         //         $(this).prop('checked', false);
@@ -257,13 +205,13 @@
         $('.payable-amount').text(pay_amount);
     };
 
-    function customer_invoice(customer_id) {
+    function customer_invoice(supplier_id) {
         $.ajax({
             type: 'get',
-            url: '/pos/customers/' + customer_id + '/history',
+            url: '/pos/suppliers/' + supplier_id + '/history',
             dataType: 'script',
             error: function (e) {
-                $('.customer-invoice-list').html(e);
+                $('.supplier-invoice-list').html(e);
                 $('.action-process-action').hide();
             }
         })

@@ -13,15 +13,23 @@ class Pos::Suppliers::Purchase < ActiveRecord::Base
                                   attributes.all? { |k, v| v.blank? }
                                 }
 
-  def due_amount
-    total - payments.sum(:amount)
+  def total_refund
+    0.0 # refunds.sum(:amount)
+  end
+
+  def total_discount
+    0.0 # discounts.sum(:amount)
   end
 
   def paid
     payments.sum(:amount)
   end
 
-  def self.active_invoice_supplier(department)
+  def due_amount
+    total - payments.sum(:amount)
+  end
+
+  def self.active_purchase_supplier(department)
     supplier_ids = where(supplier_id: department.suppliers.map(&:id), is_complete: false).map(&:supplier_id)
     Pos::Supplier.where(id: supplier_ids)
   end

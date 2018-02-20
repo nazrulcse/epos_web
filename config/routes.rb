@@ -160,7 +160,7 @@ Rails.application.routes.draw do
     end
     resources :suppliers do
       collection do
-        post :process_invoice
+        post :process_purchase
       end
       member do
         get :history
