@@ -128,6 +128,16 @@ class Employee < ActiveRecord::Base
     end
   end
 
+  def reset_password_without_current(params, *options)
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
+  end
+
   def get_basic_salary
     basic_salary.present? ? basic_salary : 0.00
   end
