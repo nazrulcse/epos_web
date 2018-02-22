@@ -6,7 +6,7 @@ class Pos::Products::CategoriesController < InheritedResources::Base
   end
 
   def new
-    @category = Pos::Products::Category.new
+    @category = Pos::Products::Category.new(code: "C000#{current_department.brands.count + 1}")
   end
 
   def create

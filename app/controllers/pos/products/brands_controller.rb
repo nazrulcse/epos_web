@@ -10,7 +10,7 @@ class Pos::Products::BrandsController < InheritedResources::Base
   end
 
   def new
-    @brand = Pos::Products::Brand.new
+    @brand = Pos::Products::Brand.new(code: "B000#{current_department.brands.count + 1}")
   end
 
   def create
