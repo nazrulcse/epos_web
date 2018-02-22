@@ -32,6 +32,9 @@
               <th>Code</th>
               <th>Name</th>
               <th>Stock</th>
+              <th>Buying Cost</th>
+              <th>Sale Total</th>
+              <th>Expected Profit</th>
               <th></th>
             </tr>
             </thead>
@@ -42,6 +45,9 @@
                 <td><%= product.code %> </td>
                 <td><%= product.name %> </td>
                 <td><%= product.stock_on_hand %> </td>
+                <td><%= (cost = product.cost_price * product.stock_on_hand).round(2) %> </td>
+                <td><%= (sale = product.sale_price * product.stock_on_hand).round(2) %> </td>
+                <td><%= (sale - cost).round(2) %> </td>
                 <td class="actions">
                   <%= link_to history_pos_stocks_path, title: 'Product purchase order history', remote: true, class: 'purchase-history-link' do %>
                     <i class="fa fa-pie-chart" aria-hidden="true"></i>
