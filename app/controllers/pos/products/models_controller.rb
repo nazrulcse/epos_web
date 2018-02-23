@@ -10,7 +10,8 @@ class Pos::Products::ModelsController < InheritedResources::Base
   end
 
   def new
-    @model = Pos::Products::Model.new
+    model_code = "M#{current_department.id}000#{current_department.models.count + 1}"
+    @model = Pos::Products::Model.new({code: model_code})
   end
 
   def create
