@@ -1,4 +1,5 @@
 class Pos::Suppliers::PurchasesController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_purchase, only: [:show, :edit, :update, :delete, :receive]
 
   def index

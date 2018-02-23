@@ -19,13 +19,21 @@
     <%= link_to edit_employee_path(employee), remote: true, class: 'btn btn-warning', title: 'Edit' do %>
       <i class="fa fa-pencil"></i>
     <% end %>
-    <% if employee.is_active.present? %>
-      <%= link_to confirm_settings_path(action_item_id: employee.id, action_on: 'employees', action_type: AppSettings::ACTIONS[:deactivate]), title: 'Deactivate', remote: true, class: 'btn btn-danger' do %>
-        <i class="fa fa-ban"> </i>
-      <% end %>
-    <% else %>
-      <%= link_to confirm_settings_path(action_item_id: employee.id, action_on: 'employees', action_type: AppSettings::ACTIONS[:active]), title: 'Active', remote: true, class: 'btn btn-success' do %>
-        <i class="fa fa-check-circle"> </i>
+    <% if can_access? 'destroy', 'employees' %>
+      <% if employee.is_active.present? %>
+        <%#= link_to confirm_settings_path(action_item_id: employee.id, action_on: 'employees', action_type: AppSettings::ACTIONS[:deactivate]), title: 'Deactivate', remote: true, class: 'btn btn-danger' do %>
+        <!--<i class="fa fa-ban"> </i>-->
+        <%# end %>
+        <%= link_to employee_path(employee), title: 'Deactivate', method: :delete, remote: true, class: 'btn btn-danger', data: {confirm: 'Are you sure?'} do %>
+          <i class="fa fa-ban"> </i>
+        <% end %>
+      <% else %>
+        <%#= link_to confirm_settings_path(action_item_id: employee.id, action_on: 'employees', action_type: AppSettings::ACTIONS[:active]), title: 'Active', remote: true, class: 'btn btn-success' do %>
+        <!--<i class="fa fa-check-circle"> </i>-->
+        <%# end %>
+        <%#= link_to activation_employee_path(employee), title: 'Active', method: :put, remote: true, class: 'btn btn-success', data: {confirm: 'Are you sure?'} do %>
+          <!--<i class="fa fa-check-circle"> </i>-->
+        <%# end %>
       <% end %>
     <% end %>
     <%= link_to employee_card_path(employee), class: 'btn btn-primary mr0' do %>

@@ -15,10 +15,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
-      format.html {
-        redirect_to :back, :alert => exception.message
-      }
-      format.js { render :file => "shared/access_right_error.js.erb" }
+      format.html {redirect_to root_path, alert: exception.message}
+      format.js { render file: 'shared/access_right_error.js.erb' }
     end
   end
 

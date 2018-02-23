@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  RESTFUL_ACTION = [ 'index', 'show', 'new', 'edit', 'create', 'update', 'destroy' ]
+  RESTFUL_ACTION = [ 'index', 'show', 'new', 'edit', 'create', 'update', 'destroy', 'delete' ]
 
   SETUP_MODULES = ['AccessRight', 'Company', 'Department' , 'Designation', 'Setting', 'Employees', 'Home' ]
 
@@ -18,12 +18,14 @@ class Ability
   }
 
   DEFAULT_ACCESS = {
-      'employees' => ['index', 'settings', 'show', 'profile', 'update_password', 'attendances'],
+      'employees' => ['settings', 'show', 'profile', 'update_password', 'attendances'],
       'attendance/attendances' => ['in', 'out'],
       'home' => ['contact_us']
   }
 
   def initialize(user, namespace, controller, action)
+    p 'namespace'
+    p namespace
     user ||= Employee.new
     alias_action :read, :create, :update, :to => :moderate
 
@@ -31,11 +33,16 @@ class Ability
       can :manage, :all
     else
       if namespace.empty?
+        p 'classify'
+        p controller
+        p MODULELESS_NAMESPACE[controller.classify]
         namespace = MODULELESS_NAMESPACE[controller.classify]
         operational_controller = controller
       else
         operational_controller = controller.split('/').last
       end
+
+      p namespace
 
       if module_availability_checker(user, namespace)
         if DEFAULT_ACCESS.collect{ |key, value| key.classify }.include?(controller.classify) && DEFAULT_ACCESS[controller.downcase].include?(action)
@@ -74,9 +81,9 @@ class Ability
   private
 
   def module_availability_checker(user, module_name)
-    available_modules_name = user.department.company.features.collect{ |f|  f.app_module }
-    total_modules = available_modules_name + SETUP_MODULES
-    total_modules.include?(module_name)
+    # available_modules_name = user.department.company.features.collect{ |f|  f.app_module }
+    # total_modules = available_modules_name + SETUP_MODULES
+    # total_modules.include?(module_name)
     true
   end
 

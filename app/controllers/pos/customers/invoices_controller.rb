@@ -1,4 +1,5 @@
 class Pos::Customers::InvoicesController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_invoice, only: [:show, :edit, :update, :delete, :history]
 
   def index

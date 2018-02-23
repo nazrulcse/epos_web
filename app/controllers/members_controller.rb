@@ -1,4 +1,5 @@
 class MembersController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_member, only: [:show, :edit, :update, :delete]
 
   def index

@@ -1,4 +1,5 @@
 class Pos::SuppliersController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_supplier, only: [:show, :edit, :update, :delete, :history, :print_voucher]
 
   def index

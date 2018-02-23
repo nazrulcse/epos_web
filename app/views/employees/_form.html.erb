@@ -27,9 +27,9 @@
           <li class="wizard-nav-item <%= 'already-visited' unless @employee.new_record? %>">
             <a class="wizard-nav-link"> Payroll </a>
           </li>
-          <li class="wizard-nav-item <%= 'already-visited' unless @employee.new_record? %>">
-            <a class="wizard-nav-link"> Access Rights </a>
-          </li>
+          <!--<li class="wizard-nav-item <%#= 'already-visited' unless @employee.new_record? %>">-->
+          <!--<a class="wizard-nav-link"> Access Rights </a>-->
+          <!--</li>-->
           <li class="wizard-nav-item <%= 'already-visited' unless @employee.new_record? %>">
             <a class="wizard-nav-link"> Welcome </a>
           </li>
@@ -357,81 +357,81 @@
             </div>
           </div>
 
-          <div class="wizard-card welcome-info-wrap">
-            <h3><span>Access Right</span></h3>
+          <!--<div class="wizard-card welcome-info-wrap">-->
+          <!--<h3><span>Access Right</span></h3>-->
 
-            <div class="wizard-input-section welcome-info-input-section-wrap">
-              <div class="row">
+          <!--<div class="wizard-input-section welcome-info-input-section-wrap">-->
+          <!--<div class="row">-->
 
-                <%= f.fields_for :access_right do |ff| %>
+          <!--<%#= f.fields_for :access_right do |ff| %>-->
 
-                  <% AccessRight::PERMISSION_LIST.each do |key, value| %>
-                    <% if is_available_module?(key) %>
-                      <div class="col-sm-12">
-                        <div class="panel panel-default reset-border-radius">
-                          <div class="panel-heading reset-border-radius"> <%= key %> </div>
-                          <div class="panel-body reset-border-radius">
-                            <% value.each do |controller| %>
-                              <div class="form-group select clearfix">
-                                <label class="col-sm-3 control-label">
-                                  <%= controller.to_s.humanize.camelize %>
-                                </label>
+          <!--<%# AccessRight::PERMISSION_LIST.each do |key, value| %>-->
+          <!--<%# if is_available_module?(key) %>-->
+          <!--<div class="col-sm-12">-->
+          <!--<div class="panel panel-default reset-border-radius">-->
+          <!--<div class="panel-heading reset-border-radius"> <%#= key %> </div>-->
+          <!--<div class="panel-body reset-border-radius">-->
+          <!--<%# value.each do |controller| %>-->
+          <!--<div class="form-group select clearfix">-->
+          <!--<label class="col-sm-3 control-label">-->
+          <!--<%#= controller.to_s.humanize.camelize %>-->
+          <!--</label>-->
 
-                                <div class="col-sm-8">
-                                  <% if can_access? 'edit', 'access_rights' %>
-                                    <%= select_tag :"employee[access_right_attributes][permissions][#{key.to_s}][#{controller.to_s}]",
-                                                   options_for_select(AccessRight::PERMISSION_TYPES, ff.object.permissions.present? && ff.object.permissions[key].present? ? ff.object.permissions[key][controller] : nil),
+          <!--<div class="col-sm-8">-->
+          <!--<%# if can_access? 'edit', 'access_rights' %>-->
+          <%#= select_tag :"employee[access_right_attributes][permissions][#{key.to_s}][#{controller.to_s}]",
+#                                                    options_for_select(AccessRight::PERMISSION_TYPES, ff.object.permissions.present? && ff.object.permissions[key].present? ? ff.object.permissions[key][controller] : nil),
                                                    :class => "select form-control input-sm reset-border-radius" %>
-                                  <% else %>
-                                    <%= ff.object.get_permission_type(ff.object.permissions[key][controller]) %>
-                                  <% end %>
-                                </div>
-                                <div class="col-sm-1">
-                                  <i class="fa fa-spinner fa-lg fa-spin green hidden"></i>
-                                  <i class="fa fa-check fa-lg green"></i>
-                                </div>
-                              </div>
-                            <% end %>
-                          </div>
-                        </div>
-                      </div>
-                    <% end %>
-                  <% end %>
-                  <!--<div class="col-sm-12">-->
-                  <!--<div class="panel panel-default reset-border-radius">-->
-                  <!--<div class="panel-heading reset-border-radius"> Custom Permissions</div>-->
-                  <!--<div class="panel-body reset-border-radius">-->
-                  <!--<#% AccessRight::CUSTOM_PERMISSION_LIST.each do |item| %>-->
+          <!--<%# else %>-->
+          <!--<%#= ff.object.get_permission_type(ff.object.permissions[key][controller]) %>-->
+          <!--<%# end %>-->
+          <!--</div>-->
+          <!--<div class="col-sm-1">-->
+          <!--<i class="fa fa-spinner fa-lg fa-spin green hidden"></i>-->
+          <!--<i class="fa fa-check fa-lg green"></i>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--<%# end %>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--<%# end %>-->
+          <!--<%# end %>-->
+          <!--&lt;!&ndash;<div class="col-sm-12">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="panel panel-default reset-border-radius">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="panel-heading reset-border-radius"> Custom Permissions</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="panel-body reset-border-radius">&ndash;&gt;-->
+          <!--&lt;!&ndash;<#% AccessRight::CUSTOM_PERMISSION_LIST.each do |item| %>&ndash;&gt;-->
 
-                  <!--<div class="form-group select">-->
-                  <!--<label class="col-sm-3 control-label">-->
-                  <!--<%#= item.to_s.humanize %>-->
-                  <!--</label>-->
+          <!--&lt;!&ndash;<div class="form-group select">&ndash;&gt;-->
+          <!--&lt;!&ndash;<label class="col-sm-3 control-label">&ndash;&gt;-->
+          <!--&lt;!&ndash;<%#= item.to_s.humanize %>&ndash;&gt;-->
+          <!--&lt;!&ndash;</label>&ndash;&gt;-->
 
-                  <!--<div class="col-sm-8">-->
-                  <!--<#% if can_access? 'edit', 'access_rights' %>-->
-                  <%#= select_tag :"employee[access_right_attributes][custom_permissions][#{item.to_s}]",
-#                                                        options_for_select(AccessRight::CUSTOM_PERMISSION_TYPES, ff.object.custom_permissions[item]),
-                                                       :class => "select form-control input-sm reset-border-radius" %>
-                  <!--<#% else %>-->
-                  <!--<%#= f.object.get_custom_permission_type(ff.object.custom_permissions[item]) %>-->
-                  <!--<#% end %>-->
-                  <!--</div>-->
-                  <!--<div class="col-sm-1">-->
-                  <!--<i class="fa fa-spinner fa-lg fa-spin green hidden"></i>-->
-                  <!--<i class="fa fa-check fa-lg green"></i>-->
-                  <!--</div>-->
-                  <!--</div>-->
+          <!--&lt;!&ndash;<div class="col-sm-8">&ndash;&gt;-->
+          <!--&lt;!&ndash;<#% if can_access? 'edit', 'access_rights' %>&ndash;&gt;-->
+          <!--<%#= select_tag :"employee[access_right_attributes][custom_permissions][#{item.to_s}]",-->
+<!--#                                                        options_for_select(AccessRight::CUSTOM_PERMISSION_TYPES, ff.object.custom_permissions[item]),-->
+                                                       <!--:class => "select form-control input-sm reset-border-radius" %>-->
+          <!--&lt;!&ndash;<#% else %>&ndash;&gt;-->
+          <!--&lt;!&ndash;<%#= f.object.get_custom_permission_type(ff.object.custom_permissions[item]) %>&ndash;&gt;-->
+          <!--&lt;!&ndash;<#% end %>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="col-sm-1">&ndash;&gt;-->
+          <!--&lt;!&ndash;<i class="fa fa-spinner fa-lg fa-spin green hidden"></i>&ndash;&gt;-->
+          <!--&lt;!&ndash;<i class="fa fa-check fa-lg green"></i>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-                  <!--<#% end %>-->
-                  <!--</div>-->
-                  <!--</div>-->
-                  <!--</div>-->
-                <% end %>
+          <!--&lt;!&ndash;<#% end %>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--<%# end %>-->
 
-              </div>
-            </div>
-          </div>
+          <!--</div>-->
+          <!--</div>-->
+          <!--</div>-->
 
 
           <div class="wizard-card welcome-info-wrap">
@@ -548,7 +548,7 @@
 <%= render 'employees/form_validate' %>
 <script type="text/javascript">
     var currentStep = 0;
-    var lastStep = 7;
+    var lastStep = 6;
 
     $(function () {
 
@@ -613,25 +613,29 @@
         var fields = step.fields;
 
         $.each(fields, function (key, validation) {
-            var fieldObj = $('#' + key);
-            var value = fieldObj.val();
-            var field = fields[key];
-            fieldObj.parent().removeClass('has-error');
-            fieldObj.parent().find("p").html('').removeClass('danger-color');
-            if (validation.required && (value == '' || value == null)) {
+            if($('#' + key).length) {
+                var fieldObj = $('#' + key);
+                console.log(fieldObj);
+                var value = fieldObj.val();
+                console.log(value);
+                var field = fields[key];
+                fieldObj.parent().removeClass('has-error');
+                fieldObj.parent().find("p").html('').removeClass('danger-color');
+                if (validation.required && (value == '' || value == null)) {
 //                var message = step["fields"][key] ["message"];
 //                fieldObj.parent().find("p").addClass('danger-color').html(message);
 //                fieldObj.parent().addClass('has-error');
-                viewErrorMessage(key, "message", fieldObj, step);
-                validateStatus = false;
-            }
-            else if (key == 'employee_email') {
-                if (!validationOfEmail(value)) {
-                    viewErrorMessage(key, "pattern_message", fieldObj, step);
+                    viewErrorMessage(key, "message", fieldObj, step);
+                    validateStatus = false;
+                }
+                else if (key == 'employee_email') {
+                    if (!validationOfEmail(value)) {
+                        viewErrorMessage(key, "pattern_message", fieldObj, step);
 //                    var message = step["fields"][key] ["pattern_message"];
 //                    fieldObj.parent().find("p").addClass('danger-color').html(message);
 //                    fieldObj.parent().addClass('has-error');
-                    validateStatus = false;
+                        validateStatus = false;
+                    }
                 }
             }
         });

@@ -1,4 +1,5 @@
 class Pos::Customers::CategoriesController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_category, only: [:edit, :update, :delete]
 
   def index

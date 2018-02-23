@@ -1,4 +1,5 @@
 class Pos::Products::SubCategoriesController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_sub_category, only: [:edit, :update, :delete]
 
   def index

@@ -24,10 +24,10 @@ class AccessRight < ActiveRecord::Base
      'Member' => [:members],
      'Attendance' => [:attendance, :attendances, :day_offs],
      'Bank' => [:accounts],
-     'Customer' => [:customers, :categories, :invoices, :payments],
-     'Supplier' => [:suppliers, :purchases, :payments],
-     'Product' => [:products, :brands, :models, :categories, :sub_categories, :queue_codes],
-     'Stock' => [:stocks]
+     'Pos' => [:customers, :suppliers, :products, :stocks],
+     'Pos::Customers' => [:categories, :invoices, :payments],
+     'Pos::Suppliers' => [:purchases, :payments],
+     'Pos::Products' => [:brands, :models, :categories, :sub_categories, :queue_codes]
   }.freeze
 
 
