@@ -1,4 +1,6 @@
 class Pos::Products::QueueCodesController < InheritedResources::Base
+  before_filter :current_ability
+
   require 'barby'
   require 'chunky_png'
   require 'barby/barcode/code_128'

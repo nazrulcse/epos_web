@@ -117,14 +117,10 @@
   <% end %>
 </div>
 
-<div class="modal fade" id="customer-invoice-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="new-modal-wrap modal fade" id="customer-invoice-details" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"> Invoice Details </h4>
-      </div>
+      <%= render 'shared/modal_header', modal_title: 'Invoice Details' %>
       <div class="modal-body">
 
       </div>
@@ -135,14 +131,11 @@
   </div>
 </div>
 
-<div class="modal fade" id="show_list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+<div class="modal fade bs-example-modal-lg" id="show_list" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Advance Invoice List</h4>
-      </div>
+      <%= render 'shared/modal_header', modal_title: 'Advance Invoice List' %>
       <%= form_tag(close_invoice_pos_customers_invoices_path, method: 'get', remote: true) do %>
         <div class="modal-body advance-history">
 

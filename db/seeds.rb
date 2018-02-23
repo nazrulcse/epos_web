@@ -79,6 +79,6 @@
 
 # Feature.find_by_app_module('Expense').update_attributes(app_module: 'Expenses')
 
-#AdminUser.create!(email: 'admin@beaccount.net', password: 'beaccount@admin', password_confirmation: 'beaccount@admin') if Rails.env.development?
+AdminUser.create!(email: 'admin@epos.com', password: 'epospassword', password_confirmation: 'epospassword')
 
-Employee.find_by_email('nazrulku07@gmail.com').update_attributes(user_id: 'nazrulku07')
+# Employee.find_by_email('nazrulku07@gmail.com').update_attributes(user_id: 'nazrulku07')

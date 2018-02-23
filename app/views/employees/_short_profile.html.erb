@@ -7,7 +7,7 @@
     <h4 class="modal-title">
       <%= @employee.full_name %>
       <% if @employee.id_card_no.present? %>
-          (<%= @employee.id_card_no %>)
+        (<%= @employee.id_card_no %>)
       <% end %>
     </h4>
   </div>
@@ -72,12 +72,16 @@
   </div>
   <div class="modal-footer">
     <!--<a data-original-title="Broadcast Message" data-toggle="tooltip" type="button"-->
-       <!--class="btn guest-color-bg white-color pull-left">-->
-      <!--<i class="fa fa-envelope"></i>-->
+    <!--class="btn guest-color-bg white-color pull-left">-->
+    <!--<i class="fa fa-envelope"></i>-->
     <!--</a>-->
 
     <div class="pull-right">
-      <%= link_to 'Details', employee_path(@employee), class: 'btn btn-primary', title: 'View Detail' %>
+      <% if current_employee == @employee %>
+        <%= link_to 'Details', employee_path(@employee), class: 'btn btn-primary', title: 'View Detail' %>
+      <% elsif can_access? :edit, 'employees' %>
+        <%= link_to 'Details', employee_path(@employee), class: 'btn btn-primary', title: 'View Detail' %>
+      <% end %>
       <div class="btn btn-default" data-dismiss='modal'>Close</div>
     </div>
   </div>

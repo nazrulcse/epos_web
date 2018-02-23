@@ -19,7 +19,7 @@ class Pos::Supplier < ActiveRecord::Base
   end
 
   def total_invoice
-    @total_invoice ||= purchases.map(&:invoice_total).sum
+    @total_invoice ||= purchases.map(&:total).sum
   end
 
   def total_payment
@@ -40,7 +40,7 @@ class Pos::Supplier < ActiveRecord::Base
 
   def last_payment_date
     payment_date = ''
-    payment = payments.where(status: 'complete', is_collection: true).last
+    payment = payments.where(status: 'complete').last
     payment_date = payment.date.strftime('%d/%m/%Y') if payment.present?
     payment_date
   end
@@ -54,7 +54,7 @@ class Pos::Supplier < ActiveRecord::Base
 
   def last_payment_amount
     payment_date = ''
-    payment = payments.where(status: 'complete', is_collection: true).last
+    payment = payments.where(status: 'complete').last
     payment_date = payment.date if payment.present?
     if payment_date.present?
       @last_payment_amount = payments.where(status: 'complete',

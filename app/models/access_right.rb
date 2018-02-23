@@ -14,33 +14,38 @@ class AccessRight < ActiveRecord::Base
   serialize :permissions, Hash
   serialize :custom_permissions, Hash
 
-  PERMISSION_LIST ={
-     'AccessRight' => [ :access_rights ] ,
-     'Company' => [ :companies ] ,
-     'Department' => [ :departments ] ,
-     'Designation' => [ :designations ] ,
-     'Setting' => [ :settings ] ,
-     'Employees' => [:advance_returns, :advances, :employees] ,
-     'Attendance' => [ :attendance, :attendances, :day_offs ] ,
-     'Bank' => [:accounts]
-  }
+  PERMISSION_LIST = {
+     'AccessRight' => [:access_rights],
+     'Company' => [:companies],
+     'Department' => [:departments],
+     'Designation' => [:designations],
+     'Setting' => [:settings],
+     'Employees' => [:advance_returns, :advances, :employees],
+     'Member' => [:members],
+     'Attendance' => [:attendance, :attendances, :day_offs],
+     'Bank' => [:accounts],
+     'Pos' => [:customers, :suppliers, :products, :stocks],
+     'Pos::Customers' => [:categories, :invoices, :payments],
+     'Pos::Suppliers' => [:purchases, :payments],
+     'Pos::Products' => [:brands, :models, :categories, :sub_categories, :queue_codes]
+  }.freeze
 
 
   CUSTOM_PERMISSION_LIST = [
       :cheque_deposit_notice
-  ]
+  ].freeze
 
   PERMISSION_TYPES = [
       ["No Access", 0],
       ["Read only access", 1],
       ["Add / edit / other custom action", 2],
       ["Full access including delete", 3]
-  ]
+  ].freeze
 
   CUSTOM_PERMISSION_TYPES = [
       ["No Access", 0],
       ["Can Access", 1]
-  ]
+  ].freeze
 
   belongs_to :employee
 

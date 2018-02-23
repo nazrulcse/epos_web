@@ -57,7 +57,9 @@ Rails.application.routes.draw do
     post :add, on: :collection
     put :update_info, on: :member
     get :access_rights, on: :collection
+    get :edit_password, on: :member
     patch :update_password, on: :collection
+    patch :reset_password, on: :member
     put :activation, on: :member
     get :payroll_categories, on: :member
     get :increments, on: :member
@@ -158,7 +160,7 @@ Rails.application.routes.draw do
     end
     resources :suppliers do
       collection do
-        post :process_invoice
+        post :process_purchase
       end
       member do
         get :history

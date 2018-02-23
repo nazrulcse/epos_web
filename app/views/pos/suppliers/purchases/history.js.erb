@@ -1,2 +1,6 @@
 $('#global-modal-large-new').modal({backdrop: 'static', keyboard: false});
+<% if @purchase.present? %>
+$('#global-modal-large-new').modal('show').find('.modal-content').html("<%= escape_javascript(render 'pos/suppliers/invoice_details', invoice: @purchase).html_safe %>");
+<% else %>
 $('#global-modal-large-new').modal('show').find('.modal-content').html("<%= escape_javascript(render 'history_modal').html_safe %>");
+<% end %>

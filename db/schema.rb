@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216042530) do
+ActiveRecord::Schema.define(version: 20180220060651) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -643,6 +643,8 @@ ActiveRecord::Schema.define(version: 20180216042530) do
     t.text     "attachment",           limit: 65535
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
+    t.float    "transport_cost",       limit: 53,    default: 0.0
+    t.boolean  "is_complete",                        default: false
   end
 
   add_index "pos_suppliers_purchases", ["department_id"], name: "index_pos_suppliers_purchases_on_department_id", using: :btree

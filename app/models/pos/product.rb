@@ -17,6 +17,14 @@ class Pos::Product < ActiveRecord::Base
   tracked owner: proc { |controller, model| controller.current_employee },
           recipient: proc { |controller, model| controller.current_department }
 
+  after_initialize :init
+
+  def init
+    self.cost_price ||= 0.0
+    self.sale_price ||= 0.0
+    self.whole_sale ||= 0.0
+  end
+
   def self.search(q)
     q.present? ? where('id like :q OR code like :q OR name LIKE :q', q: "%#{q}%") : self.all
   end

@@ -15,10 +15,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
-      format.html {
-        redirect_to :back, :alert => exception.message
-      }
-      format.js { render :file => "shared/access_right_error.js.erb" }
+      format.html {redirect_to root_path, alert: exception.message}
+      format.js { render file: 'shared/access_right_error.js.erb' }
     end
   end
 
@@ -160,9 +158,10 @@ class ApplicationController < ActionController::Base
   end
 
   def is_available_module?(namespace = current_namespace)
-    available_modules_name = current_employee.department.company.features.collect { |f| f.app_module }
-    total_modules = available_modules_name + Ability::SETUP_MODULES
-    total_modules.include?(namespace)
+    true
+    # available_modules_name = current_employee.department.company.features.collect { |f| f.app_module }
+    # total_modules = available_modules_name + Ability::SETUP_MODULES
+    # total_modules.include?(namespace)
   end
 
   def current_namespace(controller = params[:controller])

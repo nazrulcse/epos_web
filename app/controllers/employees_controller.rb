@@ -7,7 +7,7 @@ class EmployeesController < InheritedResources::Base
 
   skip_before_filter :authenticate_employee!, only: :login_as
   before_filter :current_ability
-  before_action :set_employee, only: [:update_info, :edit, :show, :destroy, :increments, :activation]
+  before_action :set_employee, only: [:update_info, :edit, :show, :destroy, :increments, :activation, :edit_password, :reset_password]
 
 
   def new
@@ -71,7 +71,7 @@ class EmployeesController < InheritedResources::Base
 
   def add
     @employee = Employee.new(employee_params)
-    @employee.password = generate_password
+    @employee.password = generate_password unless params[:employee][:password].present?
     respond_to do |format|
       if @employee.save
         @employee.create_activity key: 'employee.create', owner: current_employee, recipient: current_department
@@ -152,6 +152,19 @@ class EmployeesController < InheritedResources::Base
       end
     end
 
+  end
+
+  def edit_password
+  end
+
+  def reset_password
+    respond_to do |format|
+      if @employee.reset_password_without_current(employee_params)
+        format.html { redirect_to employees_path, success: 'Password hes been changed.' }
+      else
+        format.html { redirect_to employees_path, danger: "#{ errors_to_message_string(@employee.errors) }" }
+      end
+    end
   end
 
   def destroy

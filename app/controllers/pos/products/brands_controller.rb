@@ -1,4 +1,5 @@
 class Pos::Products::BrandsController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_brand, only: [:show, :edit, :update, :delete]
 
   def index

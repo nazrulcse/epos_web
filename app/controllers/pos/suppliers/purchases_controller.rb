@@ -1,4 +1,5 @@
 class Pos::Suppliers::PurchasesController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_purchase, only: [:show, :edit, :update, :delete, :receive]
 
   def index
@@ -62,8 +63,12 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
   end
 
   def history
-    @product = Pos::Product.find(params[:product_id])
-    @purchase_items = @product.purchase_items.includes(:purchase).received
+    if params[:purchase_id].present?
+      @purchase = Pos::Suppliers::Purchase.find(params[:purchase_id])
+    else
+      @product = Pos::Product.find(params[:product_id])
+      @purchase_items = @product.purchase_items.includes(:purchase).received
+    end
   end
 
   private

@@ -85,8 +85,8 @@ class Employee < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :attachment, FileUploader
 
-  # validates :user_id, presence: :true, uniqueness: { case_sensitive: false }
-  # validate :validate_user_id
+  validates :user_id, presence: :true, uniqueness: { case_sensitive: false }
+  validate :validate_user_id
   # validates_format_of :user_id, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   belongs_to :department
@@ -126,6 +126,16 @@ class Employee < ActiveRecord::Base
     else
       ''
     end
+  end
+
+  def reset_password_without_current(params, *options)
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
   end
 
   def get_basic_salary

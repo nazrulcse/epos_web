@@ -1,5 +1,5 @@
 class Pos::CustomersController < InheritedResources::Base
-
+  before_filter :current_ability
   before_action :set_customer, only: [:show, :edit, :update, :delete, :history, :print_voucher]
 
   def index

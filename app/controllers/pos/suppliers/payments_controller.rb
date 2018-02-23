@@ -1,4 +1,5 @@
 class Pos::Suppliers::PaymentsController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_payment, only: [:show, :edit, :update, :delete]
 
   def index

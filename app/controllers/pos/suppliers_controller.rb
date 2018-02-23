@@ -1,4 +1,5 @@
 class Pos::SuppliersController < InheritedResources::Base
+  before_filter :current_ability
   before_action :set_supplier, only: [:show, :edit, :update, :delete, :history, :print_voucher]
 
   def index
@@ -50,7 +51,7 @@ class Pos::SuppliersController < InheritedResources::Base
   def history
   end
 
-  def process_invoice
+  def process_purchase
     payment_method = params['payment_method']
     @response = "<ul class='invoice-payment-message'>"
     payment_method.each do |key, value|
@@ -86,9 +87,9 @@ class Pos::SuppliersController < InheritedResources::Base
 
           end
           if payment.save
-            if invoice.due_amount <= 1
-              invoice.is_complete = true
-              invoice.save
+            if purchase.due_amount <= 1
+              purchase.is_complete = true
+              purchase.save
             end
             @response << "<li> Payment #{view_context.link_to "##{payment.id}", pos_suppliers_payment_path(payment.id)} for invoice: ##{key} success with amount #{payment.amount} </li>"
           else
