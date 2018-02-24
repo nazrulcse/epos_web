@@ -7,7 +7,8 @@ class Pos::Products::SubCategoriesController < InheritedResources::Base
   end
 
   def new
-    @sub_category = Pos::Products::SubCategory.new(code: "SC000#{current_department.brands.count + 1}")
+    sub_cat_code = "PSC#{current_department.id}000#{current_department.products_categories.count + 1}"
+    @sub_category = Pos::Products::SubCategory.new({code: sub_cat_code})
     if params[:category_id].present?
       @category = Pos::Products::Category.find(params[:category_id])
     else

@@ -14,6 +14,10 @@ class Employees::RegistrationsController < Devise::RegistrationsController
     # resource.next_path = AppSettings::REGISTRATION_STEPS[:registration]
     resource.role = Employee::ROLE[:admin]
     resource.save
+    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    p sign_up_params.inspect
+    p resource.errors.inspect
+    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
