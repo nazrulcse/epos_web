@@ -60,20 +60,20 @@
                   <div class="price-options">
                     <div class="price-option">
                       <label>
-                        <%= radio_button_tag :price_option, 'update_all' %>
+                        <%= radio_button_tag :price_option, 'update_all', checked = true %>
                         Change all previous product to new price.
                       </label>
                     </div>
                     <div class="price-option">
                       <label>
                         <%= radio_button_tag :price_option, 'average' %>
-                        Change all previous product to in average with price.
+                        Change all previous product to in average with new price.
                       </label>
                     </div>
                     <div class="price-option">
                       <label>
                         <%= radio_button_tag :price_option, 'manual' %>
-                        Will generate price tag for all previous items.
+                        Will do it manually.
                       </label>
                     </div>
                   </div>

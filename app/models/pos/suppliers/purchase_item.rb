@@ -17,4 +17,12 @@ class Pos::Suppliers::PurchaseItem < ActiveRecord::Base
     end
     stock.save
   end
+
+  def avg_cost_price
+    (amount + product.cost_price) / 2.0
+  end
+
+  def avg_sale_price
+    (sale_price + product.sale_price) / 2.0
+  end
 end

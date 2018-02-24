@@ -44,31 +44,31 @@
       </div>
       <div class="col-sm-6">
         <div class="row">
-          <div class="clearfix pl30">
-            <div class="label label-info text-left" style="display: block;">
-              <h4 class="mt0 mb0 pt3 pb3"> In case of cost price changes! </h4>
-            </div>
+          <div class="clearfix pl30" style="min-height: 120px;">
+            <!--<div class="label label-info text-left" style="display: block;">-->
+              <!--<h4 class="mt0 mb0 pt3 pb3"> In case of cost price changes! </h4>-->
+            <!--</div>-->
 
-            <div class="price-options">
-              <div class="price-option">
-                <label>
-                  <%= radio_button_tag :price_option, 'update_all' %>
-                  Change all previous product to new price.
-                </label>
-              </div>
-              <div class="price-option">
-                <label>
-                  <%= radio_button_tag :price_option, 'average' %>
-                  Change all previous product to in average with price.
-                </label>
-              </div>
-              <div class="price-option">
-                <label>
-                  <%= radio_button_tag :price_option, 'manual' %>
-                  Will generate price tag for all previous items.
-                </label>
-              </div>
-            </div>
+            <!--<div class="price-options" style="visibility: hidden">-->
+              <!--<div class="price-option">-->
+                <!--<label>-->
+                  <!--<%#= radio_button_tag :price_option, 'update_all' %>-->
+                  <!--Change all previous product to new price.-->
+                <!--</label>-->
+              <!--</div>-->
+              <!--<div class="price-option">-->
+                <!--<label>-->
+                  <!--<%#= radio_button_tag :price_option, 'average' %>-->
+                  <!--Change all previous product to in average with price.-->
+                <!--</label>-->
+              <!--</div>-->
+              <!--<div class="price-option">-->
+                <!--<label>-->
+                  <!--<%#= radio_button_tag :price_option, 'manual' %>-->
+                  <!--Will generate price tag for all previous items.-->
+                <!--</label>-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
           <%= link_to_add_product 'Add Product', f, :items, {klass: 'btn btn-default add-product-link reset-border-radius pull-right'} %>
         </div>

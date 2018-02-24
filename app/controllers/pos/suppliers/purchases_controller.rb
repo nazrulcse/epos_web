@@ -46,6 +46,7 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
 
   def update
     if @purchase.update(purchase_params)
+      @purchase.update_product_price(params[:price_option]) if params[:price_option].present? && ['update_all', 'average'].include?(params[:price_option])
       flash[:notice] = 'Purchase order updated successfully.'
     else
       flash[:error] = 'Purchase order update failed.'
