@@ -1,5 +1,5 @@
 json.id product.id
-json.code product.code
+json.product_code product.code
 json.barcode product.barcode
 json.name product.name
 json.description product.description
@@ -20,3 +20,4 @@ json.expirable product.expirable
 json.discountable product.discountable
 json.stock product.stock_on_hand
 json.is_active product.is_active
+json.unit product.unit

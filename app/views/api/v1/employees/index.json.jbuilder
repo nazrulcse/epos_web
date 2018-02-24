@@ -13,4 +13,5 @@ json.array! @employees do |employee|
   json.designation employee.designation.present? ? employee.designation.name : ''
   json.joining_date employee.joining_date
   json.is_active employee.is_active
+  json.password employee.encrypted_password
 end
