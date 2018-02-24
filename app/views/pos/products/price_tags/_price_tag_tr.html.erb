@@ -3,6 +3,9 @@
   <td><%= price_tag.barcode %></td>
   <td><%= price_tag.sale_price %></td>
   <td class="actions">
+    <%= link_to new_pos_products_queue_code_path(product_id: price_tag.product_id, barcode: price_tag.barcode), remote: true, class: 'btn success-color', title: 'Add Into Queue To Print Barcode' do %>
+      <i class="fa fa-barcode" aria-hidden="true"></i>
+    <% end %>
     <%= link_to edit_pos_products_price_tag_path(price_tag), class: 'btn warning-color', remote: true do %>
       <i class="fa fa-pencil-square-o"></i>
     <% end %>

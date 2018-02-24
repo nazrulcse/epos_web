@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180224073240) do
+ActiveRecord::Schema.define(version: 20180224103452) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -529,8 +529,9 @@ ActiveRecord::Schema.define(version: 20180224073240) do
     t.integer  "department_id", limit: 4
     t.integer  "product_id",    limit: 4
     t.integer  "quantity",      limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "barcode",       limit: 255
   end
 
   add_index "pos_products_queue_codes", ["department_id"], name: "index_pos_products_queue_codes_on_department_id", using: :btree

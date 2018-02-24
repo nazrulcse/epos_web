@@ -179,6 +179,7 @@ Rails.application.routes.draw do
       resources :queue_codes do
         collection do
           get :print_barcode
+          get :clear_all
         end
       end
       resources :sub_categories

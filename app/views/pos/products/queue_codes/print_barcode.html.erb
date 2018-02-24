@@ -6,14 +6,23 @@
       </div>
       <%= image_tag "data:image/png;base64,#{Rack::Utils.escape(@barcode_images[queue_code.id])}" %>
       <div class="product-barcode text-center">
-        <%= queue_code.product.barcode %>
+        <%= queue_code.barcode.present? ? queue_code.barcode : queue_code.product.barcode %>
       </div>
       <div class="product-name text-center">
         <%= queue_code.product.name %>
       </div>
-      <div class="product-price text-center">
-        Tk. <%= queue_code.product.sale_price %> + VAT
-      </div>
+      <% if queue_code.barcode.present? %>
+        <div class="product-price text-center">
+          <del>Tk. <%= queue_code.product.sale_price %></del>
+        </div>
+        <div class="product-price text-center">
+          Tk. <%= queue_code.product.price_tags.find_by_barcode(queue_code.barcode).sale_price %> + VAT
+        </div>
+      <% else %>
+        <div class="product-price text-center">
+          Tk. <%= queue_code.product.sale_price %> + VAT
+        </div>
+      <% end %>
     </div>
 
   <% end %>

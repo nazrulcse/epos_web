@@ -64,11 +64,18 @@ class Pos::Products::QueueCodesController < InheritedResources::Base
     @queue_codes = current_department.queue_codes.includes(:product)
     @queue_codes.each do |queue_code|
       if queue_code.product.present? && queue_code.product.barcode.present?
-        barcode = Barby::Code128B.new(queue_code.product.barcode).to_png(margin: 2, height: 30, width: 150)
+        barcode = Barby::Code128B.new(queue_code.barcode.present? ? queue_code.barcode : queue_code.product.barcode).to_png(margin: 2, height: 30, width: 150)
         @barcode_images[queue_code.id] = Base64.encode64(barcode.to_s).gsub(/\s+/, "")
       end
     end
     render layout: 'print'
+  end
+
+  def clear_all
+    @queue_codes = current_department.queue_codes
+    @queue_codes.destroy_all if @queue_codes.present?
+
+    redirect_to pos_products_queue_codes_path, notice: 'Queued items removed.'
   end
 
   private

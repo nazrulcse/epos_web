@@ -8,61 +8,66 @@
 
         <div class="action-section">
           <%= link_to new_pos_products_queue_code_path, class: 'btn btn-info' do %>
-              Add Item
+            Add Item
           <% end %>
         </div>
       </div>
     </div>
     <div class="content-body-wrapper secondary-color full-content-wrapper" id="provident-fund-rule-content">
       <% if @queue_codes.present? %>
-          <div class="row actions-button">
-            <div class="add-more-rule clearfix">
-              <%= link_to print_barcode_pos_products_queue_codes_path, class: 'btn btn-success pull-right ml10' do %>
-                <i class="fa fa-print" aria-hidden="true"></i> Print
-              <% end %>
-              <%= link_to new_pos_products_queue_code_path, class: 'btn btn-default pull-right' do %>
-                  <i class="fa fa-plus-circle"></i> Add Item
-              <% end %>
-            </div>
-          </div>
-          <div class="row content-body">
-            <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
-              <thead>
-              <tr>
-                <th>Product</th>
-                <th>Product Barcode</th>
-                <th>Quantity</th>
-                <th></th>
-              </tr>
-              </thead>
-              <tbody>
-              <% @queue_codes.each do |queue_code| %>
-                  <tr>
-                    <td><%= queue_code.product.name if queue_code.product.present? %> </td>
-                    <td><%= queue_code.product.barcode if queue_code.product.present? %> </td>
-                    <td><%= queue_code.quantity %> </td>
-                    <td class="actions">
-                      <%= link_to edit_pos_products_queue_code_path(queue_code), class: 'btn warning-color' do %>
-                          <i class="fa fa-pencil-square-o"></i>
-                      <% end %>
-                      <%= link_to pos_products_queue_code_path(queue_code), class: 'btn danger-color', method: :delete, data: {confirm: 'Are you sure?'} do %>
-                          <i class="fa fa-times"></i>
-                      <% end %>
-                    </td>
-                  </tr>
-              <% end %>
-              </tbody>
-            </table>
-          </div>
-      <% else %>
-          <div class="text-center table-cell">
-            <p>
-              Current department don't have any Product into queue.
-            </p>
-            <%= link_to new_pos_products_queue_code_path, class: 'btn btn-default reset-border-radius' do %>
-                <i class="fa fa-plus-circle"></i> Add item
+        <div class="row actions-button">
+          <div class="add-more-rule clearfix">
+            <%= link_to clear_all_pos_products_queue_codes_path, class: 'btn btn-danger pull-right ml10', data: {confirm: 'Are you sure?'} do %>
+              <i class="fa fa-print" aria-hidden="true"></i> Clear
+            <% end %>
+            <%= link_to print_barcode_pos_products_queue_codes_path, class: 'btn btn-success pull-right ml10' do %>
+              <i class="fa fa-print" aria-hidden="true"></i> Print
+            <% end %>
+            <%= link_to new_pos_products_queue_code_path, class: 'btn btn-default pull-right' do %>
+              <i class="fa fa-plus-circle"></i> Add Item
             <% end %>
           </div>
+        </div>
+        <div class="row content-body">
+          <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
+            <thead>
+            <tr>
+              <th>Product</th>
+              <th>Product Barcode</th>
+              <th>Quantity</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @queue_codes.each do |queue_code| %>
+              <tr>
+                <td><%= queue_code.product.name if queue_code.product.present? %> </td>
+                <td><%= queue_code.barcode.present? ? (queue_code.barcode + ' (Price Tag)') : queue_code.product.present? ? queue_code.product.barcode : '' %> </td>
+                <td><%= queue_code.quantity %> </td>
+                <td class="actions">
+                  <% unless queue_code.barcode.present? %>
+                    <%= link_to edit_pos_products_queue_code_path(queue_code), class: 'btn warning-color' do %>
+                      <i class="fa fa-pencil-square-o"></i>
+                    <% end %>
+                  <% end %>
+                  <%= link_to pos_products_queue_code_path(queue_code), class: 'btn danger-color', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                    <i class="fa fa-times"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Current department don't have any Product into queue.
+          </p>
+          <%= link_to new_pos_products_queue_code_path, class: 'btn btn-default reset-border-radius' do %>
+            <i class="fa fa-plus-circle"></i> Add item
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
