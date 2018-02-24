@@ -127,8 +127,15 @@ HTML
 
 
   def link_to(name = nil, options = nil, html_options = nil, &block)
-    request_on = block_given? ? name : options
-    controller_attributes = attributes_retrieval(request_on)
+    request_method = :get
+    if block_given?
+      request_on = name
+      request_method = options[:method] if options.present? && options[:method].present?
+    else
+      request_on = options
+      request_method = html_options[:method] if html_options.present? && html_options[:method].present?
+    end
+    controller_attributes = attributes_retrieval(request_on, request_method)
     if controller_attributes[:controller].present? && controller_attributes[:action].present?
       super if can_access? controller_attributes[:action], controller_attributes[:controller]
     else
@@ -188,13 +195,13 @@ HTML
   end
 
 
-  def attributes_retrieval(request_on)
-    request_on_attributes = request_on.is_a?(Hash) ? request_on : convert_url_to_hash(request_on)
-    request_on_attributes[:url].present? ? convert_url_to_hash(request_on_attributes[:url]) : request_on_attributes
+  def attributes_retrieval(request_on, request_method = :get)
+    request_on_attributes = request_on.is_a?(Hash) ? request_on : convert_url_to_hash(request_on, request_method)
+    request_on_attributes[:url].present? ? convert_url_to_hash(request_on_attributes[:url], request_method) : request_on_attributes
   end
 
-  def convert_url_to_hash(url)
-    Rails.application.routes.recognize_path(url)
+  def convert_url_to_hash(url, request_method = :get)
+    Rails.application.routes.recognize_path(url, method: request_method.to_s)
   end
 
   def hour_from_second(second)
