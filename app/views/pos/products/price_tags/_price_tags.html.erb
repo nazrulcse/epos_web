@@ -1,0 +1,24 @@
+<div class="table-warapper ">
+  <div class="table-warapper-body">
+    <table class="table action-table tablesorter beaccount-table table-responsive table-hover table-striped price-tags-table">
+      <thead>
+      <tr>
+        <th>Tag ID</th>
+        <th>Barcode</th>
+        <th>Sale Price</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody id="price-tags-tb">
+      <% @price_tags.each do |price_tag| %>
+        <%= render 'pos/products/price_tags/price_tag_tr', price_tag: price_tag %>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="no-data-found">
+      <% unless @price_tags.present? %>
+        <%= render 'shared/no_data_found', message: 'No additional tags' %>
+      <% end %>
+    </div>
+  </div>
+</div>

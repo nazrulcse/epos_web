@@ -55,7 +55,17 @@
             </div>
           </div>
 
-          <div class="purchase-history">
+          <div class="price-tags mt50">
+            <h4>
+              Price Tags
+              <%= link_to new_pos_products_price_tag_path(product_id: @product.id), class: 'btn btn-primary', remote: true do %>
+                <i class="fa fa-plus-circle"></i> Add Price Tag
+              <% end %>
+            </h4>
+            <%= render 'pos/products/price_tags/price_tags' %>
+          </div>
+
+          <div class="purchase-history mt50">
             <h4>Purchase History</h4>
             <%= render 'pos/suppliers/purchases/histories' %>
           </div>

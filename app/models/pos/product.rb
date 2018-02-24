@@ -7,6 +7,7 @@ class Pos::Product < ActiveRecord::Base
   belongs_to :brand, class_name: 'Pos::Products::Brand', foreign_key: :brand_id
   has_many :stocks, class_name: 'Pos::Stock', dependent: :destroy
   has_many :purchase_items, class_name: 'Pos::Suppliers::PurchaseItem', dependent: :destroy
+  has_many :price_tags, :class_name => 'Pos::Products::PriceTag', dependent: :destroy
 
   attr_reader :stock_on_hand
 

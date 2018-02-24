@@ -33,16 +33,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        if (<%= @purchase_items.present? %>) {
-            if ($(".attendance-history-modal").find("tbody").find("tr").size() > 0) {
-                $(".attendance-history-modal").tablesorter({
-                    widthFixed: true,
-                    widgets: ['zebra']
-                }).tablesorterPager({container: $("#modal-pager")});
-            }
-        }
-    });
-</script>

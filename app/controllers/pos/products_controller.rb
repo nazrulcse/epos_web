@@ -9,6 +9,7 @@ class Pos::ProductsController < InheritedResources::Base
   def show
     respond_to do |format|
       format.html {
+        @price_tags = @product.price_tags
         @purchase_items = @product.purchase_items.includes(:purchase).where.not(received_quantity: nil)
       }
       format.json {

@@ -182,6 +182,7 @@ Rails.application.routes.draw do
         end
       end
       resources :sub_categories
+      resources :price_tags
     end
     resources :products
 

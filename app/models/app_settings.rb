@@ -10,7 +10,8 @@ class AppSettings
       memberships: 'Member',
       products: 'Pos::Product',
       suppliers: 'Pos::Supplier',
-      customers: 'Pos::Customer'
+      customers: 'Pos::Customer',
+      price_tags: 'Pos::Products::PriceTag'
   }.freeze
 
   OFFLINE_TRACKABLE_TYPES = {

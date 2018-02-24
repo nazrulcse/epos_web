@@ -1,0 +1,13 @@
+<tr id="price-tag-<%= price_tag.id %>">
+  <td><%= price_tag.id %></td>
+  <td><%= price_tag.barcode %></td>
+  <td><%= price_tag.sale_price %></td>
+  <td class="actions">
+    <%= link_to edit_pos_products_price_tag_path(price_tag), class: 'btn warning-color', remote: true do %>
+      <i class="fa fa-pencil-square-o"></i>
+    <% end %>
+    <%= link_to pos_products_price_tag_path(price_tag), class: 'btn danger-color', method: :delete, data: {confirm: 'Are you sure?'} do %>
+      <i class="fa fa-times"></i>
+    <% end %>
+  </td>
+</tr>

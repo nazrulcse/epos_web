@@ -1,0 +1,8 @@
+<% if @price_tag.errors.present? %>
+popupMessage('<%=escape_javascript( errors_to_message_string(@price_tag.errors)).html_safe %>', 'alert-danger');
+<% else %>
+$('#price-tags-tb').append("<%= escape_javascript(render 'price_tag_tr', price_tag: @price_tag).html_safe %>");
+$('#global-modal').modal('hide');
+popupMessage('Price Tag created successfully', 'alert-success');
+$('#no-data-found').remove();
+<% end %>

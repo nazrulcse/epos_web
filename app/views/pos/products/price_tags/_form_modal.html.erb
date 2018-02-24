@@ -1,0 +1,45 @@
+<%= render 'shared/modal_header', modal_title: @price_tag.new_record? ? 'Generate New Price Tag' : 'Edit Price Tag' %>
+<%= form_for(@price_tag, remote: true) do |f| %>
+  <% if @price_tag.new_record? %>
+    <%= f.hidden_field :product_id, value: params[:product_id] %>
+  <% end %>
+  <div class="modal-body">
+    <div class="col-md-12 reset-padding">
+      <div class="col-md-9 reset-padding">
+        <div class="form-group">
+          <%= f.label :barcode, 'Product Barcode' %>
+          <%= f.text_field :barcode, class: 'form-control reset-border-radius', placeholder: 'Scan barcode or generate', data: {required: true} %>
+        </div>
+      </div>
+      <div class="col-md-3 pr0">
+        <%= link_to 'Generate', '#', remote: true, class: 'btn btn-info wp100 mt25', id: 'product-price-tag-barcode-btn' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :sale_price %>
+      <%= f.text_field :sale_price, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="pull-right">
+      <%= f.submit class: 'btn btn-primary' %>
+      <div class="btn btn-default" data-dismiss='modal'>Cancel</div>
+    </div>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_pos_products_price_tag').syftValidator();
+
+        $('#product-price-tag-barcode-btn').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $('#pos_products_price_tag_barcode').val(new Date().getTime());
+        });
+    });
+</script>

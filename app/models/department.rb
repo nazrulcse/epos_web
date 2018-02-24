@@ -47,6 +47,7 @@ class Department < ActiveRecord::Base
   has_many :suppliers_purchases, class_name: 'Pos::Suppliers::Purchase', dependent: :destroy
   has_many :suppliers_payments, class_name: 'Pos::Suppliers::Payment', dependent: :destroy
   has_many :queue_codes, class_name: 'Pos::Products::QueueCode'
+  has_many :product_price_tags, :class_name => 'Pos::Products::PriceTag', dependent: :destroy
 
   SWITCH_ACTIONS = {
       show: 'show',

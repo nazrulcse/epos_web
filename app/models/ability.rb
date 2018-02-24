@@ -24,8 +24,6 @@ class Ability
   }
 
   def initialize(user, namespace, controller, action)
-    p 'namespace'
-    p namespace
     user ||= Employee.new
     alias_action :read, :create, :update, :to => :moderate
 
@@ -33,23 +31,18 @@ class Ability
       can :manage, :all
     else
       if namespace.empty?
-        p 'classify'
-        p controller
-        p MODULELESS_NAMESPACE[controller.classify]
         namespace = MODULELESS_NAMESPACE[controller.classify]
         operational_controller = controller
       else
         operational_controller = controller.split('/').last
       end
 
-      p namespace
-
       if module_availability_checker(user, namespace)
         if DEFAULT_ACCESS.collect{ |key, value| key.classify }.include?(controller.classify) && DEFAULT_ACCESS[controller.downcase].include?(action)
           can action.to_sym, controller.classify
         else
 
-          p namespace
+          # p namespace
           # p operational_controller
           # p user.access_right.permissions
           # p "user access"
