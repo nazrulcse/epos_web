@@ -18,7 +18,7 @@ if employee.present?
   json.present_address employee.present_address
   json.country country_name(employee)
   json.department_id employee.department_id
-  json.designation employee.designation.name
+  json.designation employee.designation.present? ? employee.designation.name : ''
   json.joining_date employee.joining_date
   json.is_active employee.is_active
 end
