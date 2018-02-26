@@ -21,9 +21,13 @@ class Pos::Product < ActiveRecord::Base
   after_initialize :init
 
   def init
+    self.re_order_level ||= 0
+    self.stock ||= 0
     self.cost_price ||= 0.0
     self.sale_price ||= 0.0
     self.whole_sale ||= 0.0
+    self.vat ||= 0.0
+    self.discount ||= 0.0
   end
 
   def self.search(q)
