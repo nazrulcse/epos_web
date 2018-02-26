@@ -42,12 +42,14 @@ class Department < ActiveRecord::Base
   has_many :products_sub_categories, class_name: 'Pos::Products::SubCategory', dependent: :destroy
   has_many :products, class_name: 'Pos::Product', dependent: :destroy
   has_many :customers_invoices, class_name: 'Pos::Customers::Invoice', dependent: :destroy
-  has_many :invoice_items, :class_name => 'Pos::Customers::InvoiceItem'
+  has_many :invoice_items, class_name: 'Pos::Customers::InvoiceItem'
   has_many :customers_payments, class_name: 'Pos::Customers::Payment', dependent: :destroy
   has_many :suppliers_purchases, class_name: 'Pos::Suppliers::Purchase', dependent: :destroy
   has_many :suppliers_payments, class_name: 'Pos::Suppliers::Payment', dependent: :destroy
   has_many :queue_codes, class_name: 'Pos::Products::QueueCode'
-  has_many :product_price_tags, :class_name => 'Pos::Products::PriceTag', dependent: :destroy
+  has_many :product_price_tags, class_name: 'Pos::Products::PriceTag', dependent: :destroy
+  has_many :expenses_categories, class_name: 'Expenses::Category', dependent: :destroy
+  has_many :expenses_groups, class_name: 'Expenses::Group', dependent: :destroy
 
   SWITCH_ACTIONS = {
       show: 'show',

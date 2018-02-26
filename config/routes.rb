@@ -121,6 +121,11 @@ Rails.application.routes.draw do
     resources :accounts
   end
 
+  namespace :expenses do
+    resources :groups
+  end
+  # resources :expenses
+
   namespace :pos do
 
     namespace :customers do

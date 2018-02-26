@@ -1,1 +1,10 @@
-<%= render 'shared/expense/nav_menu' %>
+<li class="top-menu-dropdown">
+  <a href="#">
+    Expense <span class="caret"></span>
+  </a>
+  <ul class="top-menu-dropdown-content dropdown-large">
+    <li>
+      <%= link_to 'Groups', expenses_groups_path %>
+    </li>
+  </ul>
+</li>

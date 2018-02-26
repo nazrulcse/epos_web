@@ -1,10 +1,6 @@
-<%= render 'shared/modal_header', modal_title: 'New Brand' %>
-<%= form_for(@brand, remote: true) do |f| %>
+<%= render 'shared/modal_header', modal_title: 'New Group' %>
+<%= form_for(@group, remote: true) do |f| %>
   <div class="modal-body">
-    <div class="form-group">
-      <%= f.label :code %>
-      <%= f.text_field :code, class: 'form-control reset-border-radius', data: {required: true} %>
-    </div>
     <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
@@ -25,6 +21,6 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#new_pos_products_brand').syftValidator();
+        $('#new_expenses_group').syftValidator();
     });
 </script>

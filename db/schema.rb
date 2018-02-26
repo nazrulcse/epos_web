@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180224121826) do
+ActiveRecord::Schema.define(version: 20180226093516) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "employee_id",        limit: 4
@@ -269,6 +269,52 @@ ActiveRecord::Schema.define(version: 20180224121826) do
   add_index "employees", ["invitation_token"], name: "index_employees_on_invitation_token", unique: true, using: :btree
   add_index "employees", ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true, using: :btree
   add_index "employees", ["user_id"], name: "index_employees_on_user_id", unique: true, using: :btree
+
+  create_table "expenses", force: :cascade do |t|
+    t.integer  "department_id",   limit: 4
+    t.integer  "category_id",     limit: 4
+    t.integer  "sub_category_id", limit: 4
+    t.float    "amount",          limit: 53
+    t.integer  "created_by",      limit: 4
+    t.string   "received_by",     limit: 255
+    t.date     "date"
+    t.boolean  "approve"
+    t.text     "description",     limit: 65535
+    t.text     "image",           limit: 65535
+    t.string   "payment_method",  limit: 255
+    t.string   "cheque_number",   limit: 255
+    t.string   "bank_name",       limit: 255
+    t.string   "bank_branch",     limit: 255
+    t.integer  "bank_account_id", limit: 4
+    t.boolean  "prepaid_expense"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  create_table "expenses_categories", force: :cascade do |t|
+    t.integer  "department_id", limit: 4
+    t.integer  "group_id",      limit: 4
+    t.string   "name",          limit: 255
+    t.text     "description",   limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  create_table "expenses_groups", force: :cascade do |t|
+    t.integer  "department_id", limit: 4
+    t.string   "name",          limit: 255
+    t.text     "description",   limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  create_table "expenses_sub_categories", force: :cascade do |t|
+    t.integer  "category_id", limit: 4
+    t.string   "name",        limit: 255
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "features", force: :cascade do |t|
     t.string   "name",        limit: 255
