@@ -19,11 +19,11 @@ class Pos::Supplier < ActiveRecord::Base
   end
 
   def total_invoice
-    @total_invoice ||= purchases.map(&:total).sum
+    @total_invoice ||= purchases.sum(:total)
   end
 
   def total_payment
-    @total_payment ||= payments.map { |p| p.complete? ? p.amount : 0 }.sum
+    @total_payment ||= payments.where(status: 'complete').sum(:amount)
   end
 
   def total_refund
