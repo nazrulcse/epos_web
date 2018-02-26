@@ -11,6 +11,17 @@ class Pos::Customers::Invoice < ActiveRecord::Base
 
   after_create :check_payments, :check_items
 
+  after_initialize :init
+
+  def init
+    self.invoice_total ||= 0.0
+    self.discount ||= 0.0
+    self.vat ||= 0.0
+    self.net_total ||= 0.0
+    self.advance_paid ||= 0.0
+    self.transport_cost ||= 0.0
+  end
+
   def due_amount
     net_total - payments.sum(:amount)
   end

@@ -13,6 +13,16 @@ class Pos::Suppliers::Purchase < ActiveRecord::Base
                                   attributes.all? { |k, v| v.blank? }
                                 }
 
+  after_initialize :init
+
+  def init
+    self.amount ||= 0.0
+    self.discount ||= 0.0
+    self.vat ||= 0.0
+    self.total ||= 0.0
+    self.transport_cost ||= 0.0
+  end
+
   def total_refund
     0.0 # refunds.sum(:amount)
   end

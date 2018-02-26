@@ -7,6 +7,19 @@ class Pos::Suppliers::PurchaseItem < ActiveRecord::Base
 
   after_save :update_to_stock
 
+  after_initialize :init
+
+  def init
+    self.received_quantity ||= 0
+    self.cost_price ||= 0.0
+    self.sale_price ||= 0.0
+    self.whole_sale ||= 0.0
+    self.amount ||= 0.0
+    self.discount ||= 0.0
+    self.vat ||= 0.0
+    self.total ||= 0.0
+  end
+
   def update_to_stock
     return unless received_quantity.present?
     stock = purchase.stocks.where(product_id: product_id).first

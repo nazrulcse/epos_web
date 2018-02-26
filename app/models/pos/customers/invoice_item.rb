@@ -8,6 +8,18 @@ class Pos::Customers::InvoiceItem < ActiveRecord::Base
   after_save :update_to_stock
   before_create :check_invoice
 
+  after_initialize :init
+
+  def init
+    self.cost_price ||= 0.0
+    self.price ||= 0.0
+    self.whole_sale ||= 0.0
+    self.amount ||= 0.0
+    self.discount ||= 0.0
+    self.vat ||= 0.0
+    self.total ||= 0.0
+  end
+
   def update_to_stock
     stock = invoice.stocks.where(product_id: product_id).first
     if stock.present?

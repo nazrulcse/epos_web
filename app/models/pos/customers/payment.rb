@@ -13,6 +13,15 @@ class Pos::Customers::Payment < ActiveRecord::Base
   before_create :check_invoice, :set_status
   before_save :set_value_date
 
+  after_initialize :init
+
+  def init
+    self.amount ||= 0.0
+    self.discount ||= 0.0
+    self.total ||= 0.0
+    self.commission ||= 0.0
+  end
+
   def complete?
     status == 'complete'
   end
