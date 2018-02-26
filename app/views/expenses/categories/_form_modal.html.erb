@@ -1,0 +1,26 @@
+<%= render 'shared/modal_header', modal_title: 'New Expense Category' %>
+<%= form_for(@category, remote: true) do |f| %>
+  <div class="modal-body">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control reset-border-radius' %>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="pull-right">
+      <%= f.submit class: 'btn btn-primary' %>
+      <div class="btn btn-default" data-dismiss='modal'>Cancel</div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_expenses_category').syftValidator();
+    });
+</script>

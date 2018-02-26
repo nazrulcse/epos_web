@@ -1,0 +1,26 @@
+<div class="provident-fund-rule-form">
+  <%= form_for @category do |f| %>
+    <div class="form-group">
+      <%= f.label :group_id, 'Expense Group' %>
+      <%= f.select :group_id, options_for_select(@groups.collect{|grp| [grp.name, grp.id]}, f.object.group_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+    </div>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control reset-border-radius', data: {required: true} %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: 'form-control reset-border-radius' %>
+      </div>
+      <div class="actions clearfix">
+        <%= f.submit class: 'btn btn-default pull-right reset-border-radius' %>
+      </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_expenses_category').syftValidator();
+    });
+</script>
+

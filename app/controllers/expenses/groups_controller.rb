@@ -1,6 +1,6 @@
 class Expenses::GroupsController < ApplicationController
   before_filter :current_ability
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:edit, :update, :destroy, :categories]
 
   def index
     @groups = current_department.expenses_groups
@@ -43,6 +43,10 @@ class Expenses::GroupsController < ApplicationController
       flash[:danger] = errors_to_message_string(@group.errors)
     end
     redirect_to expenses_groups_path
+  end
+
+  def categories
+    @categories = @group.categories
   end
 
   private
