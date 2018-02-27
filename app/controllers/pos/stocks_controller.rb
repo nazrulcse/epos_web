@@ -3,6 +3,7 @@ class Pos::StocksController < ApplicationController
 
   def index
     @products = current_department.products.search(params[:q])
+    @stock_summary = Pos::Stock.summary(current_department.products)
   end
 
   def history

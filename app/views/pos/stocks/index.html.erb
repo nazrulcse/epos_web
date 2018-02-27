@@ -22,13 +22,38 @@
                 </div>
               <% end %>
             </div>
+
+            <div class="col-md-4 reset-padding pull-right">
+              <h4 class="text-center">All Stock</h4>
+              <table class="table action-table table-responsive table-bordered">
+                <tbody>
+                <tr>
+                  <td> <b>Total Stock</b> </td>
+                  <td> <b><%= @stock_summary[:total_quantity] %></b> </td>
+                </tr>
+                <tr>
+                  <td> <b>Stock Cost</b> </td>
+                  <td> <b><%= @stock_summary[:total_cost].round(2) %></b> </td>
+                </tr>
+                <tr>
+                  <td> <b>Expected Sale</b> </td>
+                  <td> <b><%= @stock_summary[:total_sale].round(2) %></b> </td>
+                </tr>
+                <tr>
+                  <td> <b>Expected Profit</b> </td>
+                  <td> <b><%= @stock_summary[:total_profit].round(2) %></b> </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div class="row content-body">
           <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
             <thead>
             <tr>
-              <th>Product ID</th>
+              <th>Serial No</th>
+              <th>ID</th>
               <th>Code</th>
               <th>Name</th>
               <th>Stock</th>
@@ -39,15 +64,23 @@
             </tr>
             </thead>
             <tbody>
-            <% @products.each do |product| %>
+            <% total_quantity = 0 %>
+            <% total_cost = total_sale = total_profit = 0.0 %>
+            <% @products.each_with_index do |product, index| %>
+              <% product_stock_summary = product.stock_summary %>
+              <% total_quantity += product_stock_summary[:stock_on_hand] %>
+              <% total_cost += product_stock_summary[:total_cost] %>
+              <% total_sale += product_stock_summary[:total_sale] %>
+              <% total_profit += product_stock_summary[:expected_profit] %>
               <tr>
+                <td> <%= index + 1 %> </td>
                 <td> #<%= product.id %> </td>
-                <td><%= product.code %> </td>
-                <td><%= product.name %> </td>
-                <td><%= product.stock_on_hand %> </td>
-                <td><%= (cost = product.cost_price * product.stock_on_hand).round(2) %> </td>
-                <td><%= (sale = product.sale_price * product.stock_on_hand).round(2) %> </td>
-                <td><%= (sale - cost).round(2) %> </td>
+                <td> <%= product.code %> </td>
+                <td> <%= product.name %> </td>
+                <td> <%= product_stock_summary[:stock_on_hand] %> </td>
+                <td> <%= product_stock_summary[:total_cost].round(2) %> </td>
+                <td> <%= product_stock_summary[:total_sale].round(2) %> </td>
+                <td> <%= product_stock_summary[:expected_profit].round(2) %> </td>
                 <td class="actions">
                   <%= link_to history_pos_stocks_path, title: 'Product purchase order history', remote: true, class: 'purchase-history-link' do %>
                     <i class="fa fa-pie-chart" aria-hidden="true"></i>
@@ -55,6 +88,17 @@
                 </td>
               </tr>
             <% end %>
+            <tr>
+              <td><b>Total</b></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><b><%= total_quantity %></b></td>
+              <td><b><%= total_cost.round(2) %></b></td>
+              <td><b><%= total_sale.round(2) %></b></td>
+              <td><b><%= total_profit.round(2) %></b></td>
+              <td></td>
+            </tr>
             </tbody>
           </table>
         </div>
