@@ -46,4 +46,16 @@ class Pos::Product < ActiveRecord::Base
         sale_price: sale_price
     }
   end
+
+  def stock_summary
+    real_stock = stock_on_hand
+    total_cost = cost_price.to_f * real_stock.to_f
+    total_sale = sale_price.to_f * real_stock.to_f
+    {
+        stock_on_hand: real_stock,
+        total_cost: total_cost,
+        total_sale: total_sale,
+        expected_profit: total_sale - total_cost
+    }
+  end
 end
