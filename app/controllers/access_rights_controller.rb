@@ -11,9 +11,7 @@ class AccessRightsController < InheritedResources::Base
        current_department.notification_accesses.find_or_create_by(employee_id: params[:employee_id], notification_type: params[:access_type])
      else
        notification_type = current_department.notification_accesses.where(employee_id: params[:employee_id], notification_type: params[:access_type]).first
-       if notification_type.present?
-         notification_type.delete
-       end
+       notification_type.delete if notification_type.present?
      end
   end
 
