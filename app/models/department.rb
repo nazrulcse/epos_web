@@ -50,6 +50,7 @@ class Department < ActiveRecord::Base
   has_many :product_price_tags, class_name: 'Pos::Products::PriceTag', dependent: :destroy
   has_many :expenses_categories, class_name: 'Expenses::Category', dependent: :destroy
   has_many :expenses_groups, class_name: 'Expenses::Group', dependent: :destroy
+  has_many :expenses, dependent: :destroy
 
   SWITCH_ACTIONS = {
       show: 'show',

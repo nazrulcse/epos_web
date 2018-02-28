@@ -1,0 +1,8 @@
+<% if @sub_category.errors.any? %>
+popupMessage('<%= escape_javascript( errors_to_message_string(@sub_category.errors)).html_safe %>', 'alert-danger');
+<% else %>
+$("#expense_sub_category_id").append("<option value=<%= @sub_category.id %>> <%= @sub_category.name %></option>");
+$('#expense_sub_category_id').trigger("chosen:updated");
+$('#global-modal').modal('hide');
+popupMessage('Sub-Category saved successfully.', 'alert-success');
+<% end %>

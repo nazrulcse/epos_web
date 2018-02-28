@@ -1,0 +1,68 @@
+<div class="row reset-padding">
+  <div class="content-wrapper" id="rule-content">
+    <div class="header-wrapper">
+      <h4>
+        Expense Detail
+      </h4>
+    </div>
+    <div class="content-body-wrapper secondary-color full-content-wrapper">
+      <% if @expense.present? %>
+        <div class="row content-body">
+          <div id="advances">
+            <table class="table table-user-information table-striped">
+              <tbody>
+              <tr>
+                <td><label> ID </label></td>
+                <td># <%= @expense.id %></td>
+              </tr>
+              <tr>
+                <td><label> Group </label></td>
+                <td>
+                  <% if @expense.category.present? && @expense.category.group.present? %>
+                    <%= @expense.category.group.name %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td><label> Category </label></td>
+                <td> <%= @expense.category.name if @expense.category.present? %> </td>
+              </tr>
+              <tr>
+                <td><label> Sub-Category </label></td>
+                <td> <%= @expense.sub_category.name if @expense.sub_category.present? %> </td>
+              </tr>
+              <tr>
+                <td><label> Amount </label></td>
+                <td> <%= @expense.amount %> </td>
+              </tr>
+              <tr>
+                <td><label> Received By </label></td>
+                <td> <%= @expense.received_by %> </td>
+              </tr>
+              <tr>
+                <td><label> Created By </label></td>
+                <td> <%= @expense.created_by %> </td>
+              </tr>
+              <tr>
+                <td><label> Date </label></td>
+                <td> <%= format_date @expense.date %> </td>
+              </tr>
+              <tr>
+                <td><label> Prepaid Expense? </label></td>
+                <td> <%= @expense.prepaid_expense ? 'Yes' : 'No' %> </td>
+              </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-center table-cell">
+          <p>
+            Sorry record not found :(
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

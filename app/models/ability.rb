@@ -14,13 +14,15 @@ class Ability
       'Designation' => 'Designation',
       'Setting' => 'Setting',
       'Home' => 'Home',
-      'Member' => 'Member'
+      'Member' => 'Member',
+      'Expense' => 'Expense'
   }
 
   DEFAULT_ACCESS = {
       'employees' => ['settings', 'show', 'profile', 'update_password', 'attendances'],
       'attendance/attendances' => ['in', 'out'],
-      'home' => ['contact_us']
+      'home' => ['contact_us'],
+      'expenses/categories' => ['sub_cats']
   }
 
   def initialize(user, namespace, controller, action)
@@ -42,7 +44,7 @@ class Ability
           can action.to_sym, controller.classify
         else
 
-          # p namespace
+          p namespace
           # p operational_controller
           # p user.access_right.permissions
           # p "user access"

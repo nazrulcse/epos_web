@@ -1,6 +1,6 @@
 class Expenses::CategoriesController < ApplicationController
   before_filter :current_ability
-  before_action :set_category, only: [:edit, :update, :delete, :sub_categories]
+  before_action :set_category, only: [:edit, :update, :delete, :sub_cats]
 
   def index
     @categories = current_department.expenses_categories
@@ -8,6 +8,7 @@ class Expenses::CategoriesController < ApplicationController
 
   def new
     @category = Expenses::Category.new
+    @groups = current_department.expenses_groups
   end
 
   def create
@@ -45,7 +46,7 @@ class Expenses::CategoriesController < ApplicationController
     redirect_to expenses_categories_path
   end
 
-  def sub_categories
+  def sub_cats
     @sub_categories = @category.sub_categories
   end
 

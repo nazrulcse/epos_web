@@ -1,9 +1,9 @@
-<%= render 'shared/modal_header', modal_title: 'New Expense Category' %>
-<%= form_for(@category, remote: true) do |f| %>
+<%= render 'shared/modal_header', modal_title: 'New Product Sub-Category' %>
+<%= form_for([@category, @sub_category], url: expenses_category_sub_categories_path(@category, @sub_category), remote: true) do |f| %>
   <div class="modal-body">
     <div class="form-group">
-      <%= f.label :group_id, 'Expense Group' %>
-      <%= f.select :group_id, options_for_select(@groups.collect{|grp| [grp.name, grp.id]}, f.object.group_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+      <%= f.label :category_id, 'Category: ' %>
+      <%= @category.name %>
     </div>
     <div class="form-group">
       <%= f.label :name %>
@@ -25,6 +25,6 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#new_expenses_category').syftValidator();
+        $('#new_expenses_sub_category').syftValidator();
     });
 </script>

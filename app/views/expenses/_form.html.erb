@@ -1,0 +1,118 @@
+<div class="provident-fund-rule-form">
+  <%= form_for @expense do |f| %>
+    <div class="col-md-12 reset-padding">
+      <div class="col-md-9 reset-padding">
+        <div class="form-group">
+          <%= f.label :category_id, 'Expense Category' %>
+          <%= f.select :category_id, options_for_select(@categories.collect { |cat| [cat.name, cat.id] }, f.object.category_id), {}, class: 'form-control reset-border-radius custom-chosen', data: {required: true} %>
+        </div>
+      </div>
+      <div class="col-md-3 pr0">
+        <%= link_to 'New', new_expenses_category_path, remote: true, class: 'btn btn-info wp100 mt25' %>
+      </div>
+    </div>
+
+    <div class="col-md-12 reset-padding">
+      <div class="col-md-9 reset-padding">
+        <div class="form-group">
+          <%= f.label :sub_category_id, 'Expense Sub-Category' %>
+          <%= f.select :sub_category_id, options_for_select(@sub_categories.collect { |sub_cat| [sub_cat.name, sub_cat.id] }, f.object.sub_category_id), {}, class: 'form-control reset-border-radius custom-chosen' %>
+        </div>
+      </div>
+      <div class="col-md-3 pr0">
+        <%= link_to 'New', new_expenses_category_sub_category_path(@expense.category.present? ? @expense.category : @categories.present? ? @categories.first : ''), remote: true, class: 'btn btn-info wp100 mt25', id: 'expense-sub-category-new-btn' %>
+      </div>
+    </div>
+
+    <div class="col-md-12 reset-padding checkbox">
+      <%= f.label :prepaid_expense do %>
+        <%= f.check_box :prepaid_expense, class: 'form-control form-group' %>
+        <span class="cr"><i class="cr-icon fa fa-check"></i></span> Prepaid Expense?
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control reset-border-radius' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :amount %>
+      <%= f.text_field :amount, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :received_by %>
+      <%= f.text_field :received_by, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :date %>
+      <%= f.text_field :date, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :payment_method %>
+      <%= f.select :payment_method, options_for_select([['cash'], ['cheque']], f.object.payment_method), {}, class: 'form-control reset-border-radius', data: {required: true} %>
+    </div>
+
+    <div class="form-group cheque-fields">
+      <%= f.label :cheque_number %>
+      <%= f.text_field :cheque_number, class: 'form-control reset-border-radius' %>
+    </div>
+
+    <div class="form-group cheque-fields">
+      <%= f.label :bank_account_id, 'Bank Account' %>
+      <%= f.select :bank_account_id, options_for_select(current_department.bank_accounts.map { |ac| [ac.name, ac.id] }, f.object.bank_account_id), {}, class: 'form-control reset-border-radius' %>
+    </div>
+
+    <div class="form-group cheque-fields">
+      <%= f.label :bank_branch %>
+      <%= f.text_field :bank_branch, class: 'form-control reset-border-radius' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :image %>
+      <%= f.file_field :image, class: 'form-control reset-border-radius' %>
+    </div>
+
+    <div class="actions clearfix">
+      <%= f.submit class: 'btn btn-default pull-right reset-border-radius' %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#new_expense').syftValidator();
+
+        $("form").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+
+        $('#expense_category_id').change(function () {
+            $('#expense-sub-category-new-btn').attr("href", ("/expenses/categories/" + $(this).val() +"/sub_categories/new"));
+            if ($(this).val().length > 0) {
+                $.ajax({
+                    url: "/expenses/categories/" + $(this).val() + "/sub_cats",
+                    type: 'get',
+                    dataType: 'script'
+                });
+            }
+            else {
+                $("#expense_sub_category_id").find('option:gt(0)').remove();
+            }
+        });
+
+        $('#expense_date').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
+        $('#expense_payment_method').on('change', '', function (e) {
+            $(this).val() == 'cheque' ? $('.cheque-fields').show() : $('.cheque-fields').hide();
+        });
+    });
+</script>
+

@@ -123,8 +123,14 @@ Rails.application.routes.draw do
 
   namespace :expenses do
     resources :groups
+    resources :categories do
+      member do
+        get :sub_cats
+      end
+      resources :sub_categories
+    end
   end
-  # resources :expenses
+  resources :expenses
 
   namespace :pos do
 

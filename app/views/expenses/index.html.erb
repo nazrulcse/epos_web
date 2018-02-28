@@ -3,22 +3,22 @@
     <div class="header-wrapper">
       <div class="header-container clearfix">
         <h4 class="title-section">
-          Expense Categories
+          Expenses
         </h4>
 
         <div class="action-section">
-          <%= link_to new_expenses_category_path, class: 'btn btn-info' do %>
-              New Category
+          <%= link_to new_expense_path, class: 'btn btn-info' do %>
+              New Expense
           <% end %>
         </div>
       </div>
     </div>
     <div class="content-body-wrapper secondary-color full-content-wrapper" id="provident-fund-rule-content">
-      <% if @categories.present? %>
+      <% if @expenses.present? %>
           <div class="row actions-button">
             <div class="add-more-rule clearfix">
-              <%= link_to new_expenses_category_path, class: 'btn btn-default pull-right' do %>
-                  <i class="fa fa-plus-circle"></i> Add Expense Category
+              <%= link_to new_expense_path, class: 'btn btn-default pull-right' do %>
+                  <i class="fa fa-plus-circle"></i> Add Expense
               <% end %>
             </div>
           </div>
@@ -26,28 +26,28 @@
             <table class="table action-table beaccount-table tablesorter table-responsive table-hover table-striped">
               <thead>
               <tr>
-                <th>Category ID</th>
-                <th>Group</th>
-                <th>Name</th>
-                <th>Description</th>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Sub-Category</th>
+                <th>Amount</th>
                 <th></th>
               </tr>
               </thead>
               <tbody>
-              <% @categories.each do |category| %>
+              <% @expenses.each do |expense| %>
                   <tr>
-                    <td> #<%= category.id %> </td>
-                    <td> <%= category.group.name if category.group.present? %> </td>
-                    <td><%= category.name %> </td>
-                    <td><%= category.description %> </td>
+                    <td> #<%= expense.id %> </td>
+                    <td><%= expense.category.name if expense.category.present? %> </td>
+                    <td><%= expense.sub_category.name if expense.sub_category.present? %> </td>
+                    <td><%= expense.amount %> </td>
                     <td class="actions">
-                      <%= link_to expenses_category_sub_categories_path(category), class: 'btn info-color', title: 'Sub-categories' do %>
-                        <i class="fa fa-indent" aria-hidden="true"></i>
+                      <%= link_to expense_path(expense), class: 'btn info-color', title: 'View' do %>
+                        <i class="fa fa-eye"></i>
                       <% end %>
-                      <%= link_to edit_expenses_category_path(category), class: 'btn warning-color', title: 'Edit' do %>
+                      <%= link_to edit_expense_path(expense), class: 'btn warning-color', title: 'Edit' do %>
                           <i class="fa fa-pencil-square-o"></i>
                       <% end %>
-                      <%= link_to expenses_category_path(category), class: 'btn danger-color', method: :delete, title: 'Delete', data: {confirm: 'Are you sure?'} do %>
+                      <%= link_to expense_path(expense), class: 'btn danger-color', method: :delete, title: 'Delete', data: {confirm: 'Are you sure?'} do %>
                           <i class="fa fa-times"></i>
                       <% end %>
                     </td>
@@ -59,10 +59,10 @@
       <% else %>
           <div class="text-center table-cell">
             <p>
-              Current department don't have any Expense Category. <%#= link_to 'Learn more', '#', class: 'link' %>
+              Current department don't have any Expense. <%#= link_to 'Learn more', '#', class: 'link' %>
               <!--<i class="fa fa-info-circle btn btn-info reset-border-radius" data-toggle='popover' data-placement='top' title="Provident Fund Account" data-content="Click on the create new one button to create provident fund account then it will show the account  list  "></i>-->
             </p>
-            <%= link_to new_expenses_category_path, class: 'btn btn-default reset-border-radius' do %>
+            <%= link_to new_expense_path, class: 'btn btn-default reset-border-radius' do %>
                 <i class="fa fa-plus-circle"></i> Add new one
             <% end %>
           </div>
