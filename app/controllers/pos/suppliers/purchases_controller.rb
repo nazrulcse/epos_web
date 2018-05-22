@@ -31,7 +31,6 @@ class Pos::Suppliers::PurchasesController < InheritedResources::Base
     else
       flash[:error] = 'Purchase order saving failed.'
     end
-
     redirect_to pos_suppliers_purchases_path
   end
 
